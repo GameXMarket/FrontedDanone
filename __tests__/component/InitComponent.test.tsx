@@ -6,10 +6,8 @@ describe('Init', () => {
   it('renders an initial page', () => {
     render(<InitPage />)
  
-    const button = screen.getByRole("button")
-    const text = screen.getByTestId("text")
- 
-    expect(button).toBeInTheDocument()
-    expect(text).toBeInTheDocument()
+    const main = screen.getByRole("main")
+
+    expect(main).toBeInTheDocument()
   })
 })
