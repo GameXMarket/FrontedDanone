@@ -1,0 +1,7 @@
+.header {
+    @apply w-full h-[204px];
+}
+
+.logo_container {
+    @apply pt-[79px] pl-[63px];
+}

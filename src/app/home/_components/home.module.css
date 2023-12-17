@@ -1,0 +1,71 @@
+.home_container {
+    @apply w-full flex;
+}
+
+/*  =============================SIDEBAR=========================  */
+
+.sidebar {
+    @apply w-[337px] min-h-[500px];
+}
+
+.sidebar_name {
+    @apply ml-[63px] text-[16px] font-semibold text-[#FF0000];
+}
+
+.profile_block {
+@apply flex mt-[28px] ml-[63px];
+}
+
+.profile_avatar {
+    @apply cursor-pointer;
+    z-index: 3;
+    @apply w-[60px] h-[60px] rounded-[100px];
+    transition: 0.6s;
+}
+
+.profile_avatar_icon {
+    @apply cursor-pointer;
+
+}
+
+
+.profile_avatar .profile_settings:hover {
+    opacity:1;
+}
+
+.profile_settings {
+    opacity: 0;
+    transform: translate(0px, -60px);
+    @apply absolute pt-5 pl-5 w-[60px] h-[60px];
+    transition: 0.6s;
+}
+
+.profile_info_wallet {
+    @apply flex;
+}
+
+.profile_count {
+    @apply ml-[9px] text-[15px] font-bold;
+}
+
+.profile_settings:hover {
+    opacity:1;
+    filter: brightness(100%);
+}
+
+.profile_avatar_wrapper {
+    transition: 0.6s;
+   @apply w-[65px] h-[65px];
+}
+
+.profile_avatar_wrapper:hover {
+    filter: brightness(70%);
+}
+
+.profile_info_block {
+    @apply ml-[22px];
+}
+
+.profile_p {
+    @apply text-[14px]  font-semibold text-[#454545];
+}
