@@ -1,0 +1,22 @@
+.button {
+    transition: 0.6s;
+    @apply w-[218px] bg-[#0A0A0A] rounded-[21px];
+}
+
+.button:hover {
+    @apply bg-[#454545];
+}
+
+.button_msg_wrapper {
+    @apply flex w-full justify-end;
+}
+
+.button_count_msg {
+    font-size: 13px;
+    font-weight: regular;
+    width: 19px;
+    height: 19px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background: linear-gradient(180deg, #F00 0%, #FF4D00 100%);
+}

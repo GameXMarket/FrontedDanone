@@ -9,7 +9,16 @@
 }
 
 .sidebar_name {
-    @apply ml-[63px] text-[16px] font-semibold text-[#FF0000];
+    background: linear-gradient(92deg, #F00 0.64%, #FF4D00 74.21%);
+    @apply ml-[63px] text-[16px] font-semibold;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+}
+
+.variants {
+    @apply ml-[63px] mt-[46px];
 }
 
 .profile_block {
@@ -35,9 +44,9 @@
 
 .profile_settings {
     opacity: 0;
-    transform: translate(0px, -60px);
+    transform: translate(0px, -40px);
     @apply absolute pt-5 pl-5 w-[60px] h-[60px];
-    transition: 0.6s;
+    transition: 0.4s;
 }
 
 .profile_info_wallet {
@@ -45,17 +54,19 @@
 }
 
 .profile_count {
-    @apply ml-[9px] text-[15px] font-bold;
+    @apply ml-[9px] text-[13px] font-bold;
 }
 
 .profile_settings:hover {
     opacity:1;
     filter: brightness(100%);
+    transform: translate(0px, -60px);
+
 }
 
 .profile_avatar_wrapper {
     transition: 0.6s;
-   @apply w-[65px] h-[65px];
+   @apply w-[65px] cursor-pointer h-[65px];
 }
 
 .profile_avatar_wrapper:hover {
@@ -67,5 +78,9 @@
 }
 
 .profile_p {
-    @apply text-[14px]  font-semibold text-[#454545];
+    @apply text-[12px] mt-[5px] font-semibold text-[#454545];
+}
+
+.info_block {
+    @apply w-full ml-[63px] mt-[303px];
 }

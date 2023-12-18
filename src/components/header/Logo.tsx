@@ -1,10 +1,8 @@
 import Image from 'next/image'
-import LogoIcon from '../../assets/logo.png'
-
 
 const Logo = () => {
     return (
-        <Image src={LogoIcon} alt="logo"/>
+        <Image src='/logo.png' width={210} height={32} alt="logo"/>
     )
 }
 
