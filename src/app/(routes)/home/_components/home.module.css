@@ -5,7 +5,7 @@
 /*  =============================SIDEBAR=========================  */
 
 .sidebar {
-    @apply w-[337px] min-h-[500px];
+    @apply min-h-[500px];
 }
 
 .sidebar_name {
