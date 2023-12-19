@@ -1,6 +1,7 @@
 
 import Header from '@/components/header/Header'
 import '../../styles/globals.css'
+import Sidebar from '@/components/sidebar/Sidebar'
 
 export default function HomeLayout({
   children,
@@ -10,7 +11,12 @@ export default function HomeLayout({
   return (
     <>
     <Header/>
-    <main >{children}</main>
+    <main className='w-full flex'>
+      <Sidebar/>
+      <div>
+        {children}
+      </div>
+      </main>
     </>
 
   )

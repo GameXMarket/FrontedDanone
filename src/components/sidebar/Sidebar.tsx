@@ -1,7 +1,7 @@
 import {FC} from 'react'
-import styles from '../home.module.css'
+import styles from '../../app/(routes)/home/_components/home.module.css'
 import Image from 'next/image'
-import { ChatButton, SellButton } from '../buttons/Buttons'
+import { ChatButton, SellButton } from '../../app/(routes)/home/_components/buttons/Buttons'
 import { InfoIcon, SupportIcon } from './SidebarIcons'
 
 const Sidebar:FC = () => {
