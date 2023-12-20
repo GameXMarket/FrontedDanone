@@ -1,4 +1,4 @@
-import styles from './_components/home.module.css'
+import styles from './home.module.css'
 import OrderChat from './_components/order-chat/OrderChat'
 
 const Home = () => {

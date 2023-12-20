@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button"
 import styles from './buttons.module.css'
-import Image from "next/image"
-import { ChatIcon } from "./ButtonIcons"
+import { ChatIcon } from "./icons/ButtonIcons"
 
 export const SellButton = () => {
     return (
