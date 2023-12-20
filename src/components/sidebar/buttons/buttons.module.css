@@ -20,3 +20,12 @@
     border-radius: 20px;
     background: linear-gradient(180deg, #F00 0%, #FF4D00 100%);
 }
+
+/* auth button */
+
+.button_auth {
+    @apply w-[218px] h-[42px] rounded-[21px];
+    transition: all .6s ease-in-out;
+    background-size: 100% 100%;
+    background-image: linear-gradient(92deg, #F00 6.61%, #FF4D00 97.58%);
+}

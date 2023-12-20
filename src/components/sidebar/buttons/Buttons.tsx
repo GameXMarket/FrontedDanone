@@ -34,3 +34,11 @@ export const ChatButton = () => {
         </div>
     )
 } 
+
+export const AuthButton = () => {
+    return (
+        <Button className={styles.button_auth}>
+            <span className="text-[13px]">Вход / Регистрация</span>
+        </Button>
+    )
+} 

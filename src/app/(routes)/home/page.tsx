@@ -1,4 +1,4 @@
-import styles from './home.module.css'
+import styles from './_components/styles/home.module.css'
 import OrderChat from './_components/order-chat/OrderChat'
 import { MainContent } from './_components/main-content/MainContent'
 
