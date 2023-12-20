@@ -1,5 +1,5 @@
 .orderitem {
-    @apply w-full mb-[34px] min-h-[75px] flex;
+    @apply w-full mb-[34px] min-h-[75px] flex last:mb-0;
 }
 
 .order_avatar {
@@ -12,4 +12,8 @@
 
 .order_item_name {
     @apply w-full ml-[15px] text-left text-lg font-bold;
+}
+
+.orderchat{
+    @apply pr-6
 }

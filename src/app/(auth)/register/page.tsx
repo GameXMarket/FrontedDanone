@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const RegisterPage = () => {
     return (
-        <div className="h-full flex flex-col justify-center items-center">
+        <div className="mt-6 flex flex-col justify-center items-center">
             <div className="w-[450px] flex flex-col items-center">
                 <RegisterForm />
             </div>
