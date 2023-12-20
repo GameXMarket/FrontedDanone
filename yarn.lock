@@ -2851,6 +2851,18 @@
   resolved "https://registry.yarnpkg.com/@swc/types/-/types-0.1.5.tgz#043b731d4f56a79b4897a3de1af35e75d56bc63a"
   integrity sha512-myfUej5naTBWnqOCc/MdVOLVjXUXtIA+NpDrDBKJtLLg2shUjBu3cZmB/85RyitKc55+lUUyl7oRfLOvkr2hsw==
 
+"@tanstack/query-core@5.14.1":
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.14.1.tgz#4f7df092127124fdd2797cbd70ea469f878c12c5"
+  integrity sha512-TlZarySCVEiap4K7BCvrsYZnX7jBbEkR55YMrk8ELcRbuAx6ydL+qoxqUt8Fq8VMvQyGt52icn6T7eJL1Q35KQ==
+
+"@tanstack/react-query@^5.14.1":
+  version "5.14.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.14.1.tgz#d56bfedaa4c75cbcfcec856d89848a225f3d4f15"
+  integrity sha512-v7jhe/3jhChiR0XJbGHaG5WNPd/cURwzDGBCr4rzpUTeudPzxrtVRKsF1xJRLcJK3qH/0gIwTYHIPZ3gj+01Yw==
+  dependencies:
+    "@tanstack/query-core" "5.14.1"
+
 "@testing-library/dom@^9.0.0", "@testing-library/dom@^9.3.1":
   version "9.3.3"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-9.3.3.tgz#108c23a5b0ef51121c26ae92eb3179416b0434f5"
