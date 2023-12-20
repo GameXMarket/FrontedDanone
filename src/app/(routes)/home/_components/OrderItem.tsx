@@ -1,5 +1,5 @@
-import { ExchangeIcon } from './icons/ExchangeIcon'
-import styles from './orderchat.module.css'
+import { ExchangeIcon } from '../icons/ExchangeIcon'
+import styles from './styles/orderchat.module.css'
 
 const OrderItem = () => {
     return (

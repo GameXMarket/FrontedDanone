@@ -1,5 +1,5 @@
 import OrderItem from './OrderItem'
-import styles from './orderchat.module.css'
+import styles from './styles/orderchat.module.css'
 
 const OrderChat = () => {
     return (

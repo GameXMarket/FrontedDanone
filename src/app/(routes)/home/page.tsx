@@ -1,10 +1,10 @@
 import styles from './_components/styles/home.module.css'
-import OrderChat from './_components/order-chat/OrderChat'
-import { MainContent } from './_components/main-content/MainContent'
+import OrderChat from './_components/OrderChat'
+import { MainContent } from './_components/MainContent'
 
 const Home = () => {
     return (
-        <div className={styles.home_container}>
+        <div className="w-full flex">
             <div className='w-full min-h-[500px]'>
                 <MainContent />
             </div>

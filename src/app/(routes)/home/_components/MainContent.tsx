@@ -1,4 +1,4 @@
-import { MainContentItem } from "../main-content-item/MainContentItem";
+import { MainContentItem } from "./MainContentItem";
 
 const images = [
     {
