@@ -3,10 +3,19 @@
 import { Button } from "@/components/ui/button";
 import { FormInput } from "../../_components/form-input";
 import { useFormStatus } from "react-dom";
+import { safeRegister } from "@/app/Api/auth/auth-service";
+import { useSafeMutation } from "@/hooks/useSafeMutation";
+import toast from "react-hot-toast";
 
 
 export const RegisterForm = () => {
     const {pending} = useFormStatus()
+
+    const {mutation, fieldErrors: errors} = useSafeMutation(safeRegister, {
+        onError: (error) => {
+            toast.error("Something went wrong")
+        }
+    })
 
     const onSubmit = (formData: FormData) => {
         const username = formData.get("username") as string;
@@ -14,7 +23,7 @@ export const RegisterForm = () => {
         const password = formData.get("password") as string;
         const repassword = formData.get("repassword") as string;
 
-        console.log({username, email, password, repassword})
+        mutation.mutate({username, email, password, repassword})
     };
 
     return (
@@ -25,26 +34,32 @@ export const RegisterForm = () => {
                 className="space-y-3 w-full px-2 flex flex-col items-center"
             >
                 <FormInput
-                    // errors={errors}
+                    disabled={mutation.isPending}
+                    errors={errors}
                     id="username"
                     placeholder="Введите имя пользователя"
                 />
                 <FormInput
-                    // errors={errors}
+                    disabled={mutation.isPending}
+                    errors={errors}
                     id="email"
                     placeholder="Электронная почта"
                 />
-                <FormInput 
-                    // errors={errors} 
+                <FormInput
+                    type="password"
+                    disabled={mutation.isPending}
+                    errors={errors} 
                     id="password" 
                     placeholder="Пароль" />
                 <FormInput
-                    // errors={errors}
+                    type="password"
+                    disabled={mutation.isPending}
+                    errors={errors}
                     id="repassword"
                     placeholder="Повторите пароль"
                 />
                 <div className="pt-4">
-                    <Button disabled={pending} type="submit" size="lg" variant="primary">
+                    <Button disabled={pending || mutation.isPending} type="submit" size="lg" variant="primary">
                         Далее
                     </Button>
                 </div>

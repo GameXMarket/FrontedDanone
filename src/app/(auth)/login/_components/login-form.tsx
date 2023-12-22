@@ -3,16 +3,25 @@
 import { Button } from "@/components/ui/button";
 import { FormInput } from "../../_components/form-input";
 import { useFormStatus } from "react-dom";
+import { useSafeMutation } from "@/hooks/useSafeMutation";
+import { safeLogin } from "@/app/Api/auth/auth-service";
+import toast from "react-hot-toast";
 
 
 export const LoginForm = () => {
     const {pending} = useFormStatus()
 
+    const {mutation, fieldErrors: errors} = useSafeMutation(safeLogin, {
+        onError: (error) => {
+            toast.error("Something went wrong")
+        }
+    })
+
     const onSubmit = (formData: FormData) => {
-        const username = formData.get("username") as string;
+        const email = formData.get("email") as string;
         const password = formData.get("password") as string;
 
-        console.log({username, password})
+        mutation.mutate({email, password})
     };
 
     return (
@@ -23,17 +32,19 @@ export const LoginForm = () => {
                 className="space-y-3 w-full px-2 flex flex-col items-center"
             >
                 <FormInput
-                    // errors={errors}
-                    id="username"
-                    placeholder="Введите имя пользователя"
+                    disabled={mutation.isPending}
+                    errors={errors}
+                    id="email"
+                    placeholder="Введите адрес электронной почты"
                 />
-                <FormInput 
-                    // errors={errors} 
+                <FormInput
+                    disabled={mutation.isPending}
+                    errors={errors} 
                     id="password" 
                     placeholder="Пароль" 
                 />
                 <div className="pt-4">
-                    <Button disabled={pending} type="submit" size="lg" variant="primary">
+                    <Button disabled={pending || mutation.isPending} type="submit" size="lg" variant="primary">
                         Далее
                     </Button>
                 </div>

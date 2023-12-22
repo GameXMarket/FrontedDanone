@@ -6,12 +6,16 @@ interface FormInputProps {
     placeholder?: string;
     id: string;
     errors?: Record<string, string[] | undefined> | undefined;
+    disabled?: boolean,
+    type?: "password"
 }
 
 export const FormInput = ({
     placeholder,
     id,
     errors,
+    disabled,
+    type,
     ...props
 }: FormInputProps) => {
 
@@ -28,7 +32,8 @@ export const FormInput = ({
                 </p>
             ))}
             <Input
-                disabled={pending}
+                type={type}
+                disabled={pending || disabled}
                 id={id}
                 name={id}
                 className="bg-[#070707] outline-none border-none 

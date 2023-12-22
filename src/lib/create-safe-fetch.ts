@@ -6,7 +6,7 @@ export type FieldErrors<T> = {
 
 export type FetchState<TInput, TOutput> = {
   fieldErrors?: FieldErrors<TInput>;
-  data?: TOutput;
+  data?: TOutput
 };
 
 export const createSafeFetch = <TInput, TOutput>(
