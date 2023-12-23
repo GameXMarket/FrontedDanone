@@ -1,20 +1,24 @@
-"use client"
+'use client'
 
-import {FC, useState} from 'react'
+import {FC} from 'react'
 import styles from './sidebar.module.css'
 import Image from 'next/image'
 import { AuthButton, ChatButton, SellButton } from './buttons/Buttons'
 import { SupportIcon } from './icons/SidebarIcons'
-import { InfoIcon } from 'lucide-react'
-
+import { InfoIcon, LogOut } from 'lucide-react'
+import { signOut, useSession } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 
 
 const Sidebar:FC = () => {
-    const [isAuth, setIsAuth] = useState<boolean>(false) // УСЛОВНО
+    const router = useRouter()
+
+    const session = useSession()
+    console.log(session)
 
     return (
         <aside className={styles.sidebar}>
-            {isAuth ? (
+            {session.status === "authenticated" ? (
                 <>
                     <h4 className={styles.sidebar_name}>Redmoon</h4>
                     <div className={styles.profile_block}>
@@ -48,11 +52,17 @@ const Sidebar:FC = () => {
                             <InfoIcon/>
                             <p className='text-[16px] ml-[9px] font-regular'>О нас</p>
                         </div>  
+                        {/* Временно */}
+                        <div className='flex cursor-pointer mt-[28px]' onClick={() => signOut()}>
+                            <LogOut/>
+                            <p className='text-[16px] ml-[9px] font-regular'>Выйти</p>
+                        </div>
+                        {/* Временно */}
                     </div>
                 </>
             ) : (
                 <>
-                    <div className='ml-[63px]'>
+                    <div className='ml-[63px]' onClick={() => router.push("login")}>
                         <AuthButton/>
                     </div>
                     <div className='mt-[517px]'>

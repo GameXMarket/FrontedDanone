@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { FormInput } from "../../_components/form-input";
 import { useFormStatus } from "react-dom";
-import { safeRegister } from "@/app/Api/auth/auth-service";
+import { safeRegister } from "@/requests/auth/auth-service";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
 import toast from "react-hot-toast";
 
