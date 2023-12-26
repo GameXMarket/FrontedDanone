@@ -22,7 +22,7 @@ export const FormInput = ({
     const {pending} = useFormStatus()
 
     return (
-        <div className="w-full">
+        <div className="w-full mt-[56px]">
             {errors?.[id]?.map((error: string) => (
                 <p
                     key={error}
@@ -36,8 +36,8 @@ export const FormInput = ({
                 disabled={pending || disabled}
                 id={id}
                 name={id}
-                className="bg-[#070707] outline-none border-none 
-                focus-visible:ring-offset-0 placeholder:text-slate-400"
+                className="bg-[#24252F] h-[72px] pl-[30px] font-light text-[24px] opacity-[0.16] rounded-[24px] outline-none border-none 
+                focus-visible:ring-offset-0 placeholder:text-slate-400 focus:text-white"
                 placeholder={placeholder}
                 {...props}
             />

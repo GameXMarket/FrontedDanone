@@ -5,7 +5,9 @@ import { FormInput } from "../../_components/form-input";
 import { useFormStatus } from "react-dom";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
 import { safeLogin } from "@/app/Api/auth/auth-service";
+import styles from './styles/login.module.css'
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 
 export const LoginForm = () => {
@@ -26,16 +28,19 @@ export const LoginForm = () => {
 
     return (
         <div className="w-full flex flex-col items-center">
-            <h1 className="text-3xl mb-14">Вход</h1>
+            <div className=" w-full flex">
+                <Link href="/register"><h3 className={styles.register}>Регистрация</h3></Link>
+                <Link href="/login"><h3 className={styles.login}>Войти</h3></Link>
+            </div>
             <form
                 action={onSubmit}
-                className="space-y-3 w-full px-2 flex flex-col items-center"
+                className="space-y-3 w-full px-4 flex flex-col items-center"
             >
                 <FormInput
                     disabled={mutation.isPending}
                     errors={errors}
                     id="email"
-                    placeholder="Введите адрес электронной почты"
+                    placeholder="Имя пользователя"
                 />
                 <FormInput
                     disabled={mutation.isPending}
@@ -43,8 +48,8 @@ export const LoginForm = () => {
                     id="password" 
                     placeholder="Пароль" 
                 />
-                <div className="pt-4">
-                    <Button disabled={pending || mutation.isPending} type="submit" size="lg" variant="primary">
+                <div className="pt-[56px]">
+                    <Button disabled={pending || mutation.isPending} className={styles.auth_btn} type="submit" variant="primary">
                         Далее
                     </Button>
                 </div>

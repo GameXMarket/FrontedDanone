@@ -6,15 +6,12 @@ import Image from "next/image";
 const RegisterPage = () => {
     return (
         <div className="mt-6 flex flex-col justify-center items-center">
-            <div className="w-[450px] flex flex-col items-center">
+            <div className="w-[464px] flex flex-col items-center">
                 <RegisterForm />
             </div>
-            <Link href="/login">
-                <Button variant="link">Уже есть аккаунт?</Button>
-            </Link>
-            <div className="flex flex-col items-center gap-y-4 mt-8">
-                <p>Войти через:</p>
-                <div className="flex gap-x-6">
+            <div className="flex flex-col items-center gap-y-4 mt-[40px]">
+                <p className="text-[#2E323B] text-[24px]">Войти через:</p>
+                <div className="flex gap-x-6 pb-10">
                     <Image
                         className="cursor-pointer"
                         alt="telegram"

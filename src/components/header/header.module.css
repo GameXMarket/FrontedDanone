@@ -1,7 +1,7 @@
 .header {
-    @apply w-full h-[204px];
+    @apply w-full flex justify-center h-[153px];
 }
 
 .logo_container {
-    @apply pt-[79px] pl-[63px];
+    @apply pt-[79px];
 }

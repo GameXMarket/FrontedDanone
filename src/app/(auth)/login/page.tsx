@@ -9,11 +9,8 @@ const LoginPage = () => {
             <div className="w-[450px] flex flex-col items-center">
                 <LoginForm />
             </div>
-            <Link href="/register">
-                <Button variant="link">Впервые на сайте?</Button>
-            </Link>
-            <div className="flex flex-col items-center gap-y-4 mt-8">
-                <p className="text-muted-foreground">Войти через:</p>
+            <div className="flex flex-col items-center gap-y-4 mt-[40px]">
+            <p className="text-[#2E323B] text-[24px]">Войти через:</p>
                 <div className="flex gap-x-6">
                     <Image
                         className="cursor-pointer"

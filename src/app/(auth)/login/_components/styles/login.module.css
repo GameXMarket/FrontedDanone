@@ -1,0 +1,19 @@
+.login {
+    @apply text-[32px] pl-[56px] cursor-pointer font-normal;
+}
+
+.register {
+    opacity: 0.16;
+    transition:0.6s;
+    @apply text-[32px] pl-[62px]  cursor-pointer font-normal;
+}
+
+.register:hover {
+    @apply font-normal;
+    opacity:1;
+}
+
+.auth_btn {
+    @apply w-[181px] text-[24px] font-normal h-[72px] rounded-[24px];
+    background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);
+}
