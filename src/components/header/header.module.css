@@ -1,0 +1,7 @@
+.header {
+    @apply w-full flex justify-center pt-12 pb-3;
+}
+
+.logo_container {
+    @apply cursor-pointer
+}
