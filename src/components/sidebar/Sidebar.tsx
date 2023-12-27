@@ -1,6 +1,5 @@
 'use client'
 
-import {FC} from 'react'
 import styles from './sidebar.module.css'
 import Image from 'next/image'
 import { AuthButton, ChatButton, SellButton } from './buttons/Buttons'
@@ -8,13 +7,21 @@ import { SupportIcon } from './icons/SidebarIcons'
 import { InfoIcon, LogOut } from 'lucide-react'
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
 
 
-const Sidebar:FC = () => {
+const Sidebar = () => {
     const router = useRouter()
 
     const session = useSession()
-    console.log(session)
+
+    useEffect(() => {
+        console.log(session.data?.user)
+    }, [session])
+
+    if(session.status === "loading"){
+        return <Sidebar.Loading />
+    }
 
     return (
         <aside className={styles.sidebar}>
@@ -80,6 +87,12 @@ const Sidebar:FC = () => {
                 </>
             )}
         </aside>
+    )
+}
+
+Sidebar.Loading = function SidebarLoading() {
+    return(
+        <div className="text-rose-500 text-3xl">Loading...</div>
     )
 }
 

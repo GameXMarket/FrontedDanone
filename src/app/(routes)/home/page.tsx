@@ -1,4 +1,3 @@
-import styles from './_components/styles/home.module.css'
 import OrderChat from './_components/OrderChat'
 import { MainContent } from './_components/MainContent'
 
