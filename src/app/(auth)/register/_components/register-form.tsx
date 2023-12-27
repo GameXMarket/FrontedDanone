@@ -32,7 +32,7 @@ export const RegisterForm = () => {
     };
 
     return (
-        <div className="w-full flex flex-col items-center ">
+        <div className="w-full h-full flex flex-col items-center ">
             <div className=" w-full flex">
                 <Link href="/register"><h3 className={styles.register}>Регистрация</h3></Link>
                 <Link href="/login"><h3 className={styles.login}>Войти</h3></Link>

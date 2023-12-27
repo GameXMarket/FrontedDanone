@@ -2,10 +2,10 @@ import Header from "@/components/header/Header";
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
     return(
-        <>
-        <Header />
-        {children}
-        </>
+        <div className="h-full flex flex-col items-center">
+            <Header />
+            {children}
+        </div>
     )
 };
 

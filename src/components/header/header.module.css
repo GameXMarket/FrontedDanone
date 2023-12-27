@@ -1,7 +1,7 @@
 .header {
-    @apply w-full flex justify-center h-[153px];
+    @apply w-full flex justify-center pt-12 pb-3;
 }
 
 .logo_container {
-    @apply pt-[79px];
+    @apply cursor-pointer
 }

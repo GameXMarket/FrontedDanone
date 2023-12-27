@@ -7,7 +7,7 @@ body,
 :root {
   z-index: -3;
   overflowX: hidden;
-  min-height: 100%;
+  height: 100%;
   background: linear-gradient(112deg, #1F2027 2.22%, #15161D 128.41%);
   color: #EEEEEE;
 }

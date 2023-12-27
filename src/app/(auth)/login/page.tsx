@@ -1,8 +1,5 @@
-import Link from "next/link";
 import { LoginForm } from "./_components/login-form";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { signIn } from "next-auth/react";
 
 const LoginPage = () => {
     return (
