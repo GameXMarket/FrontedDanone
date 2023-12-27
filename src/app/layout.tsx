@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import '../styles/globals.css'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { ToastProvider } from '@/components/providers/toaster-provider'
+import MySessionProvider from '@/components/providers/session-provider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -21,7 +22,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <QueryProvider>
           <ToastProvider />
-              {children}
+          <MySessionProvider>
+            {children}
+          </MySessionProvider>
         </QueryProvider>
         {/*<div className="background_wave">
           <BackgroundWaveOne/>
