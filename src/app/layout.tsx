@@ -4,8 +4,28 @@ import '../styles/globals.css'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { ToastProvider } from '@/components/providers/toaster-provider'
 import MySessionProvider from '@/components/providers/session-provider'
+import localFont from 'next/font/local'
 
-const inter = Inter({ subsets: ['latin'] })
+const gt = localFont({
+  src: [
+    {
+      path: '../../public/fonts/GTEestiProDisplay-Light.woff2',
+      weight: '300',
+    },
+    {
+      path: '../../public/fonts/GTEestiProDisplay-Regular.woff2',
+      weight: '400'
+    },
+    {
+      path: '../../public/fonts/GTEestiProDisplay-Medium.woff2',
+      weight: '500',
+    },
+    {
+      path: '../../public/fonts/GTEestiProDisplay-Bold.woff2',
+      weight: '700',
+    },
+  ],
+})
 
 export const metadata: Metadata = {
   title: 'GameX market',
@@ -19,7 +39,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={gt.className}>
         <QueryProvider>
           <ToastProvider />
           <MySessionProvider>
