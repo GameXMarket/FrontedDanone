@@ -1,5 +1,4 @@
 import { Input } from "@/components/ui/input";
-import { XCircle } from "lucide-react";
 import { useFormStatus } from "react-dom";
 
 interface FormInputProps {

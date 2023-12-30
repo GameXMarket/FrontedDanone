@@ -26,14 +26,12 @@ export const LoginForm = () => {
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
 
-        const res = await signIn("credentials", {
-            redirect: false,
+        await signIn("credentials", {
+            redirect: true,
+            callbackUrl: "/home",
             email,
             password,
         });
-        if (res?.status === 200) {
-            push("home");
-        }
     };
 
     return (
