@@ -1,6 +1,6 @@
 .button {
     transition: 0.6s;
-    @apply w-[218px] bg-[#0A0A0A] rounded-[21px];
+    @apply w-[326px] px-[34px]  mt-2 h-[72px] bg-[#24252F] rounded-[24px];
 }
 
 .button:hover {
@@ -12,13 +12,14 @@
 }
 
 .button_count_msg {
-    font-size: 13px;
+    font-size: 16px;
     font-weight: regular;
-    width: 19px;
-    height: 19px;
+    width: 32px;
+    height: 32px;
     flex-shrink: 0;
     border-radius: 20px;
-    background: linear-gradient(180deg, #F00 0%, #FF4D00 100%);
+    padding-top: 5px;
+    background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);
 }
 
 /* auth button */

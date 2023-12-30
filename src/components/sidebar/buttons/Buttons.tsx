@@ -1,14 +1,21 @@
 import { Button } from "@/components/ui/button"
 import styles from './buttons.module.css'
-import { ChatIcon } from "./icons/ButtonIcons"
+import { AddIcon, CatalogIcon, ChatIcon, ShopIcon } from "../icons/SidebarIcons"
 
-export const SellButton = () => {
+export const MyOrdersButton = () => {
     return (
-        <div className="w-[218px] mt-2 h-[42px]">
+        <div className="">
             <Button className={styles.button}>
-                <div className="w-full flex">
-                    <ChatIcon/>
-                    <span className="text-[13px] pl-[7px] font-semibold">Продать</span>
+                <div className="w-full flex items-center">
+                    <div className="w-[32px]">
+                        <ShopIcon/>
+                    </div>
+                    <div className="w-full pl-5 items-center flex">
+                        <span className="text-[24px] text-left font-normal">Мои продажи</span>
+                    </div>
+                    <div className="flex w-full justify-end">
+                        <AddIcon/>
+                    </div>
                 </div>
             </Button>
         </div>
@@ -17,12 +24,14 @@ export const SellButton = () => {
 
 export const ChatButton = () => {
     return (
-        <div className="w-[218px] mt-2 h-[42px]">
+        <div className="">
             <Button className={styles.button}>
-                <div className="w-full flex">
-                    <div className="flex">
+                <div className="w-full flex items-center">
+                    <div className="w-[32px]">
                         <ChatIcon/>
-                        <span className="text-[13px] pl-[7px] font-semibold">Чаты</span>
+                    </div>
+                    <div className="w-full pl-5 flex justify-start">
+                        <span className="text-[24px] font-normal">Чаты</span>
                     </div>
                     <div className={styles.button_msg_wrapper}>
                         <div className={styles.button_count_msg}>
@@ -34,6 +43,23 @@ export const ChatButton = () => {
         </div>
     )
 } 
+
+export const CatalogButton = () => {
+    return (
+        <div className="">
+            <Button className={styles.button}>
+                <div className="w-full flex items-center">
+                    <div className="w-[32px]">
+                        <CatalogIcon/>
+                    </div>
+                    <div className="w-full pl-5 flex justify-start">
+                        <span className="text-[24px] font-normal">Каталог игр</span>
+                    </div>
+                </div>
+            </Button>
+        </div>
+    )
+}
 
 export const AuthButton = () => {
     return (
