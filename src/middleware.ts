@@ -7,4 +7,4 @@ export default withAuth({
   }
 })
 
-export const config = { matcher: ["/home"] }
+export const config = { matcher: ["/"] } // SET to '/' instead '/home' temperary
