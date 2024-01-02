@@ -1,5 +1,5 @@
 import { Input } from "@/components/ui/input";
-import { XCircle } from "lucide-react";
+import Image from "next/image";
 import { useFormStatus } from "react-dom";
 
 interface FormInputProps {
@@ -20,9 +20,8 @@ export const FormInput = ({
 }: FormInputProps) => {
 
     const {pending} = useFormStatus()
-
     return (
-        <div className="w-full mt-[56px]">
+        <div className="w-full mt-[56px] relative">
             {errors?.[id]?.map((error: string) => (
                 <p
                     key={error}
@@ -41,6 +40,8 @@ export const FormInput = ({
                 placeholder={placeholder}
                 {...props}
             />
+            {errors?.[id] && <Image className="absolute bottom-[23px] right-4" height={26} width={26} alt="incorrect" src="/images/auth/incorrect.svg" />}
+            {!errors?.[id] && errors && <Image className="absolute bottom-[23px] right-4" height={26} width={26} alt="incorrect" src="/images/auth/correct.svg" />}
         </div>
     );
 };

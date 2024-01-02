@@ -11,29 +11,42 @@ import toast from "react-hot-toast";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { useState } from "react";
+import { loginShema } from "@/requests/auth/schemas";
+import { FieldErrors } from "react-hook-form";
 
 export const LoginForm = () => {
-    const { push } = useRouter();
+    const {push} = useRouter()
     const { pending } = useFormStatus();
 
-    const { mutation, fieldErrors: errors } = useSafeMutation(safeLogin, {
-        onError: (error) => {
-            toast.error("Something went wrong");
-        },
-    });
+    const [errors, setErrors] = useState<{ email?: string[] | undefined; password?: string[] | undefined; }>()
+    const [loading, setIsLoading] = useState(false)
 
     const onSubmit = async (formData: FormData) => {
+        setIsLoading(true)
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
 
+        const validationResult = loginShema.safeParse({email, password})
+
+        if(!validationResult.success){
+            setErrors(validationResult.error.flatten().fieldErrors)
+            setIsLoading(false)
+            return
+        }
+        setErrors({email: undefined, password: undefined})
         const res = await signIn("credentials", {
             redirect: false,
             email,
             password,
         });
-        if (res?.status === 200) {
-            push("home");
+        if(res?.status === 200){
+            push("/home")
         }
+        else{
+            toast.error("Неправильный логин или пароль")
+        }
+        setIsLoading(false)
     };
 
     return (
@@ -51,20 +64,20 @@ export const LoginForm = () => {
                 className="space-y-3 w-full px-4 flex flex-col items-center"
             >
                 <FormInput
-                    disabled={mutation.isPending}
+                    disabled={loading}
                     errors={errors}
                     id="email"
                     placeholder="Имя пользователя"
                 />
                 <FormInput
-                    disabled={mutation.isPending}
+                    disabled={loading}
                     errors={errors}
                     id="password"
                     placeholder="Пароль"
                 />
                 <div className="pt-[56px]">
                     <Button
-                        disabled={pending || mutation.isPending}
+                        disabled={pending || loading}
                         className={styles.auth_btn}
                         type="submit"
                         variant="primary"
