@@ -90,7 +90,7 @@ export const authOptions: NextAuthOptions = {
             if (token.error) {
                 throw token.error
             }
-            session.user = { ...token }
+            session.user = { ...token } as {access: string, [key: string]: any}
             return session;
         },
     },

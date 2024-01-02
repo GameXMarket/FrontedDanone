@@ -12,7 +12,7 @@ import Link from "next/link";
 
 
 export const RegisterForm = () => {
-    const [isAvailableNick, setIsAvailableNick] = useState<boolean>(true)
+    const [isAvailableNick, setIsAvailableNick] = useState<boolean>(false)
 
     const {pending} = useFormStatus()
 
