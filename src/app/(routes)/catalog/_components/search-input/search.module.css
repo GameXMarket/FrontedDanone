@@ -1,0 +1,22 @@
+.input_search {
+    @apply border-none w-[348px] bg-[#24252F] rounded-[24px];
+    border:none;
+    @apply text-[24px] font-light;
+    outline: none;
+    transform: translate(4px, -4px);
+}
+
+.input_search:active {
+    outline: 0;
+    outline-offset: 0;
+}
+
+.input_search:hover  {
+    outline: 0;
+    outline-offset: 0;
+}
+
+.input_search:focus {
+    outline: 0;
+    outline-offset: 0;
+}
