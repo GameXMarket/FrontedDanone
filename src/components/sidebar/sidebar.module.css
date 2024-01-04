@@ -74,6 +74,23 @@
     @apply text-[24px] mt-[5px] font-semibold;
 }
 
+.info_block p {
+    opacity:0.7;
+    transition:0.6s;
+    color:#3E3F45;
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+}
+
 .info_block {
+    transition:0.3s;
     @apply ml-[136px] w-full m-[44px];
+}
+
+.info_block p:hover {
+    color: #FF2100;
+    transition:0.6s;
+    background-size: 100% 1px;
 }

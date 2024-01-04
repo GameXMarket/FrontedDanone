@@ -1,0 +1,44 @@
+.card_container {
+    transform: translateY(-378px);
+    position: absolute;
+    z-index: 40;
+    width:300px;
+    height:378px;
+    border-radius: 22px;
+    background: linear-gradient(180deg, #000 -18.92%, rgba(0, 0, 0, 0.00) 100%);
+}
+
+.card_options {
+    @apply w-full mt-[194px] pl-6 pr-6;
+}
+
+.card_option {
+    transition: 0.3s;
+    @apply text-[#474850] text-[16px] font-normal;
+}
+
+.card_option {
+    @apply cursor-pointer bg-[#24252F] rounded-[16px]  py-2 px-[24px];
+}
+
+.card_option_right {
+    @apply w-full px-8;
+}
+
+.card_option_right {
+    transition: 0.3s;
+    @apply text-[16px] text-[#474850] font-normal;
+}
+
+.card_option_right {
+    @apply ml-4 cursor-pointer bg-[#24252F] rounded-[16px]  py-2 px-[24px];
+}
+
+
+.card_option:hover {
+    @apply text-white;
+}
+
+.card_option_right:hover {
+    @apply text-white;
+}
