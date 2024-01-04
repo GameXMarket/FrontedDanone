@@ -21,7 +21,7 @@
 }
 
 .slider {
-    @apply w-full mt-16 ml-10;
+    @apply w-full mt-16;
 }
 
 .fade {
