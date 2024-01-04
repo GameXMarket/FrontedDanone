@@ -1,15 +1,13 @@
-import OrderChat from './_components/OrderChat'
-import { MainContent } from './_components/MainContent'
+import { Games } from "./_components/Games"
+import { Popular } from "./_components/Popular"
 
-const Home = () => {
+
+const Home = async () => {
+
     return (
-        <div className="w-full flex">
-            <div className='w-full min-h-[500px]'>
-                <MainContent />
-            </div>
-            <div className='min-h-[500px]'>
-                <OrderChat/>
-            </div>
+        <div className="w-full px-6 pb-6 space-y-8">
+            <Games />
+            <Popular />
         </div>
     )
 }

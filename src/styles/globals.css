@@ -19,7 +19,6 @@ body,
 }
 
 .text-gradient{
-  background-color: red;
   background-image: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);
   background-size: 100%;
   background-repeat: repeat;
@@ -29,6 +28,28 @@ body,
   -moz-background-clip: text;
   -moz-text-fill-color: transparent;
 }
+
+/* Scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--bgel);
+}
+*::-webkit-scrollbar {
+  width: 17px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--bgel);
+  border-radius: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: var(--muted-foreground);
+  border-radius: 14px;
+  border: 3px solid var(--bgel);
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--tertiary);
+}
+/* Scrollbar */
 
 @layer base {
   :root {
