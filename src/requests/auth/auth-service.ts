@@ -1,17 +1,18 @@
 import { createSafeFetch } from "@/lib/create-safe-fetch";
 import instance from "..";
 import { RegisterDto, LoginDto, registerShema, loginShema } from "./schemas";
+import { signIn } from "next-auth/react";
 
 export const AuthApiService = {
 
     async register(data: RegisterDto) {
-        return instance.post("users/me", {...data})
-        .then(res => res.data)
+        return instance.post("users/me", { ...data })
+            .then(res => res.data)
     },
 
     async login(data: LoginDto) {
-        return instance.post("auth/login", {...data})
-        .then(res => res.data)
+        return instance.post("auth/login", { ...data })
+            .then(res => res.data)
     },
 }
 

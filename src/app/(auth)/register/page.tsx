@@ -1,6 +1,4 @@
-import Link from "next/link";
 import { RegisterForm } from "./_components/register-form";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 const RegisterPage = () => {

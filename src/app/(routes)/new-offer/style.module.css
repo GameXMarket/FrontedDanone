@@ -1,0 +1,19 @@
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+
+    to{
+        opacity: 1;
+    }
+}
+
+.second_frame{
+    display: block;
+    animation: appear 0.6s;
+}
+
+.dash_space{
+    background: linear-gradient(112deg, #1F2027 2.22%, #15161D 128.41%);
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%233E3F45' stroke-width='4' stroke-dasharray='14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+}
