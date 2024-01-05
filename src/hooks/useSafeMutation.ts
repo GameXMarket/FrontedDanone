@@ -21,3 +21,4 @@ export const useSafeMutation = <TInput> (fn: any, options?: UseMutationOptions<O
 
     return {mutation, fieldErrors}
 }
+

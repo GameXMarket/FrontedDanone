@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+// Shema на Schema исправь
+
 export const createOfferShema = z.object({
     attachment_id: z.number().nullable(),
     name: z.string(),
