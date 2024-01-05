@@ -21,6 +21,8 @@ function Catalog() {
         }
     })
 
+    console.log(JSON.stringify(data))
+
 
     return (
         <div className="w-full h-full px-6">
@@ -53,7 +55,7 @@ function Catalog() {
                         <CarouselNext />
                     </Carousel>
                 ) : (<div>DATA NOT FOUND.</div>)}
-                <div className={styles.fade}></div>
+                {/*<div className={styles.fade}></div>*/}
             </section>
         </div>
     );
