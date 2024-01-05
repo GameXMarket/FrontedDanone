@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import styles from './buttons.module.css'
 import { AddIcon, CatalogIcon, ChatIcon, ShopIcon } from "../icons/SidebarIcons"
+import Link from "next/link"
 
 export const MyOrdersButton = () => {
     return (
@@ -46,18 +47,20 @@ export const ChatButton = () => {
 
 export const CatalogButton = () => {
     return (
-        <div className="">
-            <Button className={styles.button}>
-                <div className="w-full flex items-center">
-                    <div className="w-[32px]">
-                        <CatalogIcon/>
+        <Link href='/catalog'>
+            <div className="">
+                <Button className={styles.button}>
+                    <div className="w-full flex items-center">
+                        <div className="w-[32px]">
+                            <CatalogIcon/>
+                        </div>
+                        <div className="w-full pl-5 flex justify-start">
+                            <span className="text-[24px] font-normal">Каталог игр</span>
+                        </div>
                     </div>
-                    <div className="w-full pl-5 flex justify-start">
-                        <span className="text-[24px] font-normal">Каталог игр</span>
-                    </div>
-                </div>
-            </Button>
-        </div>
+                </Button>
+            </div>
+        </Link>
     )
 }
 

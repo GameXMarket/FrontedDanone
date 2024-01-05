@@ -1,11 +1,17 @@
 import Image from "next/image";
 import styles from "./slider-card.module.css";
 import Link from "next/link";
+import { FC, PropsWithChildren } from "react";
 
-const SliderCard = () => {
+interface ISliderCard {
+    id: number
+    name: string
+}
+
+const SliderCard:FC<PropsWithChildren<ISliderCard>> = ({id, name}) => {
     return (
         <Link href='/game/:game'>
-            <div className=" w-[300px]">
+            <div className=" w-[300px]" key={id}>
                 <Image
                     className="z-10 rounded-[24px]"
                     src="/catalog/game.jpg"
@@ -14,7 +20,7 @@ const SliderCard = () => {
                     alt="game"
                 />
                 <div className={styles.card_container}>
-                    <h3 className="font-[500] pt-8 pl-8 text-[32px]">Roblox</h3>
+                    <h3 className="font-[500] pt-8 pl-8 text-[32px]">{name}</h3>
                     <div className={styles.card_options}>
                         <div className="w-full flex items-center justify-between">
                             <div className={styles.card_option}>

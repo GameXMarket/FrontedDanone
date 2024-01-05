@@ -1,3 +1,5 @@
+'use client'
+
 import {
     Carousel,
     CarouselContent,
@@ -8,8 +10,18 @@ import {
 import { SearchInput } from "./_components/search-input/search-input";
 import SliderCard from "./_components/slider-card/slider-card";
 import styles from "./styles/page.module.css";
+import { useQuery } from "@tanstack/react-query";
+import { categoryServices } from "@/requests/categories/categories-services";
 
 function Catalog() {
+    const {data, isLoading, error} = useQuery({
+        queryKey: ['get all cats'],
+        queryFn: async () => {
+            return categoryServices.getAllCategories()
+        }
+    })
+
+
     return (
         <div className="w-full h-full px-6">
             <section className={styles.search_container}>
@@ -19,24 +31,28 @@ function Catalog() {
                 </div>
             </section>
             <section className={styles.slider}>
-                <Carousel
-                    opts={{
-                        align: "start",
-                        loop: false,
-                    }}
-                    orientation="horizontal"
-                    className="max-w-[1180px]"
-                >
-                    <CarouselContent className="space-x-10">
-                        {Array.from({ length: 8 }, (_, idx) => (
-                            <CarouselItem key={idx} className="basis-1/4">
-                                <SliderCard />
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
-                </Carousel>
+                {isLoading ? (
+                    <h4 className="text-[64px] font-bold">Loading...</h4>
+                ) : data ? (
+                    <Carousel
+                        opts={{
+                            align: "start",
+                            loop: false,
+                        }}
+                        orientation="horizontal"
+                        className="max-w-[1180px]"
+                    >
+                        <CarouselContent className="space-x-10">
+                            {data.data.map((el:any) => (
+                                <CarouselItem key={el.id} className="basis-1/4">
+                                    <SliderCard id={el.id} name={el.name}/>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </Carousel>
+                ) : (<div>DATA NOT FOUND.</div>)}
                 <div className={styles.fade}></div>
             </section>
         </div>
