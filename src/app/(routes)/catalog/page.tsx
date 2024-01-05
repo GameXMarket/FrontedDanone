@@ -21,9 +21,6 @@ function Catalog() {
         }
     })
 
-    console.log(JSON.stringify(data))
-
-
     return (
         <div className="w-full h-full px-6">
             <section className={styles.search_container}>
