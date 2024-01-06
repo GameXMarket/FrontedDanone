@@ -26,7 +26,7 @@
 }
 
 .game_title {
-    @apply font-medium text-[40px];
+    @apply w-full font-medium text-[40px];
 }
 
 .game_orders_qty {

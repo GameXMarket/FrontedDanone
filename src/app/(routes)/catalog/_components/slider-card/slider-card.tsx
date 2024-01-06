@@ -10,7 +10,7 @@ interface ISliderCard {
 
 const SliderCard:FC<PropsWithChildren<ISliderCard>> = ({id, name}) => {
     return (
-        <Link href='/game/:game'>
+        <Link href={`/categories/${id}`}>
             <div className=" w-[300px]" key={id}>
                 <Image
                     className="z-10 rounded-[24px]"

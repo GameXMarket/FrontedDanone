@@ -1,9 +1,10 @@
-export interface IGetCats {
+export interface IGetCat {
     id: number
     name: string
-    childrens?: any[]
+    childrens?: []
 }
 
 export interface IGetCatsResponse {
-    childrens: IGetCats[]
+    data: IGetCat[]
 }
+

@@ -21,9 +21,6 @@ function Catalog() {
         }
     })
 
-    console.log(JSON.stringify(data))
-
-
     return (
         <div className="w-full h-full px-6">
             <section className={styles.search_container}>
@@ -33,10 +30,11 @@ function Catalog() {
                 </div>
             </section>
             <section className={styles.slider}>
-                {isLoading ? (
-                    <h4 className="text-[64px] font-bold">Loading...</h4>
-                ) : data ? (
-                    <Carousel
+                {isLoading ? 
+                 <h4 className="text-[64px] font-bold">Loading...</h4> :
+                 data ? 
+                 data.data ? 
+                 (<Carousel
                         opts={{
                             align: "start",
                             loop: false,
@@ -53,8 +51,9 @@ function Catalog() {
                         </CarouselContent>
                         <CarouselPrevious />
                         <CarouselNext />
-                    </Carousel>
-                ) : (<div>DATA NOT FOUND.</div>)}
+                    </Carousel>) : 
+                (<div>DATA NOT FOUND.</div>) :
+                null}
                 {/*<div className={styles.fade}></div>*/}
             </section>
         </div>
