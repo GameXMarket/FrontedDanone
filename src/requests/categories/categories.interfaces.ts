@@ -1,7 +1,7 @@
 export interface IGetCat {
     id: number
     name: string
-    childrens?: []
+    childrens?: IGetCat[]
 }
 
 export interface IGetCatsResponse {

@@ -25,7 +25,7 @@ import toast from "react-hot-toast";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
 import { QueryObserverResult, RefetchOptions, useQuery } from "@tanstack/react-query";
 import { categoryServices } from "@/requests/categories/categories-services";
-import { IGetCats, IGetCatsResponse } from "@/requests/categories/categories.interfaces";
+import { IGetCat, IGetCatsResponse } from "@/requests/categories/categories.interfaces";
 
 export const NewOfferForm = () => {
     const [mounted, setMounted] = useState(false);
@@ -105,7 +105,7 @@ export const NewOfferForm = () => {
             return []
         }
     })
-
+console.log(games)
     if (!mounted) return null;
 
     return (
@@ -277,7 +277,7 @@ interface SelectNameProps {
     placeholder?: string;
     setName: (name: string) => void;
     form: UseFormReturn<CreateOfferDto, any, undefined>;
-    data: IGetCats[] | undefined;
+    data: IGetCat[] | undefined;
     refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
 }
 const SelectName = ({ setName, label, placeholder, form, data, refetch }: SelectNameProps) => {
@@ -319,7 +319,7 @@ interface SelectServiceProps {
     placeholder?: string;
     setService: (name: string) => void;
     form: UseFormReturn<CreateOfferDto, any, undefined>;
-    data: IGetCatsResponse;
+    data: IGetCat;
     refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
 }
 const SelectService = ({
@@ -368,7 +368,7 @@ interface SelectAmountProps {
     placeholder?: string;
     setAmount: (name: string) => void;
     form: UseFormReturn<CreateOfferDto, any, undefined>;
-    data: IGetCatsResponse
+    data: IGetCat
 }
 const SelectAmount = ({
     setAmount,

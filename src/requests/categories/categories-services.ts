@@ -4,15 +4,14 @@ import { IGetCat, IGetCatsResponse } from "./categories.interfaces"
 import { createCategoriesDto } from "./schemas"
 
 export const categoryServices = {
-    async getAllCategories() {
-        const data  = await instance.get<IGetCatsResponse[]>('/categories/gettall')
-        return data
-
+    async getAllCategories(offset: number = 0, limit: number = 5) {
+        const data = await instance.get(`/categories/gettall?offset=${offset}&limit=${limit}`)
+        return data.data
     },
 
-    async getCategoryById(category_id: string | string[]) {
+    async getCategoryById(category_id: number) {
         const data = await instance.get(`/categories/${category_id}`)
-        return data
+        return data.data
     },  
 
     async createCategory(data: createCategoriesDto) {
