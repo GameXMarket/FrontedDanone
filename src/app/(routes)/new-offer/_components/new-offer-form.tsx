@@ -23,6 +23,9 @@ import { safeCreateOffer } from "@/requests/offer/offer-service";
 import { CreateOfferDto } from "@/requests/offer/schemas";
 import toast from "react-hot-toast";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
+import { QueryObserverResult, RefetchOptions, useQuery } from "@tanstack/react-query";
+import { categoryServices } from "@/requests/categories/categories-services";
+import { IGetCats, IGetCatsResponse } from "@/requests/categories/categories.interfaces";
 
 export const NewOfferForm = () => {
     const [mounted, setMounted] = useState(false);
@@ -36,9 +39,10 @@ export const NewOfferForm = () => {
             name: "",
             description: "",
             price: "" as unknown as number,
-            count: "" as unknown as number,
+            amount_id: "" as unknown as number,
             attachment_id: null,
-            category_id: null
+            game_id: "" as unknown as number,
+            service_id: "" as unknown as number
         }
     });
 
@@ -48,9 +52,10 @@ export const NewOfferForm = () => {
 
     const price = form.watch("price");
 
-    const {mutation, fieldErrors} = useSafeMutation(safeCreateOffer, {
+    const {mutation} = useSafeMutation(safeCreateOffer, {
         onSuccess: (data) => {
             if(data.fieldErrors){
+                console.log(data.fieldErrors)
                 toast.error("Проверьте правильность ввода")
                 return
             }
@@ -68,12 +73,38 @@ export const NewOfferForm = () => {
             name: data.name,
             description: data.description,
             price: +data.price,
-            count: +data.count,
+            count: +data.amount_id!,
             attachment_id: null,
-            category_id: null
+            category_id: data.amount_id
         }
+        console.log(dto)
         mutation.mutate(dto)
     }
+
+    const {data: games} = useQuery({
+        queryKey: ["Games"],
+        queryFn: () => categoryServices.getAllCategories()
+    })
+    const {data: services, refetch: refetchServices} = useQuery({
+        queryKey: ["Service"],
+        queryFn: async () => {
+            const game = form.getValues("game_id")
+            if(game){
+                return await categoryServices.getCategoryById(game)
+            }
+            return []
+        }
+    })
+    const {data: offerAmount, refetch: refetchAmount} = useQuery({
+        queryKey: ["Amount"],
+        queryFn: async () => {
+            const service = form.getValues("service_id")
+            if(service){
+                return await categoryServices.getCategoryById(service)
+            }
+            return []
+        }
+    })
 
     if (!mounted) return null;
 
@@ -94,6 +125,8 @@ export const NewOfferForm = () => {
                 >
                     <div className="flex flex-col items-center gap-y-4 min-w-[440px]">
                         <SelectName
+                            refetch={refetchServices}
+                            data={games}
                             form={form}
                             label="Выберите игру"
                             placeholder="Выберите название игры"
@@ -101,6 +134,8 @@ export const NewOfferForm = () => {
                         />
                         {name && (
                             <SelectService
+                                refetch={refetchAmount}
+                                data={services}
                                 form={form}
                                 setService={setService}
                                 label="Выберите услугу"
@@ -109,6 +144,7 @@ export const NewOfferForm = () => {
                         )}
                         {name && service && (
                             <SelectAmount
+                                data={offerAmount}
                                 form={form}
                                 setAmount={setAmount}
                                 label="Выберите номинал"
@@ -241,14 +277,17 @@ interface SelectNameProps {
     placeholder?: string;
     setName: (name: string) => void;
     form: UseFormReturn<CreateOfferDto, any, undefined>;
+    data: IGetCats[] | undefined;
+    refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
 }
-const SelectName = ({ setName, label, placeholder, form }: SelectNameProps) => {
+const SelectName = ({ setName, label, placeholder, form, data, refetch }: SelectNameProps) => {
     const onChange = (
-        field: ControllerRenderProps<CreateOfferDto, "category_id">,
+        field: ControllerRenderProps<CreateOfferDto, "game_id">,
         value: string
     ) => {
         setName(value);
         field.onChange(value);
+        refetch()
     };
 
     return (
@@ -259,18 +298,14 @@ const SelectName = ({ setName, label, placeholder, form }: SelectNameProps) => {
             </p>
             <FormField
                 control={form.control}
-                name="category_id"
+                name="game_id"
                 render={({ field }) => (
                     <Select onValueChange={(value) => onChange(field, value)}>
                         <SelectTrigger className="min-w-[300px] px-6">
                             <SelectValue placeholder={placeholder} />
                         </SelectTrigger>
                         <SelectContent className="text-xl">
-                            <SelectItem value="1">Abvilion Online</SelectItem>
-                            <SelectItem value="2">Apex Legends</SelectItem>
-                            <SelectItem value="3">Arizona Rp</SelectItem>
-                            <SelectItem value="4">Black Russia</SelectItem>
-                            <SelectItem value="5">Brawl Stars</SelectItem>
+                            {data?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
                         </SelectContent>
                     </Select>
                 )}
@@ -284,19 +319,24 @@ interface SelectServiceProps {
     placeholder?: string;
     setService: (name: string) => void;
     form: UseFormReturn<CreateOfferDto, any, undefined>;
+    data: IGetCatsResponse;
+    refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
 }
 const SelectService = ({
     setService,
     label,
     placeholder,
     form,
+    data,
+    refetch
 }: SelectServiceProps) => {
     const onChange = (
-        field: ControllerRenderProps<CreateOfferDto, "category_id">,
+        field: ControllerRenderProps<CreateOfferDto, "service_id">,
         value: string
     ) => {
         setService(value);
         field.onChange(value);
+        refetch()
     };
 
     return (
@@ -307,17 +347,14 @@ const SelectService = ({
             </p>
             <FormField
                 control={form.control}
-                name="category_id"
+                name="service_id"
                 render={({ field }) => (
                     <Select onValueChange={(value) => onChange(field, value)}>
                         <SelectTrigger className="px-6">
                             <SelectValue placeholder={placeholder} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="1">Аккаунты</SelectItem>
-                            <SelectItem value="2">Бустинг</SelectItem>
-                            <SelectItem value="3">Боевой пропуск</SelectItem>
-                            <SelectItem value="4">Донат</SelectItem>
+                            {data?.childrens?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
                         </SelectContent>
                     </Select>
                 )}
@@ -331,15 +368,17 @@ interface SelectAmountProps {
     placeholder?: string;
     setAmount: (name: string) => void;
     form: UseFormReturn<CreateOfferDto, any, undefined>;
+    data: IGetCatsResponse
 }
 const SelectAmount = ({
     setAmount,
     label,
     placeholder,
     form,
+    data
 }: SelectAmountProps) => {
     const onChange = (
-        field: ControllerRenderProps<CreateOfferDto, "count">,
+        field: ControllerRenderProps<CreateOfferDto, "amount_id">,
         value: string
     ) => {
         setAmount(value);
@@ -353,16 +392,14 @@ const SelectAmount = ({
             </p>
             <FormField
                 control={form.control}
-                name="count"
+                name="amount_id"
                 render={({ field }) => (
                     <Select onValueChange={(value) => onChange(field, value)}>
                         <SelectTrigger className="px-6">
                             <SelectValue placeholder={placeholder} />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="1">30 гемов</SelectItem>
-                            <SelectItem value="2">170 гемов</SelectItem>
-                            <SelectItem value="3">2000 гемов</SelectItem>
+                            {data?.childrens?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
                         </SelectContent>
                     </Select>
                 )}
@@ -403,10 +440,10 @@ const PriceInput = ({
                         <p className="text-gradient">₽</p>
                     </div>
                 </div>
-                <div className="text-xl ml-6">
-                    Цена для покупателя
+                <div className="text-xl ml-6 flex items-center gap-x-2">
+                    <span>Цена для покупателя</span>
                     <span className="text-gradient">
-                        {+price + Math.ceil((+price / 100) * 12) || 0}
+                        {+price + Math.ceil((+price / 100) * 12) || 0} ₽
                     </span>
                 </div>
             </div>
