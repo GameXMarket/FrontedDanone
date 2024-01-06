@@ -1,7 +1,7 @@
 /* BACK */
 
 .back {
-    @apply w-full mt-[10px];
+    @apply w-full mb-8;
 }
 
 .back_text {
@@ -22,7 +22,7 @@
 /* GAME DETAILS */ 
 
 .game_details {
-    @apply mt-[24px] flex w-full items-center;
+    @apply flex w-full items-center;
 }
 
 .game_title {

@@ -25,7 +25,7 @@ import toast from "react-hot-toast";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
 import { QueryObserverResult, RefetchOptions, useQuery } from "@tanstack/react-query";
 import { categoryServices } from "@/requests/categories/categories-services";
-import { IGetCat, IGetCatsResponse } from "@/requests/categories/categories.interfaces";
+import { IGetCat } from "@/requests/categories/categories.interfaces";
 
 export const NewOfferForm = () => {
     const [mounted, setMounted] = useState(false);
@@ -112,8 +112,9 @@ console.log(games)
         <div
             className={cn(
                 "w-full h-full flex px-8",
-                !nextPage && "ml-[20px] lg:ml-[210px] xl:ml-[340px]",
-                nextPage && "ml-[20px] lg:ml-[210px] xl:ml-[300px]"
+                styles.wrapper
+                // !nextPage && "ml-[20px] lg:ml-[210px] xl:ml-[340px]",
+                // nextPage && "ml-[20px] lg:ml-[210px] xl:ml-[300px]"
             )}
         >
             <form onSubmit={form.handleSubmit(onSubmit)}>

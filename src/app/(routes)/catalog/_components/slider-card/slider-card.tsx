@@ -2,13 +2,15 @@ import Image from "next/image";
 import styles from "./slider-card.module.css";
 import Link from "next/link";
 import { FC, PropsWithChildren } from "react";
+import { IGetCat } from "@/requests/categories/categories.interfaces";
 
 interface ISliderCard {
     id: number
     name: string
+    categories?: IGetCat[]
 }
 
-const SliderCard:FC<PropsWithChildren<ISliderCard>> = ({id, name}) => {
+const SliderCard:FC<PropsWithChildren<ISliderCard>> = ({id, name, categories}) => {
     return (
         <Link href={`/categories/${id}`}>
             <div className=" w-[300px]" key={id}>
@@ -22,21 +24,12 @@ const SliderCard:FC<PropsWithChildren<ISliderCard>> = ({id, name}) => {
                 <div className={styles.card_container}>
                     <h3 className="font-[500] pt-8 pl-8 text-[32px]">{name}</h3>
                     <div className={styles.card_options}>
-                        <div className="w-full flex items-center justify-between">
-                            <div className={styles.card_option}>
-                                <p>Монеты</p>
-                            </div>
-                            <div className={styles.card_option_right}>
-                                <p>Аккаунты</p>
-                            </div>
-                        </div>
-                        <div className="w-full flex mt-2 items-center justify-between">
-                            <div className={styles.card_option}>
-                                <p>Снаряжение</p>
-                            </div>
-                            <div className={styles.card_option_right}>
-                                <p>Буст</p>
-                            </div>
+                        <div className="w-full flex items-center gap-x-3 gap-y-2 flex-wrap">
+                            {Array.from({length: 4}).map((el) => (
+                                <div className={styles.card_option}>
+                                    <p>Аккаунты</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
                 </div>

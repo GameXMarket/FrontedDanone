@@ -1,6 +1,6 @@
 .card_container {
     transform: translateY(-378px);
-    position: absolute;
+    /* position: absolute; */
     z-index: 40;
     width:300px;
     height:378px;
