@@ -11,6 +11,10 @@ body,
   background: #1B1C23;
   color: #EEEEEE;
 }
+
+html{
+  padding: 0 20px;
+}
  
 .background_wave {  
   z-index:2;

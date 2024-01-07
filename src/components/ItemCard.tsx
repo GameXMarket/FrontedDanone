@@ -1,13 +1,13 @@
 import { Separator } from "@/components/ui/separator";
 import Image from "next/image";
 
-interface PopularItemProps {
+interface ItemCardProps {
     item: {img: string, name: string, price: number}
 }
 
-export const PopularItem = ({item}: PopularItemProps) => {
+export const ItemCard = ({item}: ItemCardProps) => {
     return (
-        <div className="p-4 space-y-2 bg-bgel rounded-xl">
+        <div className="p-4 space-y-2 bg-bgel rounded-xl w-full">
             <div className="relative w-full h-[200px]">
                 <Image fill className="object-cover rounded-xl" alt="game" src={item.img} />
             </div>

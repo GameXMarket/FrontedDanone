@@ -1,17 +1,13 @@
--.sidebar {
-    @apply  min-h-[500px];
+.sidebar {
+    @apply px-8 min-h-[500px] space-y-6;
 }
 
 .sidebar_name {
     @apply text-[24px] text-left font-semibold;
 }
 
-.variants {
-    @apply ml-[136px] mt-[46px];
-}
-
 .profile_block {
-@apply flex ml-[136px] mt-[28px] ;
+@apply flex ;
 }
 
 .profile_avatar {
@@ -53,8 +49,8 @@
 
 }
 
-.order_details {
-    @apply mt-8 ml-[136px];
+.variants{
+    @apply space-y-2
 }
 
 .profile_avatar_wrapper {
@@ -86,7 +82,7 @@
 
 .info_block {
     transition:0.3s;
-    @apply ml-[136px] w-full m-[44px];
+    @apply flex flex-col ml-3;
 }
 
 .info_block p:hover {

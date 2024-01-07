@@ -1,0 +1,47 @@
+/* BACK */
+
+.back {
+    @apply w-full mb-8;
+}
+
+.back_text {
+
+    transition: 0.6s;
+    @apply ml-2 pb-1 text-[25px] font-light text-[#3E3F45];
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 75%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+}
+
+.back_text:hover {
+    color: #EE5234;
+    background-size: 100% 1px;
+}
+
+/* GAME DETAILS */ 
+
+.game_details {
+    @apply flex w-full items-center;
+}
+
+.game_title {
+    @apply w-full font-medium text-[40px];
+}
+
+.game_orders_qty {
+    @apply text-[24px] font-normal opacity-[0.16];
+}
+
+.option {
+    transition: 0.6s;
+    @apply cursor-pointer opacity-40 mx-1 mb-2 bg-[#24252F] rounded-[21px];
+}
+
+.option_text {
+    @apply font-light text-[20px] py-1 px-4;
+}
+
+.option:hover {
+    @apply opacity-100;
+}
