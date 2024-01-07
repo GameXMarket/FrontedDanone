@@ -5,12 +5,16 @@ import { FC, PropsWithChildren } from "react";
 import { IGetCat } from "@/requests/categories/categories.interfaces";
 
 interface ISliderCard {
-    id: number
-    name: string
-    categories?: IGetCat[]
+    id: number;
+    name: string;
+    categories?: IGetCat[];
 }
 
-const SliderCard:FC<PropsWithChildren<ISliderCard>> = ({id, name, categories}) => {
+const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
+    id,
+    name,
+    categories,
+}) => {
     return (
         <Link href={`/categories/${id}`}>
             <div className=" w-[300px]" key={id}>

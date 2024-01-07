@@ -23,7 +23,7 @@ const GamePage: FC = () => {
     console.log(data);
 
     return (
-        <div className="pr-6 h-full">
+        <div className="pr-20 h-full">
             <section className={styles.back}>
                 <Link href="/catalog">
                     <div className="w-full flex items-center">

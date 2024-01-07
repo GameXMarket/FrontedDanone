@@ -264,7 +264,7 @@ console.log(games)
                             size="lg"
                             className="rounded-xl"
                         >
-                            Готово
+                            Далее
                         </Button>
                     </div>
                 </div>

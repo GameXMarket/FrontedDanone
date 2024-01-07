@@ -11,7 +11,7 @@ export const OffersList = () => {
             {Array.from({length: 9}, (_, idx) => (
                 <div className="w-full flex flex-col items-center gap-y-6">
                     <ItemCard item={{img: "/images/temp_main/brawlstars.png", name: "Brawl Stars", price: 1000}} />
-                    <Button size="lg" className="rounded-xl" variant="accent">Чат с продавцом</Button>
+                    <Button size="lg" className="rounded-xl w-3/4 text-xl" variant="accent">Чат с продавцом</Button>
                 </div>
             ))}
         </div>
