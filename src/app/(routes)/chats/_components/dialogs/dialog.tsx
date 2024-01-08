@@ -1,10 +1,11 @@
-import { FC } from "react";
+import { FC, PropsWithChildren } from "react";
 import styles from './dialogs.module.css'
 import Image from "next/image";
+import { IDialog } from "./dialogs";
 
-const Dialog:FC = () => {
+const Dialog:FC<PropsWithChildren<IDialog>> = ({setIsOpenedChat}) => {
     return (
-    <div className={styles.dialog}>
+    <div className={styles.dialog} onClick={() => setIsOpenedChat(true)}>
         <div className={styles.dialog_avatar}>
             <Image src='/messenger/cringeman.svg' alt='avatar' width={60} height={60}/>
         </div>

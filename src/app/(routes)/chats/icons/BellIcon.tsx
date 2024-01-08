@@ -44,3 +44,57 @@ export const BellIcon = () => {
         </svg>
     )
 }
+
+export const SendMsgIcon = () => {
+    return (
+        <svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={32}
+  height={32}
+  viewBox="0 0 32 32"
+  fill="none"
+>
+  <path
+    d="M9.86674 8.42687L21.1867 4.65354C26.2667 2.96021 29.0267 5.73354 27.3467 10.8135L23.5734 22.1335C21.0401 29.7469 16.8801 29.7469 14.3467 22.1335L13.2267 18.7735L9.86674 17.6535C2.25341 15.1202 2.25341 10.9735 9.86674 8.42687Z"
+    stroke="url(#paint0_linear_1710_948)"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+  <path
+    d="M13.48 18.1998L18.2533 13.4131"
+    stroke="url(#paint1_linear_1710_948)"
+    strokeWidth={2}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  />
+  <defs>
+    <linearGradient
+      id="paint0_linear_1710_948"
+      x1="4.15674"
+      y1="4.15625"
+      x2="30.9166"
+      y2="8.38973"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stopColor="#FB2A29" />
+      <stop offset={1} stopColor="#E66C3A" />
+      <stop offset={1} stopColor="#DE5A23" />
+    </linearGradient>
+    <linearGradient
+      id="paint1_linear_1710_948"
+      x1="13.48"
+      y1="13.4131"
+      x2="18.8743"
+      y2="14.2643"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stopColor="#FB2A29" />
+      <stop offset={1} stopColor="#E66C3A" />
+      <stop offset={1} stopColor="#DE5A23" />
+    </linearGradient>
+  </defs>
+</svg>
+
+    )
+}

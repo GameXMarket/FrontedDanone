@@ -39,7 +39,7 @@ function Catalog() {
                             loop: false,
                         }}
                         orientation="horizontal"
-                        className="max-w-[1180px]"
+                        className="max-w-[1280px]"
                     >
                         <CarouselContent className="space-x-10">
                             {data.map((el) => (
