@@ -1,0 +1,49 @@
+.dialogs {
+    @apply w-[380px] h-[648px];
+    border-radius: 32px 32px 100px 32px;
+    background: #24252F; 
+}
+
+.back_text {
+    transition: 0.6s;
+    @apply ml-2 cursor-pointer text-[22px] font-light text-[#3E3F45];
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 85%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+}
+
+.back_text:hover {
+    color: #EE5234;
+    background-size: 100% 1px;
+}
+
+.dialog {
+    transition: 0.6s;
+    @apply cursor-pointer flex w-full items-center py-3 px-12;
+}
+
+.dialog h3 {
+    transition: 0.6s;
+}
+
+.dialog_name {
+    @apply text-[25px] font-bold;
+}
+
+.dialog_preview {
+    @apply text-[18px] font-light opacity-[0.16];
+}
+
+.dialog:hover h3 {
+    @apply text-[#E84331];
+}
+
+.dialog_container {
+    @apply max-h-[560px] overflow-y-scroll;
+}
+
+
+.dialog_container::-webkit-scrollbar {
+    display: none;
+}
