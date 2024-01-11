@@ -18,6 +18,7 @@
     background-size: 100% 1px;
 }
 
+
 .dialog {
     transition: 0.6s;
     @apply cursor-pointer flex w-full items-center py-3 px-12;
@@ -36,6 +37,22 @@
 }
 
 .dialog:hover h3 {
+    @apply text-[#E84331];
+}
+
+.dialog_name_s {
+    @apply text-[#E84331] text-[25px] font-bold;;
+}
+
+.dialog:active h3 {
+    @apply text-[#E84331];
+}
+
+.dialog:focus h3 {
+    @apply text-[#E84331];
+}
+
+.dialog:checked h3 {
     @apply text-[#E84331];
 }
 

@@ -4,7 +4,7 @@ import Image from "next/image";
 const LoginPage = () => {
     return (
         <div className="mt-6 flex flex-col items-center">
-            <div className="w-[450px] flex flex-col items-center">
+            <div className="w-[464px] flex flex-col items-center">
                 <LoginForm />
             </div>
             <div className="flex flex-col items-center gap-y-4 mt-[40px]">

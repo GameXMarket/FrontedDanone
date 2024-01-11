@@ -49,9 +49,6 @@
 
 }
 
-.variants{
-    @apply space-y-2
-}
 
 .profile_avatar_wrapper {
     transition: 0.6s;
@@ -71,7 +68,7 @@
 }
 
 .info_block p {
-    opacity:0.7;
+    opacity:1;
     transition:0.6s;
     color:#3E3F45;
     background-image: linear-gradient(currentColor, currentColor);
@@ -86,7 +83,7 @@
 }
 
 .info_block p:hover {
-    color: #FF2100;
+    color: #ee5233;
     transition:0.6s;
     background-size: 100% 1px;
 }
