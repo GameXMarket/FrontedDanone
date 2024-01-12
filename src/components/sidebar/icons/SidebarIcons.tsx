@@ -387,3 +387,57 @@ export const AddIcon = () => {
         </svg>
     )
 }
+
+export const SuccessIcon = () => {
+    return (
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={64}
+        height={64}
+        viewBox="0 0 64 64"
+        fill="none"
+        >
+        <path
+            d="M32.0002 58.6663C46.6668 58.6663 58.6668 46.6663 58.6668 31.9997C58.6668 17.333 46.6668 5.33301 32.0002 5.33301C17.3335 5.33301 5.3335 17.333 5.3335 31.9997C5.3335 46.6663 17.3335 58.6663 32.0002 58.6663Z"
+            stroke="#5ACF30"
+            strokeWidth={3}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path
+            d="M20.6665 31.9998L28.2132 39.5465L43.3332 24.4531"
+            stroke="#5ACF30"
+            strokeWidth={3}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        </svg>
+    )
+}
+
+export const PendingIcon = () => {
+    return (
+        <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={64}
+        height={64}
+        viewBox="0 0 64 64"
+        fill="none"
+        >
+        <path
+            d="M58.6668 31.9997C58.6668 46.7197 46.7202 58.6663 32.0002 58.6663C17.2802 58.6663 5.3335 46.7197 5.3335 31.9997C5.3335 17.2797 17.2802 5.33301 32.0002 5.33301C46.7202 5.33301 58.6668 17.2797 58.6668 31.9997Z"
+            stroke="#EDF03F"
+            strokeWidth={3}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        <path
+            d="M41.8932 40.4797L33.6265 35.5464C32.1865 34.693 31.0132 32.6397 31.0132 30.9597V20.0264"
+            stroke="#EDF03F"
+            strokeWidth={3}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+        </svg>
+    )
+}
