@@ -1,6 +1,5 @@
 import { Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
 import styles from './sidebar.module.css'
-import { Input } from "../ui/input";
 import { ArrowBackIcon } from "@/app/(routes)/categories/[category_id]/icons/game-page-icons";
 import { Button } from "../ui/button";
 import MaskedInput from 'react-text-mask'

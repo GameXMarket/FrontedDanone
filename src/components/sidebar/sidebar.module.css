@@ -101,7 +101,7 @@
 .modal_container {
     @apply  w-[100vw] h-full flex items-center justify-center absolute;
     z-index: 165;
-    transform: translate(-52px, -162px);
+    transform: translate(-20px, -162px);
     overflow: hidden;
     backdrop-filter: brightness(50%);
 
