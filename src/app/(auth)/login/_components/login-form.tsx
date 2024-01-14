@@ -5,15 +5,12 @@ import styles from "./styles/login.module.css";
 import { Button } from "@/components/ui/button";
 import { FormInput } from "../../_components/form-input";
 import { useFormStatus } from "react-dom";
-import { useSafeMutation } from "@/hooks/useSafeMutation";
-import { safeLogin } from "@/requests/auth/auth-service";
 import toast from "react-hot-toast";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { loginShema } from "@/requests/auth/schemas";
-import { FieldErrors } from "react-hook-form";
 
 export const LoginForm = () => {
     const {push} = useRouter()
@@ -51,7 +48,7 @@ export const LoginForm = () => {
 
     return (
         <div className="w-full flex flex-col items-center">
-            <div className=" w-full flex">
+            <div className={styles.title_container}>
                 <Link href="/register">
                     <h3 className={styles.register}>Регистрация</h3>
                 </Link>

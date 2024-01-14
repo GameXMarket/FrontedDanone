@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input";
 import Image from "next/image";
 import { useFormStatus } from "react-dom";
+import styles from '../register/_components/styles/register.module.css'
 
 interface FormInputProps {
     placeholder?: string;
@@ -35,8 +36,7 @@ export const FormInput = ({
                 disabled={pending || disabled}
                 id={id}
                 name={id}
-                className="bg-[#24252F] h-[72px] pl-[30px] font-light text-[24px] opacity-[0.16] rounded-[24px] outline-none border-none 
-                focus-visible:ring-offset-0 placeholder:text-slate-400 focus:text-white"
+                className={styles.form_input}
                 placeholder={placeholder}
                 {...props}
             />
