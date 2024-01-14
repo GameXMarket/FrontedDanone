@@ -74,7 +74,7 @@
 
 
 .profile_p {
-    @apply text-[24px] mt-[5px] font-semibold;
+    @apply text-[24px] mt-[5px];
 }
 
 .info_block p {

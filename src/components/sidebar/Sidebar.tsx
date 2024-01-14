@@ -7,6 +7,7 @@ import { AuthButton, CatalogButton, ChatButton, MyOrdersButton } from './buttons
 import { InfoIcon, SupportIcon } from './icons/SidebarIcons'
 import Modal from './modal'
 import { useOutside } from '@/hooks/useOutside'
+import { BellIcon } from '@/app/(routes)/chats/icons/BellIcon'
 
 
 
@@ -32,7 +33,12 @@ const Sidebar:FC = () => {
                                 </div>
                             </div>
                             <div className={styles.profile_info_block}>
-                                <h4 className={styles.sidebar_name}>Redmoon</h4>    
+                                <div className='w-full flex'>
+                                    <h4 className={styles.sidebar_name}>Redmoon</h4> 
+                                    <div className='ml-2'>
+                                        <BellIcon/>
+                                    </div>
+                                </div>    
                                 <div className={styles.profile_info_wallet} onClick={() => setIsShow(!isShow)}>
                                     <div className='pl-4'>
                                         <Image alt='wallet' src='/profile-assets/empty-wallet.svg' width={32} height={32}  />
@@ -42,8 +48,8 @@ const Sidebar:FC = () => {
                             </div>
                         </div>
                         <div className={styles.order_details}>
-                            <p className={styles.profile_p}>Сделок:<span className='font-light text-[24px] opacity-[0.16]'> 2991</span></p>
-                            <p className={styles.profile_p}>На сайте:<span className='font-light text-[24px] opacity-[0.16]'> 3 года</span></p>
+                            <p className={styles.profile_p}>Сделок:<span className='font-light text-[24px]'> 2991</span></p>
+                            <p className={styles.profile_p}>На сайте:<span className='font-light text-[24px]'> 3 года</span></p>
                         </div>
                         <div className={styles.variants}>
                             <MyOrdersButton/>
