@@ -21,11 +21,13 @@ export const MyOrdersButton = () => {
                     <div className="w-[32px]">
                         <ShopIcon />
                     </div>
-                    <div className="w-full pl-5 items-center flex mr-4">
-                        <span className="text-[24px] text-left font-normal">
-                            Мои продажи
-                        </span>
-                    </div>
+                    <Link href='/my-offers'>
+                        <div className="w-full pl-5 items-center flex mr-4">
+                            <span className="text-[24px] text-left font-normal">
+                                Мои продажи
+                            </span>
+                        </div>
+                    </Link>
                     <div
                         onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                             e.stopPropagation()

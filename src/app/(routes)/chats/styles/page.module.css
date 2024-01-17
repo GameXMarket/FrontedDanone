@@ -6,6 +6,16 @@
     @apply w-full flex;
 }
 
+@media screen and (max-width: 440px) {
+  .messenger_container {
+    @apply max-w-[400px] m-0 flex items-center justify-center;
+  }
+
+  .messenger_groupsandchats {
+    @apply max-w-[400px] flex flex-col items-center; 
+  }
+}
+
 @keyframes gradientAnimation {
     0% {
       background-position: 0% 50%;

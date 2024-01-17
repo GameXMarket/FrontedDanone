@@ -36,3 +36,11 @@
     transform: rotate(270deg);
 
 }
+
+.groups_mob {
+    @apply items-center justify-between h-[48px] w-[380px] mr-2.5 flex bg-[#24252F] rounded-[20px];
+}
+
+.group_mob {
+    @apply w-full flex items-center justify-center text-[18px] font-light opacity-[0.16];
+}
