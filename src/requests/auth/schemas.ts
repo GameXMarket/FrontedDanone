@@ -25,7 +25,7 @@ export const registerShema = z.object({
     })
 
 // Login Schema
-export const loginShema = z.object({
+export const loginSchema = z.object({
     email: z.string()
         .min(1, { message: "Это поле обязательное" })
         .email("Это недействительный адрес электронной почты"),
@@ -34,4 +34,4 @@ export const loginShema = z.object({
 })
 
 export type RegisterDto = z.infer<typeof registerShema>
-export type LoginDto = z.infer<typeof loginShema>
+export type LoginDto = z.infer<typeof loginSchema>

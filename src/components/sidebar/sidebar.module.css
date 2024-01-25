@@ -7,7 +7,7 @@
 }
 
 .profile_block {
-@apply flex ;
+@apply flex items-center ;
 }
 
 .profile_avatar {

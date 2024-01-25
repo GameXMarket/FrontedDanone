@@ -1,7 +1,8 @@
+import { auth } from "@/auth";
 import { LoginForm } from "./_components/login-form";
 import Image from "next/image";
 
-const LoginPage = () => {
+const LoginPage = async () => {
     return (
         <div className="mt-6 flex flex-col items-center">
             <div className="w-[450px] flex flex-col items-center">

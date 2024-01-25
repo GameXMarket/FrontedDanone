@@ -20,8 +20,6 @@ const GamePage: FC = () => {
         queryFn: () => categoryServices.getCategoryById(+category_id),
     });
 
-    console.log(data);
-
     return (
         <div className="pr-20 h-full">
             <section className={styles.back}>

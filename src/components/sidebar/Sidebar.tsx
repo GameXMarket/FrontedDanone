@@ -5,28 +5,23 @@ import styles from './sidebar.module.css'
 import Image from 'next/image'
 import { AuthButton, CatalogButton, ChatButton, MyOrdersButton } from './buttons/Buttons'
 import { InfoIcon, SupportIcon } from './icons/SidebarIcons'
+import { useSession } from 'next-auth/react'
+import { Avatar } from '@/components/Avatar'
 
 
 
 const Sidebar:FC = () => {
-    const [isAuth, setIsAuth] = useState<boolean>(true) // УСЛОВНО
+    const session = useSession()
 
     return (
         <aside className={styles.sidebar}>
-            {isAuth ? (
+            {session.data?.user ? (
                 <>
                     
                     <div className={styles.profile_block}>
-                        <div className={styles.profile_avatar_wrapper}>
-                            <div className={styles.profile_avatar}>
-                                <Image className={styles.profile_avatar_icon} width={60} height={60} alt='avatar' src='/profile-assets/avatar.svg'/>
-                            </div>
-                            <div className={styles.profile_settings}>
-                                <Image className={styles.profile_avatar_icon} alt='avatar' width={21} height={20} src='/profile-assets/settings.svg'/>
-                            </div>
-                        </div>
+                        <Avatar src='/profile-assets/avatar.svg' size={60} />
                         <div className={styles.profile_info_block}>
-                            <h4 className={styles.sidebar_name}>Redmoon</h4>    
+                            <h4 className={styles.sidebar_name}>{session.data.user.username}</h4>    
                             <div className={styles.profile_info_wallet}>
                                 <Image alt='wallet' src='/profile-assets/empty-wallet.svg' width={32} height={32}  />
                                 <h5 className={styles.profile_count}>19 221.01₽</h5>

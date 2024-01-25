@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ItemCard } from "../../../../components/ItemCard";
+import { ItemCard } from "@/components/ItemCard";
 
 interface PopularRowProps {
     data: {
