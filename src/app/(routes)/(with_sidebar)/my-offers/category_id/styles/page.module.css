@@ -1,0 +1,87 @@
+.mobc {
+    @apply w-full ml-3;
+}
+
+.category {
+    @apply w-full flex;
+}
+
+.back {
+    transition: 0.6s;
+    @apply ml-2 cursor-pointer text-[22px] font-light text-[#3E3F45];
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0% 85%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+}
+
+.back:hover {
+    color: #EE5234;
+    background-size: 100% 1px;
+}
+
+.category_info {
+    @apply ml-[5rem] flex;
+}
+
+.game_title {
+    @apply text-[24px] font-bold;
+}
+
+.qty {
+    @apply opacity-[0.16] font-light;
+}
+
+.nav {
+    @apply flex mt-6;
+}
+
+.accaunts {
+    @apply px-7 py-5 ml-4 flex items-center justify-between h-[62px] w-[315px] rounded-[24px] bg-[#24252F];  
+}
+
+.arrDown {
+    cursor: pointer;
+    transform: rotate(270deg);
+}
+
+.table {
+    @apply w-[1280px] mt-4 ;
+}
+
+.table::-webkit-scrollbar {
+
+}
+
+.graphs {
+    @apply w-[1245px] justify-around items-center flex h-[78px] rounded-[24px] bg-[#24252F];
+}
+
+.order {
+    @apply w-[1205px] justify-around items-center h-[104px] flex; 
+}
+
+.order_edit {
+
+}
+
+.orders {
+    @apply mt-3 w-[1245px] overflow-y-scroll max-h-[500px];
+}
+
+.dropdown {
+    @apply py-6 w-[315px] min-h-[42px] top-[33.5%] right-[39%] absolute z-50 rounded-[24px] bg-[#24252F];
+}
+
+.option {
+    transition: 0.6s;
+    @apply cursor-pointer h-[42px] flex items-center justify-center;
+}
+
+.option:hover {
+    @apply bg-[#414243];
+} 
+
+.option p {
+    @apply text-[20px];
+}

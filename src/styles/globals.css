@@ -33,6 +33,10 @@ html{
   -moz-text-fill-color: transparent;
 }
 
+.back-gradient{
+  background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);;
+}
+
 /* Scrollbar */
 * {
   scrollbar-width: thin;

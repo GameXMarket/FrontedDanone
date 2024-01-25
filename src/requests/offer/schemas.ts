@@ -1,8 +1,6 @@
 import { z } from "zod";
 
-// Shema на Schema исправь
-
-export const createOfferShema = z.object({
+export const createOfferSchema = z.object({
     attachment_id: z.number().nullable(),
     name: z.string(),
     description: z.string(),
@@ -14,4 +12,4 @@ export const createOfferShema = z.object({
     amount_id: z.number().optional()
 })
 
-export type CreateOfferDto = z.infer<typeof createOfferShema>
+export type CreateOfferDto = z.infer<typeof createOfferSchema>

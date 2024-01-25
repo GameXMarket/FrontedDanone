@@ -1,5 +1,5 @@
+import { auth } from "@/auth";
 import axios from "axios";
-import { getSession } from "next-auth/react";
 
 const instance = axios.create({
     baseURL: 'https://test.yunikeil.ru/',
@@ -7,8 +7,8 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(async function (config) {
-    const session = await getSession()
-    config.headers.Authorization = `Bearer ${session?.user.access}`
+    // const session = await auth()
+    // config.headers.Authorization = `Bearer ${session?.user?.access}`
     return config;
   }, function (error) {
     // Do something with request error

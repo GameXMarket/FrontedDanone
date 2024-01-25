@@ -17,3 +17,53 @@
     @apply w-[181px] text-[24px] font-normal h-[72px] rounded-[24px];
     background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);
 }
+
+@media screen and (max-width:440px) {
+    .auth_btn {
+        @apply w-[238px] h-[48px] text-[18px] py-4 px-6;
+    }
+
+    .form_input {
+        @apply text-[20px] h-[50px] !important;
+    }
+
+    .register {
+        @apply text-[24px];
+    }
+
+    .login {
+        @apply text-[24px];
+    }
+
+    .login_page {
+        max-width: 254px;
+    }
+
+    .title_container {
+        justify-content: space-between;
+        max-width: 100%;
+    }
+
+    .title_container h3 {
+        padding: 0;
+    }
+
+
+}
+
+.login_page {
+    @apply w-[464px] flex flex-col items-center;
+}
+
+.title_container {
+    @apply w-full flex flex-col items-center;
+}
+
+.form_input {
+    @apply bg-[#24252F] h-[72px] pl-[30px] font-light text-[24px] opacity-[0.16] rounded-[24px] outline-none border-none 
+    focus-visible:ring-offset-0 placeholder:text-slate-400 focus:text-white;
+}
+
+.footer {
+    @apply mt-8 max-w-[280px];
+}

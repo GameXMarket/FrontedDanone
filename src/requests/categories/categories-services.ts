@@ -10,7 +10,7 @@ export const categoryServices = {
     },
 
     async getCategoryById(category_id: number) {
-        const data = await instance.get(`/categories/${category_id}`)
+        const data = await instance.get(`/categories/carcass/${category_id}`)
         return data.data
     },  
 

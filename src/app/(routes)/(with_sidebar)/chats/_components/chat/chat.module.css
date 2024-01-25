@@ -1,0 +1,66 @@
+.chat {
+    @apply ml-5 flex flex-col w-[550px];
+}
+
+.chat_name {
+    @apply  ml-1 text-[28px] font-semibold;
+}
+
+.chat_container {
+    @apply flex items-center overflow-y-scroll max-h-[500px] flex-col w-full;
+}
+
+.chat_container::-webkit-scrollbar {
+    margin-left:12px;
+}
+
+.message_right {
+    @apply my-2 pr-1 w-full flex items-center justify-end;
+}
+
+.msg_right  {
+    @apply flex w-[400px] min-h-[80px] rounded-[21px] bg-[#29232b];
+}
+
+.chat_send_msg {
+    border-radius: 24px;
+    opacity: 0.08;
+    background: var(--main-color, linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%));
+    @apply cursor-pointer ml-2 flex h-16 w-16 items-center justify-center;
+}
+
+.msg_avatar {
+     @apply pt-[18px] pl-4 h-full flex items-center w-[64px] justify-center;
+}
+
+.msg_right h4 {
+    @apply pl-2 text-[17px] font-semibold;
+    background: var(--main-color, linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.msg_right p {
+    @apply text-[16px] pl-2 font-normal;
+}
+
+.msg_left h4 {
+    @apply pl-2 text-[17px] font-semibold;
+    background: var(--main-color, linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.msg_left p {
+    @apply text-[16px] pl-2 font-normal;
+}
+
+.msg_left  {
+    @apply flex w-[400px] min-h-[80px] rounded-[21px] bg-[#24252F];
+}
+
+.message_left {
+    @apply my-2 w-full flex items-center justify-start;
+}
