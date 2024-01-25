@@ -1,0 +1,41 @@
+.messenger_container {
+    @apply w-[1000px] flex ml-5;
+}
+
+.messenger_groupsandchats {
+    @apply w-full flex;
+}
+
+@media screen and (max-width: 440px) {
+  .messenger_container {
+    @apply max-w-[400px] m-0 flex items-center justify-center;
+  }
+
+  .messenger_groupsandchats {
+    @apply max-w-[400px] flex flex-col items-center; 
+  }
+}
+
+@keyframes gradientAnimation {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+}
+
+
+.is_opened_chat {
+    @apply w-full h-[648px] flex items-center rounded-[32px] justify-center;
+    border: dashed 1px;
+    animation: gradientAnimation 20s ease infinite;
+    background: linear-gradient(-45deg, #491e17, #1B1C23, #1B1C23, #491e17);
+    border-color: rgba(62, 63, 69,0.4);
+    background-size: 400% 400%;
+}
+
+

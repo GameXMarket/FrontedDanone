@@ -17,7 +17,7 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
 }) => {
     return (
         <Link href={`/categories/${id}`}>
-            <div className=" w-[300px]" key={id}>
+            <div className=" w-[300px] h-[380px]" key={id}>
                 <Image
                     className="z-10 rounded-[24px]"
                     src="/catalog/game.jpg"

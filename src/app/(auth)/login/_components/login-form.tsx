@@ -5,7 +5,7 @@ import styles from "./styles/login.module.css";
 import { Button } from "@/components/ui/button";
 import { FormInput } from "../../_components/form-input";
 import { useFormStatus } from "react-dom";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { loginSchema } from "@/requests/auth/schemas";
@@ -49,70 +49,71 @@ export const LoginForm = () => {
             return;
         }
         setErrors({ email: undefined, password: undefined });
-        login(values, callbackUrl)
-        .finally(() => setIsLoading(false));
+        login(values, callbackUrl).finally(() => setIsLoading(false));
     };
 
     return (
         <div className="w-full flex flex-col items-center">
-            <Button
-                onClick={() => {
-                    logout();
-                }}
-            >
-                Sign Out
-            </Button>
-            <div className=" w-full flex">
-                <Link href="/register">
-                    <h3 className={styles.register}>Регистрация</h3>
-                </Link>
-                <Link href="/login">
-                    <h3 className={styles.login}>Войти</h3>
-                </Link>
-            </div>
-            <Form {...form}>
-                <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-3 w-full px-4 flex flex-col items-center"
+            <div className={styles.title_container}>
+                <Button
+                    onClick={() => {
+                        logout();
+                    }}
                 >
-                    <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                            <FormInput
-                                {...field}
-                                disabled={loading}
-                                errors={errors}
-                                id="email"
-                                placeholder="Имя пользователя"
-                            />
-                        )}
-                    ></FormField>
-                    <FormField
-                        control={form.control}
-                        name="password"
-                        render={({ field }) => (
-                            <FormInput
-                                {...field}
-                                disabled={loading}
-                                errors={errors}
-                                id="password"
-                                placeholder="Пароль"
-                            />
-                        )}
-                    ></FormField>
-                    <div className="pt-[56px]">
-                        <Button
-                            disabled={pending || loading}
-                            className={styles.auth_btn}
-                            type="submit"
-                            variant="primary"
-                        >
-                            Далее
-                        </Button>
-                    </div>
-                </form>
-            </Form>
+                    Sign Out
+                </Button>
+                <div className=" w-full flex">
+                    <Link href="/register">
+                        <h3 className={styles.register}>Регистрация</h3>
+                    </Link>
+                    <Link href="/login">
+                        <h3 className={styles.login}>Войти</h3>
+                    </Link>
+                </div>
+                <Form {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(onSubmit)}
+                        className="space-y-3 w-full px-4 flex flex-col items-center"
+                    >
+                        <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                                <FormInput
+                                    {...field}
+                                    disabled={loading}
+                                    errors={errors}
+                                    id="email"
+                                    placeholder="Имя пользователя"
+                                />
+                            )}
+                        ></FormField>
+                        <FormField
+                            control={form.control}
+                            name="password"
+                            render={({ field }) => (
+                                <FormInput
+                                    {...field}
+                                    disabled={loading}
+                                    errors={errors}
+                                    id="password"
+                                    placeholder="Пароль"
+                                />
+                            )}
+                        ></FormField>
+                        <div className="pt-[56px]">
+                            <Button
+                                disabled={pending || loading}
+                                className={styles.auth_btn}
+                                type="submit"
+                                variant="primary"
+                            >
+                                Далее
+                            </Button>
+                        </div>
+                    </form>
+                </Form>
+            </div>
         </div>
     );
 };

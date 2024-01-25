@@ -21,11 +21,13 @@ export const MyOrdersButton = () => {
                     <div className="w-[32px]">
                         <ShopIcon />
                     </div>
-                    <div className="w-full pl-5 items-center flex mr-4">
-                        <span className="text-[24px] text-left font-normal">
-                            Мои продажи
-                        </span>
-                    </div>
+                    <Link href='/my-offers'>
+                        <div className="w-full pl-5 items-center flex mr-4">
+                            <span className="text-[24px] text-left font-normal">
+                                Мои продажи
+                            </span>
+                        </div>
+                    </Link>
                     <div
                         onClick={(e: React.MouseEvent<HTMLDivElement>) => {
                             e.stopPropagation()
@@ -43,21 +45,23 @@ export const MyOrdersButton = () => {
 
 export const ChatButton = () => {
     return (
-        <div className="">
-            <Button className={styles.button}>
-                <div className="w-full flex items-center">
-                    <div className="w-[32px]">
-                        <ChatIcon />
+        <Link href='/chats'> 
+            <div className="">
+                <Button className={styles.button}>
+                    <div className="w-full flex items-center">
+                        <div className="w-[32px]">
+                            <ChatIcon />
+                        </div>
+                        <div className="w-full pl-5 flex justify-start">
+                            <span className="text-[24px] font-normal">Чаты</span>
+                        </div>
+                        <div className={styles.button_msg_wrapper}>
+                            <div className={styles.button_count_msg}>3</div>
+                        </div>
                     </div>
-                    <div className="w-full pl-5 flex justify-start">
-                        <span className="text-[24px] font-normal">Чаты</span>
-                    </div>
-                    <div className={styles.button_msg_wrapper}>
-                        <div className={styles.button_count_msg}>3</div>
-                    </div>
-                </div>
-            </Button>
-        </div>
+                </Button>
+            </div>
+        </Link>
     );
 };
 
