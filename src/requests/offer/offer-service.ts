@@ -1,6 +1,6 @@
 import { createSafeFetch } from "@/lib/create-safe-fetch"
 import instance from ".."
-import {CreateOfferDto, createOfferShema} from "./schemas"
+import {CreateOfferDto, createOfferSchema} from "./schemas"
 
 export const OfferApiService = {
 
@@ -15,4 +15,4 @@ export const OfferApiService = {
     }
 }
 
-export const safeCreateOffer = createSafeFetch(createOfferShema, OfferApiService.createOffer)
+export const safeCreateOffer = createSafeFetch(createOfferSchema, OfferApiService.createOffer)

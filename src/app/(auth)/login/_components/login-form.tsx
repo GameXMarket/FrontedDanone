@@ -55,14 +55,7 @@ export const LoginForm = () => {
     return (
         <div className="w-full flex flex-col items-center">
             <div className={styles.title_container}>
-                <Button
-                    onClick={() => {
-                        logout();
-                    }}
-                >
-                    Sign Out
-                </Button>
-                <div className=" w-full flex">
+                <div className="w-full flex gap-x-2">
                     <Link href="/register">
                         <h3 className={styles.register}>Регистрация</h3>
                     </Link>

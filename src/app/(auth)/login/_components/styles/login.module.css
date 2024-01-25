@@ -56,7 +56,7 @@
 }
 
 .title_container {
-    @apply w-full flex items-center;
+    @apply w-full flex flex-col items-center;
 }
 
 .form_input {

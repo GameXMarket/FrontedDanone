@@ -1,9 +1,10 @@
 import { Dispatch, FC, PropsWithChildren, SetStateAction } from "react";
 import styles from './sidebar.module.css'
-import { ArrowBackIcon } from "@/app/(routes)/categories/[category_id]/icons/game-page-icons";
+import { ArrowBackIcon } from "@/app/(routes)/(with_sidebar)/categories/[category_id]/icons/game-page-icons";
 import { Button } from "../ui/button";
 import MaskedInput from 'react-text-mask'
 import { SuccessIcon } from "./icons/SidebarIcons";
+import { ChevronLeft } from "lucide-react";
 
 interface IModal {
     reference: any
@@ -53,7 +54,7 @@ const Modal:FC<PropsWithChildren<IModal>> = ({reference, isShow, setIsShow}) => 
 
                         <MaskedInput mask={[/[1-9]/, /\d/, /\d/, /\d/,  ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/]} placeholder='Введите номер карты' className={styles.input}/>
                         <div className={styles.arr}>
-                            <ArrowBackIcon/>
+                            <ChevronLeft color="#FB2A29" className="text-gradient" />
                         </div>
                     </div>
                     <Button className={styles.withdraw}>Вывести деньги</Button>

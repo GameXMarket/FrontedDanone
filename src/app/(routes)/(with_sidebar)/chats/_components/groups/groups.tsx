@@ -4,7 +4,7 @@ import { FC } from "react";
 import styles from './groups.module.css'
 import Image from "next/image";
 import Group from "./group";
-import { ArrowBackIcon } from "@/app/(routes)/categories/[category_id]/icons/game-page-icons";
+import { ArrowBackIcon } from "@/app/(routes)/(with_sidebar)/categories/[category_id]/icons/game-page-icons";
 import { useMediaQuery } from "react-responsive";
 
 const Groups:FC = () => {

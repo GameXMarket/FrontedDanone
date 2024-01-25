@@ -4,7 +4,7 @@ import { FC, useState } from "react";
 import styles from './styles/page.module.css'
 import Groups from "./_components/groups/groups";
 import Dialogs from "./_components/dialogs/dialogs";
-import Chat from "./_components/chat/chat";
+import Chat from "./_components/chat/Chat";
 
 const MessengerPage:FC = () => {
     const [isOpenedChat, setIsOpenedChat] = useState<boolean>(false);

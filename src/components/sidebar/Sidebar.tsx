@@ -14,7 +14,7 @@ import { useSession } from "next-auth/react";
 import { Avatar } from "@/components/Avatar";
 import Modal from "./modal";
 import { useOutside } from "@/hooks/useOutside";
-import { BellIcon } from "@/app/(routes)/chats/icons/BellIcon";
+import { BellIcon } from "@/app/(routes)/(with_sidebar)/chats/icons/BellIcon";
 import { useMediaQuery } from "react-responsive";
 
 const Sidebar: FC = () => {
