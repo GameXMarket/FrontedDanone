@@ -11,7 +11,7 @@ export default function HomeLayout({
     return (
         <div className="h-full flex flex-col pb-12 px-12">
             <NoSidebarHeader />
-            <main className="w-full flex mt-16">
+            <main className="w-full flex mt-10">
                 {children}
             </main>
         </div>

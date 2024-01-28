@@ -16,6 +16,7 @@ import Modal from "./modal";
 import { useOutside } from "@/hooks/useOutside";
 import { BellIcon } from "@/app/(routes)/(with_sidebar)/chats/icons/BellIcon";
 import { useMediaQuery } from "react-responsive";
+import Link from "next/link";
 
 const Sidebar: FC = () => {
     const session = useSession();
@@ -91,9 +92,11 @@ const Sidebar: FC = () => {
                             <div className={styles.info_block}>
                                 <div className="flex cursor-pointer">
                                     <SupportIcon />
-                                    <p className="text-[24px] opacity-[0.16] ml-4 font-regular">
-                                        Тех. поддержка
-                                    </p>
+                                    <Link href={'/support'}>
+                                        <p className="text-[24px] opacity-[0.16] ml-4 font-regular">
+                                            Тех. поддержка
+                                        </p>
+                                    </Link>
                                 </div>
                                 <div className="flex cursor-pointer mt-[28px]">
                                     <InfoIcon />
