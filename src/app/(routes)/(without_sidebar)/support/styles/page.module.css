@@ -14,7 +14,12 @@
 }
 
 .sidebar_ticket {
-    @apply ml-8 my-2 text-[24px] font-normal;
+    transition:0.6s;
+    @apply ml-8 my-2.5 text-[24px] font-normal;
+}
+
+.sidebar_ticket:hover {
+    @apply text-gray-400 cursor-pointer;
 }
 
 .problems {
