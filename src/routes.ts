@@ -6,7 +6,9 @@
 export const publicRoutes = [
     "/",
     "/home",
-    "/settings/profile"
+    "/settings/profile",
+    "/support",
+    "/ticket"
   ];
   
   /**

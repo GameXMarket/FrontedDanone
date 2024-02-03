@@ -1,0 +1,42 @@
+.TicketDetails {
+    @apply mt-8;
+}
+
+.TicketDetails h1 {
+    @apply text-[24px] mb-3 font-normal;
+}
+
+.TicketDetails h4 {
+    @apply text-[24px] my-2 font-[400];
+}
+
+.problem {
+    background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.description {
+    @apply w-[600px] px-4 flex justify-between h-[62px] bg-[#24252F] rounded-[24px]; 
+}
+
+.arr {
+    cursor: pointer;
+    transform: rotate(270deg);
+    @apply flex items-center justify-center;
+}
+
+.full_des {
+    transform: translateY(-20px);
+    border-radius: 0 0 24px 24px;
+    @apply z-50 w-[600px] min-h-[400px] bg-[#24252F];
+}
+
+
+.success {
+    @apply text-[#5CFF41];
+}
+
+.deny {
+    @apply text-[24px] text-[#FF4141];
+}

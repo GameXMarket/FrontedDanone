@@ -1,18 +1,63 @@
+import { FC } from "react";
+import styles from './styles/page.module.css'
+import Sidebar from "./_components/sidebar";
+import { SafetyIcon, UnnamedIcon } from "./icons/icons";
 import { Button } from "@/components/ui/button";
 
-const SupportPage = () => {
+const Support:FC = () => {
     return (
-        <div className="w-[calc(100%-87px)] mobile:w-full ml-auto flex flex-col gap-y-12 mobile:gap-y-6 items-center mt-6">
-            <h1 className="hidden mobile:inline mobile:text-2xl">Помогите нам стать лучше!</h1>
-            <h1 className="text-4xl mobile:text-lg text-center leading-relaxed mobile:text-muted-foreground">
-                Сообщите в техническую поддержку, какую игру вы хотели бы выдеть
-                в нашем каталоге.
-                <br />
-                <span className="mobile:hidden">Вы очень поможете нам стать лучше!</span>
-            </h1>
-            <Button size="lg" className="text-lg rounded-xl" variant="accent">Техническая поддержка</Button>
-        </div>
-    );
-};
+        <div className={styles.support}>
+            <Sidebar/>
+            <section className={styles.content}>
+                <h3 className="text-[24px]">Выберите с чем вам нужна помощь:</h3>
+                <div className={styles.problems}>
+                    <div className={styles.problem}>
+                        <UnnamedIcon/>
+                        <p>Сделка</p>
+                    </div>
+                    <div className={styles.problem}>
+                        <SafetyIcon/>
+                        <p>Вывод средств</p>
+                    </div>
+                    <div className={styles.problem}>
+                        <UnnamedIcon/>
+                        <p>Баги</p>
+                    </div>
+                    <div className={styles.problem}>
+                        <p>Другое</p>
+                    </div>
 
-export default SupportPage;
+                </div>
+
+                <h3 className="text-[24px] mt-8">Выберите тип возникшей проблемы:</h3>
+                <div className={styles.problems}>
+                    <div className={styles.problem}>
+
+                    </div>
+                    <div className={styles.problem}>
+
+                    </div>
+                    <div className={styles.problem}>
+
+                    </div>
+                    <div className={styles.problem}>
+                        
+                    </div>
+
+                </div>
+
+                <h3 className="text-[24px] mt-8">Опишите возникшую проблему:</h3>
+
+                <p className="text-[18px] opacity-[0.16] font-light">Выдажайте мысли четко и ясно. Не отвлекайтесь на лишние подробности. <br/> 
+                Все это поможет нам быстрее решить вашу проблему.</p>
+
+                <textarea className={styles.area} placeholder="Опишите возникшую проблему"></textarea>
+                <div className="my-4 w-full flex items-center justify-center">
+                    <Button className={styles.button}>Создать тикет</Button>
+                </div>
+            </section>
+        </div>
+    )
+}
+
+export default Support
