@@ -1,5 +1,5 @@
 .header {
-    @apply w-full flex items-center justify-center pt-12 pb-3;
+    @apply w-full flex items-center justify-center pt-12 pb-3 mobile:pt-6;
 }
 
 .logo_container {

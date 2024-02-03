@@ -16,6 +16,9 @@ module.exports = {
       },
     },
     extend: {
+      screens: {
+        "mobile": {'max': '440px'}
+      },
       colors: {
         bgel: "var(--bgel)",
         border: "hsl(var(--border))",

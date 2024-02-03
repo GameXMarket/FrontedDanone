@@ -3,6 +3,8 @@
 import { cn } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
 import { useMemo } from "react";
+import { useMediaQuery } from "react-responsive";
+import { MobileNavbar } from "./mobile-navbar";
 
 export const Navbar = () => {
 
@@ -15,8 +17,16 @@ export const Navbar = () => {
 
     const {push} = useRouter()
 
+    const mobileRes = useMediaQuery({
+        query: "(max-width: 440px)",
+    });
+
+    // if(mobileRes){
+    //     return <MobileNavbar />
+    // }
+
     return (
-        <div className="flex flex-col gap-y-4 text-2xl text-muted-foreground">
+        <div className="flex flex-col gap-y-4 text-2xl text-muted-foreground mobile:hidden">
             <p onClick={() => push(`/user/offers/${userId}`)} className={cn("hover:text-white transition cursor-pointer", 
                 pathname.includes("offers") && "text-gradient")}>
                 Товары

@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 interface OfferInfoProps {
     categoryId: number;
-    description: string
+    description: string;
 }
 
 export const OfferInfo = ({ categoryId, description }: OfferInfoProps) => {
@@ -19,10 +19,10 @@ export const OfferInfo = ({ categoryId, description }: OfferInfoProps) => {
     });
 
     return (
-        <div className="space-y-6">
-            <div className="flex justify-between text-xl">
+        <div className="space-y-6 mobile:w-full">
+            <div className="flex justify-between text-xl mobile:w-full">
                 <h3 className="text-2xl">Информация о товаре:</h3>
-                <p className="text-muted-foreground flex gap-x-2">
+                <p className="text-muted-foreground flex gap-x-2 mobile:hidden">
                     Статус: <span className="text-white"> Оплачено</span>
                     <Image
                         src="/images/auth/correct.svg"
@@ -34,14 +34,41 @@ export const OfferInfo = ({ categoryId, description }: OfferInfoProps) => {
             </div>
             <div className="flex flex-wrap gap-x-3 gap-y-2">
                 {data?.childrens?.map?.((el) => (
-                    <Button className="bg-bgel rounded-xl">
-                        {el.name}
-                    </Button>
+                    <Button className="bg-bgel rounded-xl">{el.name}</Button>
                 ))}
+            </div>
+            <div className="hidden mobile:flex gap-x-3 items-center">
+                <div className="relative w-[48px] h-[48px]">
+                    <Image
+                        className="absolute object-cover rounded-full"
+                        src="/images/temp_main/diablo.png"
+                        alt="logo"
+                        fill
+                    />
+                </div>
+                <div>
+                    <p className="text-xl">Демьян</p>
+                    <div className="flex items-center gap-x-1">
+                        <span className="text-muted-foreground text-base mr-1">
+                            Оценка:
+                        </span>
+                        {Array.from({ length: 5 }, (_, idx) => (
+                            <Image
+                                key={idx}
+                                src="/images/main/star.svg"
+                                alt="star"
+                                width={16}
+                                height={16}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
             <div>
                 <h3 className="text-xl">Описание товара:</h3>
-                <div className="w-full p-4 bg-bgel rounded-xl mt-3 text-lg">{description}</div>
+                <div className="w-full p-4 bg-bgel rounded-xl mt-3 text-lg">
+                    {description}
+                </div>
             </div>
         </div>
     );

@@ -46,9 +46,9 @@ export const NewOfferForm = () => {
         }
     });
 
-    const [name, setName] = useState<string>("");
-    const [service, setService] = useState<string>("");
-    const [amount, setAmount] = useState<string>("");
+    const [name, setName] = useState<string>("a");
+    const [service, setService] = useState<string>("a");
+    const [amount, setAmount] = useState<string>("a");
 
     const price = form.watch("price");
 
@@ -105,27 +105,27 @@ export const NewOfferForm = () => {
             return []
         }
     })
-console.log(games)
+
     if (!mounted) return null;
 
     return (
         <div
             className={cn(
-                "w-full h-full flex px-8",
+                "w-full h-full flex mobile:justify-center px-8 mobile:px-0",
                 styles.wrapper
                 // !nextPage && "ml-[20px] lg:ml-[210px] xl:ml-[340px]",
                 // nextPage && "ml-[20px] lg:ml-[210px] xl:ml-[300px]"
             )}
         >
-            <form onSubmit={form.handleSubmit(onSubmit)}>
+            <form className="mobile:w-full" onSubmit={form.handleSubmit(onSubmit)}>
                 <div
                     className={cn(
                         nextPage && "hidden",
                         !nextPage && styles.second_frame
                     )}
                 >
-                    <div className="flex flex-col items-center gap-y-4 min-w-[440px]">
-                        <SelectName
+                    <div className="flex flex-col items-center gap-y-4 min-w-[440px] mobile:min-w-full">
+                        <SelectName 
                             refetch={refetchServices}
                             data={games}
                             form={form}
@@ -167,14 +167,14 @@ console.log(games)
                 </div>
                 <div
                     className={cn(
-                        "w-[500px] space-y-8",
+                        "w-[500px] mobile:w-full space-y-8",
                         !nextPage && "hidden",
                         nextPage && styles.second_frame
                     )}
                 >
                     <div className="space-y-6">
                         <div className="space-y-4">
-                            <h2 className="text-3xl font-medium">Основное</h2>
+                            <h2 className="text-3xl font-medium mobile:text-center">Основное</h2>
                             <FormField
                                 disabled={mutation.isPending}
                                 control={form.control}
@@ -195,7 +195,7 @@ console.log(games)
                             />
                         </div>
                         <div className="space-y-4">
-                            <h2 className="text-3xl font-medium">Основное</h2>
+                            <h2 className="text-3xl font-medium">Описание</h2>
                             <FormField
                                 disabled={mutation.isPending}
                                 control={form.control}
@@ -209,23 +209,23 @@ console.log(games)
                             />
                         </div>
                         <div className="space-y-4">
-                            <h2 className="text-3xl font-medium">
+                            <h2 className="text-3xl font-medium mobile:text-center">
                                 Загрузка фото
                             </h2>
                             <div
                                 className={cn(
                                     styles.dash_space,
-                                    "h-[130px] flex items-center px-6 relative"
+                                    "h-[130px] mobile:h-auto flex mobile:justify-center items-center px-6 mobile:p-0 relative"
                                 )}
                             >
-                                <div className="flex items-center justify-between">
+                                <div className="flex mobile:block mobile:w-fit items-center justify-between mobile:p-3 mobile:bg-bgel mobile:rounded-xl">
                                     <Image
                                         alt="add_photo"
                                         width={32}
                                         height={32}
                                         src="/images/new-offer/gallery-add.svg"
                                     />
-                                    <p className="text-muted-foreground text-xl w-5/6">
+                                    <p className="text-muted-foreground text-xl w-5/6 mobile:hidden">
                                         Перетащите изображения в эту область,
                                         или нажмите внутри неё
                                     </p>
@@ -240,7 +240,7 @@ console.log(games)
                                             {...field}
                                             type="file"
                                             className={cn(
-                                                "h-full opacity-0 cursor-pointer absolute top-0 left-0"
+                                                "h-full opacity-0 cursor-pointer absolute top-0 left-0 mobile:top-1/2 mobile:left-1/2 mobile:-translate-x-1/2 mobile:-translate-y-1/2 mobile:p-0 mobile:w-[40px] mobile:h-[40px]"
                                             )}
                                         />
                                     )}
@@ -302,10 +302,10 @@ const SelectName = ({ setName, label, placeholder, form, data, refetch }: Select
                 name="game_id"
                 render={({ field }) => (
                     <Select onValueChange={(value) => onChange(field, value)}>
-                        <SelectTrigger className="min-w-[300px] px-6">
+                        <SelectTrigger className="min-w-[300px] px-6 mobile:px-3 mobile:text-lg">
                             <SelectValue placeholder={placeholder} />
                         </SelectTrigger>
-                        <SelectContent className="text-xl">
+                        <SelectContent className="text-xl mobile:text-lg">
                             {data?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
                         </SelectContent>
                     </Select>
@@ -351,10 +351,10 @@ const SelectService = ({
                 name="service_id"
                 render={({ field }) => (
                     <Select onValueChange={(value) => onChange(field, value)}>
-                        <SelectTrigger className="px-6">
+                        <SelectTrigger className="px-6 mobile:px-3 mobile:text-lg">
                             <SelectValue placeholder={placeholder} />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="mobile:text-lg">
                             {data?.childrens?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
                         </SelectContent>
                     </Select>
@@ -396,10 +396,10 @@ const SelectAmount = ({
                 name="amount_id"
                 render={({ field }) => (
                     <Select onValueChange={(value) => onChange(field, value)}>
-                        <SelectTrigger className="px-6">
+                        <SelectTrigger className="px-6 mobile:px-3 mobile:text-lg">
                             <SelectValue placeholder={placeholder} />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="mobile:text-lg">
                             {data?.childrens?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
                         </SelectContent>
                     </Select>
@@ -426,7 +426,7 @@ const PriceInput = ({
                 {label}
                 <span className="text-rose-500"> *</span>
             </p>
-            <div className="flex items-center">
+            <div className="flex items-center mobile:flex-col mobile:items-start mobile:gap-y-4">
                 <div className="flex w-[170px]">
                     <FormField
                         disabled={disabled}
@@ -441,7 +441,7 @@ const PriceInput = ({
                         <p className="text-gradient">₽</p>
                     </div>
                 </div>
-                <div className="text-xl ml-6 flex items-center gap-x-2">
+                <div className="text-xl ml-6 mobile:ml-0 flex items-center gap-x-2">
                     <span>Цена для покупателя</span>
                     <span className="text-gradient">
                         {+price + Math.ceil((+price / 100) * 12) || 0} ₽

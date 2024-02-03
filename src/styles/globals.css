@@ -12,7 +12,7 @@ body,
   color: #EEEEEE;
 }
 
-html{
+body{
   padding: 0 20px;
 }
  
@@ -33,9 +33,6 @@ html{
   -moz-text-fill-color: transparent;
 }
 
-.back-gradient{
-  background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);;
-}
 
 /* Scrollbar */
 * {
@@ -59,7 +56,20 @@ html{
 }
 /* Scrollbar */
 
+@media screen and (max-width: 440px) {
+  html{
+    padding: 0 0 80px 0;
+  }
+  body{
+    padding: 0 1rem;
+  }
+}
+
 @layer base {
+  .back-gradient{
+    background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);;
+    background-color: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);;
+  }
   :root {
     --bgel: #24252F;
 

@@ -47,7 +47,7 @@ const images = [
 
 export const Games = () => {
     return (
-        <div className="h-[480px] grid grid-cols-4 gap-6">
+        <div className="h-[480px] grid grid-cols-4 mobile:grid-cols-2 gap-6">
             {images.map((img, idx) => (
                 <MainContentItem key={img.id} idx={idx} url={img.url} name={img.title} />
             ))}

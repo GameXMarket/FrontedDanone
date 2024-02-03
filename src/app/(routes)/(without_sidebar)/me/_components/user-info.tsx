@@ -1,5 +1,4 @@
 import { Avatar } from "@/components/Avatar";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export const UserInfo = () => {

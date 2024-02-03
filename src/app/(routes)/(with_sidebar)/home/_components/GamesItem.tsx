@@ -13,7 +13,9 @@ export const MainContentItem = ({ url, idx, name }: MainContentItemProps) => {
         <div 
             className={cn("relative cursor-pointer hover:scale-105 transition",
             idx === 0 && "row-span-2",
+            idx === 3 && "mobile:col-span-2",
             idx === 4 && "col-span-2",
+            idx > 3 && "mobile:hidden",
             styles.game_item
             )}
         >
