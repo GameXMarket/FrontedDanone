@@ -16,14 +16,14 @@ export const UserInfo = () => {
                 <div>
                     <p className="text-3xl">Демьян</p>
                     <div className="flex items-center gap-x-1">
-                        <span className="text-muted-foreground text-lg mr-1">Оценка:</span>
+                        <span className="text-muted-foreground text-lg mr-1 mobile:hidden">Оценка:</span>
                         {Array.from({length: 5}, (_, idx) => <Image key={idx} src='/images/main/star.svg' alt="star" width={16} height={16} />)}
                         <span>5.0</span>
                     </div>
                 </div>
-                <div className="ml-6"><p className="text-muted-foreground">Был в сети 3 часа назад</p></div>
+                <div className="ml-6 mobile:hidden"><p className="text-muted-foreground">Был в сети 3 часа назад</p></div>
             </div>
-            <Button size="lg" className="rounded-xl" variant="accent">Перейти в чат</Button>
+            <Button size="lg" className="rounded-xl mobile:hidden" variant="accent">Перейти в чат</Button>
         </div>
     );
 };

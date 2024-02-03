@@ -16,6 +16,8 @@ import Modal from "./modal";
 import { useOutside } from "@/hooks/useOutside";
 import { BellIcon } from "@/app/(routes)/(with_sidebar)/chats/icons/BellIcon";
 import { useMediaQuery } from "react-responsive";
+import { NotificationsModal } from "../Notifications";
+import Link from "next/link";
 
 const Sidebar: FC = () => {
     const session = useSession();
@@ -31,7 +33,26 @@ const Sidebar: FC = () => {
             {isShow && (
                 <Modal reference={ref} isShow={isShow} setIsShow={setIsShow} />
             )}
-            {mobileRes ? null : (
+            {mobileRes ? (
+                <aside className="fixed bottom-0 left-0 w-full flex justify-around items-center bg-[#1F2028] p-2 z-50 rounded-t-3xl">
+                    <div className="flex flex-col items-center gap-y-2">
+                        <Image src="/sidebar/catalog.svg" alt="catalog" width={32} height={32} />
+                        <span>Каталог</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-y-2">
+                        <Image src="/sidebar/plus.svg" alt="catalog" width={32} height={32} />
+                        <span>Продажи</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-y-2">
+                        <Image src="/sidebar/chat.svg" alt="catalog" width={32} height={32} />
+                        <span>Чаты</span>
+                    </div>
+                    <div className="flex flex-col items-center gap-y-2">
+                        <Avatar src="/profile-assets/avatar.svg" size={32} />
+                        <span>Профиль</span>
+                    </div>
+                </aside>
+            ) : (
                 <aside className={styles.sidebar}>
                     {isAuth ? (
                         <>
@@ -45,9 +66,7 @@ const Sidebar: FC = () => {
                                         <h4 className={styles.sidebar_name}>
                                             Redmoon
                                         </h4>
-                                        <div className="ml-2">
-                                            <BellIcon />
-                                        </div>
+                                        <NotificationsModal />
                                     </div>
                                     <div
                                         className={styles.profile_info_wallet}
@@ -91,9 +110,11 @@ const Sidebar: FC = () => {
                             <div className={styles.info_block}>
                                 <div className="flex cursor-pointer">
                                     <SupportIcon />
-                                    <p className="text-[24px] opacity-[0.16] ml-4 font-regular">
-                                        Тех. поддержка
-                                    </p>
+                                    <Link href={'/support'}>
+                                        <p className="text-[24px] opacity-[0.16] ml-4 font-regular">
+                                            Тех. поддержка
+                                        </p>
+                                    </Link>
                                 </div>
                                 <div className="flex cursor-pointer mt-[28px]">
                                     <InfoIcon />

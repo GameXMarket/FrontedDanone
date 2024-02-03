@@ -27,3 +27,13 @@
         margin-left: 10px;
     }
   }
+
+@media screen and (max-width: 440px) {
+    .wrapper{
+        margin-left: 0px;
+    }
+    .dash_space{
+        background: none;
+        background-image: none;
+    }
+  }

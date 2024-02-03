@@ -2,6 +2,8 @@
 
 import { cn } from "@/lib/utils";
 import { usePathname, useRouter } from "next/navigation";
+import { useMediaQuery } from "react-responsive";
+import { MobileNavbar } from "./mobile-navbar";
 
 export const Navbar = () => {
 
@@ -9,8 +11,16 @@ export const Navbar = () => {
     
     const {push} = useRouter()
 
+    const mobileRes = useMediaQuery({
+        query: "(max-width: 440px)",
+    });
+
+    if(mobileRes){
+        return <MobileNavbar />
+    }
+
     return (
-        <div className="flex flex-col gap-y-4 text-2xl text-muted-foreground">
+        <nav className="flex flex-col gap-y-4 text-2xl text-muted-foreground">
             <p
                 onClick={() => push("/settings/profile")}
                 className={cn(
@@ -38,6 +48,6 @@ export const Navbar = () => {
             >
                 Оповещения
             </p>
-        </div>
+        </nav>
     );
 };

@@ -9,9 +9,9 @@ export const NoSidebarHeader = () => {
     const router = useRouter()
 
     return (
-        <nav className="flex items-center pt-12">
+        <nav className="flex items-center pt-12 mobile:pt-6">
             <div
-                className="flex gap-x-3 items-center cursor-pointer"
+                className="flex gap-x-3 items-center cursor-pointer mobile:hidden"
                 onClick={() => router.back()}
             >
                 <ChevronLeft color="#FB2A29" className="text-gradient" />

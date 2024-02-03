@@ -9,7 +9,7 @@ export default function HomeLayout({
     return (
         <div className="h-full flex flex-col pb-12">
             <Header />
-            <main className="w-full flex mt-16">
+            <main className="w-full flex mt-16 mobile:mt-8">
                 <Sidebar />
                 <div className="w-full">{children}</div>
             </main>

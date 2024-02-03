@@ -1,7 +1,5 @@
-import { cn } from "@/lib/utils";
 import { NoSidebarHeader } from "./_components/Header";
-import { UserInfo } from "./user/_components/user-info";
-import { Navbar } from "./user/_components/navbar";
+import { MobileSidebar } from "./_components/mobile-sidebar";
 
 export default function HomeLayout({
     children,
@@ -9,11 +7,14 @@ export default function HomeLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div className="h-full flex flex-col pb-12 px-12">
+        <div className="h-full flex flex-col pb-12 px-12 mobile:px-0">
             <NoSidebarHeader />
-            <main className="w-full flex mt-16">
+            <main className="w-full flex mt-16 mobile:mt-8">
                 {children}
             </main>
+            <footer className="hidden mobile:block">
+                <MobileSidebar />
+            </footer>
         </div>
     );
 }

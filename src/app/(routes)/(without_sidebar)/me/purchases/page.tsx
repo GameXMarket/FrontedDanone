@@ -3,7 +3,7 @@ import { PurchaseItem } from "./_components/purchase-item";
 
 const PurchasesPage = () => {
     return (
-        <div className="grid grid-cols-3 gap-8 w-full">
+        <div className="grid grid-cols-3 gap-8 w-full mobile:grid-cols-1">
             {Array.from({ length: 10 }).map((_, idx) => (
                 <PurchaseItem key={idx} />
             ))}
