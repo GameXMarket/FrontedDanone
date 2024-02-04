@@ -3,6 +3,21 @@
 }
 
 
+@media screen and (max-width: 768px) {
+    .support {
+        @apply w-full flex flex-col;
+    }
+    
+    .problems {
+        @apply max-w-full flex flex-row flex-wrap;
+    }
+
+    .problem {
+        @apply max-w-[47%] rounded-[16px] max-h-[47%] m-1;
+    }
+}
+
+
 /* ============================SIDEBAR============================== */
 
 .sidebar {

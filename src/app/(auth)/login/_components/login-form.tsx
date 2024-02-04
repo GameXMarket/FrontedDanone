@@ -55,14 +55,13 @@ export const LoginForm = () => {
     return (
         <div className="w-full flex flex-col items-center">
             <div className={styles.title_container}>
-                <div className="w-full flex gap-x-2">
                     <Link href="/register">
                         <h3 className={styles.register}>Регистрация</h3>
                     </Link>
                     <Link href="/login">
                         <h3 className={styles.login}>Войти</h3>
                     </Link>
-                </div>
+            </div>
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
@@ -106,7 +105,7 @@ export const LoginForm = () => {
                         </div>
                     </form>
                 </Form>
-            </div>
+
         </div>
     );
 };

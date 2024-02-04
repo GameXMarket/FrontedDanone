@@ -1,13 +1,23 @@
+'use client'
+
 import { FC } from "react";
 import styles from './styles/page.module.css'
 import Sidebar from "./_components/sidebar";
 import { SafetyIcon, UnnamedIcon } from "./icons/icons";
 import { Button } from "@/components/ui/button";
+import { useMediaQuery } from "react-responsive";
 
 const Support:FC = () => {
+    const mobileRes = useMediaQuery({
+        query: '(max-width: 768px)'
+    })
+
     return (
         <div className={styles.support}>
-            <Sidebar/>
+            <div className={styles.tickets_mob}>
+                
+            </div>
+            {mobileRes ? <></> : <Sidebar/>}
             <section className={styles.content}>
                 <h3 className="text-[24px]">Выберите с чем вам нужна помощь:</h3>
                 <div className={styles.problems}>
