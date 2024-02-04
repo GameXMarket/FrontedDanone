@@ -23,12 +23,14 @@ function Catalog() {
 
     return (
         <div className="w-full h-full px-6">
-            <section className={styles.search_container}>
-                <SearchInput placeholder="Поиск" className="w-[400px]" />
-                <div className="flex items-center ml-10">
-                    <p className={styles.game_not_found}>Не нашли игру?</p>
-                </div>
-            </section>
+            <div className="w-full flex items-center justify-center">
+                <section className={styles.search_container}>
+                        <SearchInput placeholder="Поиск" className={styles.search} />
+                    <div className={styles.not_found}>
+                        <p className={styles.game_not_found}>Не нашли игру?</p>
+                    </div>
+                </section>
+            </div>
             <section className={styles.slider}>
                 {isLoading ? 
                  <h4 className="text-[64px] font-bold">Loading...</h4> :
