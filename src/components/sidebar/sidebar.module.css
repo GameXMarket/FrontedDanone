@@ -4,6 +4,7 @@
 
 .sidebar_name {
     @apply text-[24px] text-left font-semibold;
+    text-decoration: underline;
 }
 
 .profile_block {
@@ -50,12 +51,6 @@
     @apply ml-[9px] text-[24px] font-light;
 }
 
-.profile_settings:hover {
-    opacity:1;
-    filter: brightness(100%);
-    transform: translate(0px, -50px);
-
-}
 
 
 .profile_avatar_wrapper {
@@ -64,7 +59,7 @@
 }
 
 .profile_avatar_wrapper:hover {
-    filter: brightness(70%);
+ /*   filter: brightness(70%);*/
 }
 
 .profile_info_block {

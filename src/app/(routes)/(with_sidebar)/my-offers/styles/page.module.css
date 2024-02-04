@@ -10,6 +10,24 @@
     @apply text-2xl font-semibold;
 }
 
+.heading {
+    @apply flex;
+}
+
+.inp {
+    @apply w-[427px] h-[42px];
+}
+
+@media screen and (max-width: 768px) {
+    .offers_header {
+        @apply flex flex-col;
+    }
+
+    .inp {
+        @apply max-w-full;
+    }
+}
+
 .offers_mine {
     @apply mt-[15px];
 }

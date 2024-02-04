@@ -28,17 +28,6 @@ export const Avatar = ({ size, src }: AvatarProps) => {
                 alt="logo"
                 fill
             />
-            <Image
-                className={cn(
-                    `absolute translate-y-[${
-                        size ? size : 50
-                    }px] top-1/2 group-hover:-translate-y-1/2 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-all`
-                )}
-                alt="avatar"
-                width={size ? Math.floor(size/2.6) : 20}
-                height={size ? Math.floor(size/2.6) : 20}
-                src="/profile-assets/settings.svg"
-            />
         </div>
     );
 };
