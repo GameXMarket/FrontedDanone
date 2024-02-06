@@ -17,19 +17,20 @@ const MyOffers:FC = () => {
         <div className={styles.offers_container}>
             {mobileRes ? (
                 <div className={styles.offers_header}>  
-                    <div className="ml-12">
+                    <div className="">
                         <SearchInput placeholder="Поиск по названию" className={styles.inp}/>
                     </div>
                     <div className={styles.offers_mine}>
                         <div className={styles.heading}>
                             <h3>Мои продажи</h3>
-                            <Button className="bg-[#2E2F39] rounded-[8px] h-[32px] ml-3 ">
-                                <AddOfferIcon/>
-                            </Button>
+                            <p className={styles.off_history}>История</p>
                         </div>
-                        <div className="w-full flex justify-between">
-                        <p className={styles.off_history}>История</p>
-                        <></>
+                        <div className="w-full flex items-center justify-end">
+                            <div>
+                                <Button className={styles.add_btn}>
+                                    <p className="text-[22px]">+</p>
+                                </Button>
+                            </div>
                         </div>
                 </div>
             </div>
@@ -38,13 +39,15 @@ const MyOffers:FC = () => {
                 <div className={styles.offers_mine}>
                     <div className={styles.heading}>
                         <h3>Мои продажи</h3>
-                        <Button className="bg-[#2E2F39] rounded-[8px] h-[32px] ml-3 ">
+                        <p className={styles.off_history}>История</p>
+
+                    </div>
+                    <div className="w-full flex items-center justify-end">
+                        <div>
+                        <Button className={styles.add_btn}>
                             <AddOfferIcon/>
                         </Button>
-                    </div>
-                    <div className="w-full flex justify-between">
-                    <p className={styles.off_history}>История</p>
-                    <></>
+                        </div>
                     </div>
                 </div>
                 <div className="ml-12">

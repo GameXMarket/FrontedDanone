@@ -11,7 +11,7 @@
 }
 
 .heading {
-    @apply flex;
+    @apply min-w-[160px] flex flex-col;
 }
 
 .inp {
@@ -24,12 +24,28 @@
     }
 
     .inp {
-        @apply max-w-full;
+        @apply max-w-[90vw];
+    }
+
+    .offers_mine {
+        @apply flex w-[90vw] justify-evenly;
+    }
+
+    .heading {
+        @apply w-full;
+    }
+
+    .add_btn {
+        @apply w-[50px] h-[50px];
     }
 }
 
+.add_btn {
+    @apply bg-[#2E2F39] rounded-[8px] h-[32px] ml-3 ;
+}
+
 .offers_mine {
-    @apply mt-[15px];
+    @apply flex mt-[15px];
 }
 
 .off_history {
