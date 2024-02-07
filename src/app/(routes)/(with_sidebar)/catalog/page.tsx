@@ -32,7 +32,7 @@ function Catalog() {
             <section className={styles.slider}>
                 {isLoading ? 
                  <h4 className="text-[64px] font-bold">Loading...</h4> :
-                 data ?
+                 true ?
                  (<Carousel
                         opts={{
                             align: "start",
@@ -42,9 +42,14 @@ function Catalog() {
                         className="max-w-[1280px]"
                     >
                         <CarouselContent className="space-x-10">
-                            {data.map((el) => (
+                            {/* {data.map((el) => (
                                 <CarouselItem key={el.id} className="basis-1/4">
                                     <SliderCard id={el.id} categories={el.childrens} name={el.name}/>
+                                </CarouselItem>
+                            ))} */}
+                            {(Array.from({length: 5})).map((el) => (
+                                <CarouselItem className="basis-1/4">
+                                    <SliderCard id={1} name={"Category"}/>
                                 </CarouselItem>
                             ))}
                         </CarouselContent>

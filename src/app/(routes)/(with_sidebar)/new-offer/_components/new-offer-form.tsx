@@ -52,17 +52,12 @@ export const NewOfferForm = () => {
 
     const price = form.watch("price");
 
-    const {mutation} = useSafeMutation(safeCreateOffer, {
+    const {mutation, fieldErrors} = useSafeMutation(safeCreateOffer, {
         onSuccess: (data) => {
-            if(data.fieldErrors){
-                console.log(data.fieldErrors)
-                toast.error("Проверьте правильность ввода")
-                return
-            }
             toast.success("Успешно создано!")
             form.reset({description: ""})
         },
-        onError: () => {
+        onError: (error) => {
             toast.error("Что-то пошло не так!")
         }
     }

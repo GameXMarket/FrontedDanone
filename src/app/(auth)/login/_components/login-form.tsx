@@ -10,11 +10,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { loginSchema } from "@/requests/auth/schemas";
 import { login } from "@/actions/login";
-import { logout } from "@/actions/logout";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormField } from "@/components/ui/form";
+import toast from "react-hot-toast";
 
 export const LoginForm = () => {
     const searchParams = useSearchParams();
@@ -29,7 +29,6 @@ export const LoginForm = () => {
     const [loading, setIsLoading] = useState(false);
 
     const form = useForm<z.infer<typeof loginSchema>>({
-        resolver: zodResolver(loginSchema),
         defaultValues: {
             email: "",
             password: "",
@@ -37,11 +36,12 @@ export const LoginForm = () => {
     });
 
     const onSubmit = (values: z.infer<typeof loginSchema>) => {
+        console.log("subm")
         setIsLoading(true);
         const { email, password } = values;
-        console.log(values);
 
         const validationResult = loginSchema.safeParse({ email, password });
+        console.log(validationResult)
 
         if (!validationResult.success) {
             setErrors(validationResult.error.flatten().fieldErrors);
@@ -49,7 +49,11 @@ export const LoginForm = () => {
             return;
         }
         setErrors({ email: undefined, password: undefined });
-        login(values, callbackUrl).finally(() => setIsLoading(false));
+        login(values, callbackUrl)
+        .catch(error => {
+            toast.error("Неправильный логин или пароль")
+        })
+        .finally(() => setIsLoading(false));
     };
 
     return (
@@ -63,7 +67,6 @@ export const LoginForm = () => {
                         <h3 className={styles.login}>Войти</h3>
                     </Link>
                 </div>
-                <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
                         className="space-y-3 w-full px-4 flex flex-col items-center"
@@ -105,7 +108,6 @@ export const LoginForm = () => {
                             </Button>
                         </div>
                     </form>
-                </Form>
             </div>
         </div>
     );

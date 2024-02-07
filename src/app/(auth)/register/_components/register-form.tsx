@@ -9,6 +9,7 @@ import { useSafeMutation } from "@/hooks/useSafeMutation";
 import styles from './styles/register.module.css'
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { AxiosError } from 'axios';
 
 
 export const RegisterForm = () => {
@@ -18,9 +19,18 @@ export const RegisterForm = () => {
 
     const {pending} = useFormStatus()
 
+    const [success, setSuccess] = useState(false)
+
     const {mutation, fieldErrors: errors} = useSafeMutation(safeRegister, {
         onError: (error) => {
-            toast.error("Something went wrong")
+            //@ts-ignore
+            const isArray = Array.isArray(error.response?.data.detail)
+            //@ts-ignore
+            toast.error(isArray ? error.response?.data.detail[0].msg : error.response?.data.detail || "Something went wrong")
+            setSuccess(false)
+        },
+        onSuccess: () => {
+            setSuccess(true)
         }
     })
 
@@ -79,6 +89,9 @@ export const RegisterForm = () => {
                     id="repassword"
                     placeholder="Повторите пароль"
                 />
+                {success && <div className='mt-6 bg-bgel p-4 rounded-xl'>
+                    <p className='text-xl text-green-400 text-center'>Письмо с подтверждением отправлено на вашу почту</p>
+                </div>}
                 <div className="pt-[56px]">
                     <Button disabled={pending || mutation.isPending} className={styles.auth_btn} type="submit" variant="primary">
                         Далее

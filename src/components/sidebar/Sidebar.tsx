@@ -14,7 +14,6 @@ import { useSession } from "next-auth/react";
 import { Avatar } from "@/components/Avatar";
 import Modal from "./modal";
 import { useOutside } from "@/hooks/useOutside";
-import { BellIcon } from "@/app/(routes)/(with_sidebar)/chats/icons/BellIcon";
 import { useMediaQuery } from "react-responsive";
 import { NotificationsModal } from "../Notifications";
 import Link from "next/link";
@@ -64,7 +63,7 @@ const Sidebar: FC = () => {
                                 <div className={styles.profile_info_block}>
                                     <div className="w-full flex">
                                         <h4 className={styles.sidebar_name}>
-                                            Redmoon
+                                            {session.data?.user.username}
                                         </h4>
                                         <NotificationsModal />
                                     </div>

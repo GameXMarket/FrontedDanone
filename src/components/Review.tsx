@@ -1,6 +1,11 @@
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 
-export const Review = () => {
+interface ReviewProps {
+    color?: "white" | "gradient"
+}
+
+export const Review = ({color = "gradient"}: ReviewProps) => {
     return (
         <div className="flex gap-x-3">
             <div className="relative w-[40px] h-[40px] shrink-0">
@@ -12,7 +17,7 @@ export const Review = () => {
                 />
             </div>
             <div>
-                <p className="text-gradient text-xl leading-5">Heronwater</p>
+                <p className={cn("text-gradient text-xl leading-5", (color === "white") && "text-white")}>Heronwater</p>
                 <div className="flex items-center gap-x-1">
                     <span className="text-muted-foreground text-sm mr-1">
                         Оценка:

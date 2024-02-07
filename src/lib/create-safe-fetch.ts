@@ -16,7 +16,7 @@ export const createSafeFetch = <TInput, TOutput>(
   return async (data: TInput): Promise<FetchState<TInput, TOutput>> => {
     const validationResult = schema.safeParse(data);
     if (!validationResult.success) {
-      return {
+      throw {
         fieldErrors: validationResult.error.flatten().fieldErrors as FieldErrors<TInput>,
       };
     }

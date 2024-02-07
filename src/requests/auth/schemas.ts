@@ -2,7 +2,7 @@ import { z } from "zod";
 
 // Register Schema
 export const registerShema = z.object({
-    username: z.string().min(1, { message: "Это поле обязательное" }),
+    username: z.string().min(4, { message: "Имя пользователя должно быть не менее 4 символов" }),
     email: z.string()
         .min(1, { message: "Это поле обязательное" })
         .email("Это недействительный адрес электронной почты"),
