@@ -7,6 +7,7 @@ import { AddOfferIcon } from "./icons/icons";
 import { SearchInput } from "@/components/SearchInput";
 import Offer from "./_components/offer";
 import { useMediaQuery } from "react-responsive";
+import Link from "next/link";
 
 const MyOffers:FC = () => {
     const mobileRes = useMediaQuery({
@@ -27,9 +28,11 @@ const MyOffers:FC = () => {
                         </div>
                         <div className="w-full flex items-center justify-end">
                             <div>
-                                <Button className={styles.add_btn}>
-                                    <p className="text-[22px]">+</p>
-                                </Button>
+                                <a href='/new-offer'>
+                                    <Button className={styles.add_btn}>
+                                        <p className="text-[22px]">+</p>
+                                    </Button>
+                                </a>
                             </div>
                         </div>
                 </div>
@@ -40,7 +43,7 @@ const MyOffers:FC = () => {
                     <div className={styles.heading}>
                         <h3>Мои продажи</h3>
                         <p className={styles.off_history}>История</p>
-
+                                                                                                                                                                             
                     </div>
                     <div className="w-full flex items-center justify-end">
                         <div>
@@ -61,7 +64,7 @@ const MyOffers:FC = () => {
                 <Offer/>
                 <Offer/>
                 <Offer/>
-                <Offer/>
+                <Offer/> 
                 <Offer/>
                 <Offer/>                
                 <Offer/>
