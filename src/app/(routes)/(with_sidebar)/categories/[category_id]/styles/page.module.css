@@ -45,3 +45,15 @@
 .option:hover {
     @apply opacity-100;
 }
+
+@media screen and (max-width: 440px) {
+    .back{
+        display: none;
+    }
+    .game_title{
+        font-size: 18px;
+    }
+    .game_orders_qty{
+        font-size: 16px;
+    }
+  }

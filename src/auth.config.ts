@@ -25,6 +25,7 @@ export default {
                         return user;
                     }
                     else {
+                        //@ts-ignore
                         return null;
                     }
                 }
@@ -33,4 +34,5 @@ export default {
             }
         })
     ],
+    secret: process.env.NEXAUTH_JWT_SECRET
 } satisfies NextAuthConfig

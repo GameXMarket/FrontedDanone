@@ -1,7 +1,8 @@
 import { createSafeFetch } from "@/lib/create-safe-fetch";
 import instance from "..";
-import { RegisterDto, LoginDto, registerShema, loginShema } from "./schemas";
+import { RegisterDto, LoginDto, registerShema, loginSchema } from "./schemas";
 import { signIn } from "next-auth/react";
+import { error } from "console";
 
 export const AuthApiService = {
 
@@ -14,7 +15,11 @@ export const AuthApiService = {
         return instance.post("auth/login", { ...data })
             .then(res => res.data)
     },
+    async verifyUser(token: string) {
+        return instance.get("auth/verify-user", {params: {token}})
+        .then(res => res.data)
+    }
 }
 
 export const safeRegister = createSafeFetch(registerShema, AuthApiService.register)
-export const safeLogin = createSafeFetch(loginShema, AuthApiService.login)
+export const safeLogin = createSafeFetch(loginSchema, AuthApiService.login)

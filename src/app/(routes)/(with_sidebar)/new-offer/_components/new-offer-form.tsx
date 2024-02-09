@@ -16,6 +16,7 @@ import Image from "next/image";
 import { FormField } from "@/components/ui/form";
 import {
     ControllerRenderProps,
+    Form,
     UseFormReturn,
     useForm,
 } from "react-hook-form";
@@ -26,6 +27,7 @@ import { useSafeMutation } from "@/hooks/useSafeMutation";
 import { QueryObserverResult, RefetchOptions, useQuery } from "@tanstack/react-query";
 import { categoryServices } from "@/requests/categories/categories-services";
 import { IGetCat } from "@/requests/categories/categories.interfaces";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 export const NewOfferForm = () => {
     const [mounted, setMounted] = useState(false);
@@ -46,23 +48,18 @@ export const NewOfferForm = () => {
         }
     });
 
-    const [name, setName] = useState<string>("a");
-    const [service, setService] = useState<string>("a");
-    const [amount, setAmount] = useState<string>("a");
+    const [name, setName] = useState<string>("");
+    const [service, setService] = useState<string>("");
+    const [amount, setAmount] = useState<string>("");
 
     const price = form.watch("price");
 
-    const {mutation} = useSafeMutation(safeCreateOffer, {
+    const {mutation, fieldErrors} = useSafeMutation(safeCreateOffer, {
         onSuccess: (data) => {
-            if(data.fieldErrors){
-                console.log(data.fieldErrors)
-                toast.error("Проверьте правильность ввода")
-                return
-            }
             toast.success("Успешно создано!")
             form.reset({description: ""})
         },
-        onError: () => {
+        onError: (error) => {
             toast.error("Что-то пошло не так!")
         }
     }
@@ -95,7 +92,7 @@ export const NewOfferForm = () => {
             return []
         }
     })
-    const {data: offerAmount, refetch: refetchAmount} = useQuery({
+    const {data: offerAmount, refetch: refetchAmount, isLoading} = useQuery({
         queryKey: ["Amount"],
         queryFn: async () => {
             const service = form.getValues("service_id")
@@ -145,6 +142,7 @@ export const NewOfferForm = () => {
                         )}
                         {name && service && (
                             <SelectAmount
+                                isLoading={isLoading}
                                 data={offerAmount}
                                 form={form}
                                 setAmount={setAmount}
@@ -277,7 +275,7 @@ interface SelectNameProps {
     label?: string;
     placeholder?: string;
     setName: (name: string) => void;
-    form: UseFormReturn<CreateOfferDto, any, undefined>;
+    form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
     data: IGetCat[] | undefined;
     refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
 }
@@ -319,7 +317,7 @@ interface SelectServiceProps {
     label?: string;
     placeholder?: string;
     setService: (name: string) => void;
-    form: UseFormReturn<CreateOfferDto, any, undefined>;
+    form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
     data: IGetCat;
     refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
 }
@@ -368,15 +366,17 @@ interface SelectAmountProps {
     label?: string;
     placeholder?: string;
     setAmount: (name: string) => void;
-    form: UseFormReturn<CreateOfferDto, any, undefined>;
+    form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
     data: IGetCat
+    isLoading: boolean
 }
 const SelectAmount = ({
     setAmount,
     label,
     placeholder,
     form,
-    data
+    data,
+    isLoading
 }: SelectAmountProps) => {
     const onChange = (
         field: ControllerRenderProps<CreateOfferDto, "amount_id">,
@@ -385,6 +385,7 @@ const SelectAmount = ({
         setAmount(value);
         field.onChange(value);
     };
+    console.log(isLoading)
     return (
         <div className="w-full">
             <p className="text-xs text-muted-foreground ml-2 mb-1">
@@ -400,6 +401,7 @@ const SelectAmount = ({
                             <SelectValue placeholder={placeholder} />
                         </SelectTrigger>
                         <SelectContent className="mobile:text-lg">
+                            {isLoading && (Array.from({length: 5}).map((_, idx) => <div>{idx}</div>))}
                             {data?.childrens?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
                         </SelectContent>
                     </Select>
@@ -417,7 +419,7 @@ const PriceInput = ({
 }: {
     label: string;
     price: string | number;
-    form: UseFormReturn<CreateOfferDto, any, undefined>;
+    form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
     disabled?: boolean
 }) => {
     return (

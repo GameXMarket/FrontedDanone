@@ -9,12 +9,11 @@ import {
     ChatButton,
     MyOrdersButton,
 } from "./buttons/Buttons";
-import { InfoIcon, SupportIcon } from "./icons/SidebarIcons";
+import { InfoIcon, SettingsIcon, SupportIcon } from "./icons/SidebarIcons";
 import { useSession } from "next-auth/react";
 import { Avatar } from "@/components/Avatar";
 import Modal from "./modal";
 import { useOutside } from "@/hooks/useOutside";
-import { BellIcon } from "@/app/(routes)/(with_sidebar)/chats/icons/BellIcon";
 import { useMediaQuery } from "react-responsive";
 import { NotificationsModal } from "../Notifications";
 import Link from "next/link";
@@ -64,7 +63,7 @@ const Sidebar: FC = () => {
                                 <div className={styles.profile_info_block}>
                                     <div className="w-full flex">
                                         <h4 className={styles.sidebar_name}>
-                                            Redmoon
+                                            {session.data?.user.username}
                                         </h4>
                                         <NotificationsModal />
                                     </div>
@@ -108,7 +107,16 @@ const Sidebar: FC = () => {
                                 <CatalogButton />
                             </div>
                             <div className={styles.info_block}>
-                                <div className="flex cursor-pointer">
+                                <div className="flex cursor-pointer ">
+
+                                            <SettingsIcon />
+                                            <Link href={'/settings/profile'}>
+                                            <p className="text-[24px] opacity-[0.16] ml-4 font-regular">
+                                                Настройки
+                                            </p>
+                                        </Link>
+                                </div>
+                                <div className="flex cursor-pointer mt-[28px]">
                                     <SupportIcon />
                                     <Link href={'/support'}>
                                         <p className="text-[24px] opacity-[0.16] ml-4 font-regular">
@@ -131,6 +139,12 @@ const Sidebar: FC = () => {
                             </div>
                             <div className="mt-[517px]">
                                 <div className={styles.info_block}>
+                                    <div className="flex cursor-pointer">
+                                        <SupportIcon />
+                                        <p className="text-[16px] ml-[9px] font-regular">
+                                            Поддержка
+                                        </p>
+                                    </div>
                                     <div className="flex cursor-pointer">
                                         <SupportIcon />
                                         <p className="text-[16px] ml-[9px] font-regular">

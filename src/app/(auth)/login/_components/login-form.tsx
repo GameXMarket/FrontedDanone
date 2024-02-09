@@ -10,11 +10,11 @@ import Link from "next/link";
 import { useState } from "react";
 import { loginSchema } from "@/requests/auth/schemas";
 import { login } from "@/actions/login";
-import { logout } from "@/actions/logout";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormField } from "@/components/ui/form";
+import toast from "react-hot-toast";
 
 export const LoginForm = () => {
     const searchParams = useSearchParams();
@@ -29,17 +29,15 @@ export const LoginForm = () => {
     const [loading, setIsLoading] = useState(false);
 
     const form = useForm<z.infer<typeof loginSchema>>({
-        resolver: zodResolver(loginSchema),
         defaultValues: {
             email: "",
             password: "",
         },
     });
 
-    const onSubmit = (values: z.infer<typeof loginSchema>) => {
+    const onSubmit = async (values: z.infer<typeof loginSchema>) => {
         setIsLoading(true);
         const { email, password } = values;
-        console.log(values);
 
         const validationResult = loginSchema.safeParse({ email, password });
 
@@ -49,13 +47,20 @@ export const LoginForm = () => {
             return;
         }
         setErrors({ email: undefined, password: undefined });
-        login(values, callbackUrl).finally(() => setIsLoading(false));
+        try{
+            await login(values, callbackUrl)
+        }
+        catch(err: any){
+            toast.error(err.message || "Неправильный логин или пароль")
+        }
+        finally{
+            setIsLoading(false)
+        }
     };
 
     return (
         <div className="w-full flex flex-col items-center">
             <div className={styles.title_container}>
-                <div className="w-full flex gap-x-2">
                     <Link href="/register">
                         <h3 className={styles.register}>Регистрация</h3>
                     </Link>
@@ -63,7 +68,6 @@ export const LoginForm = () => {
                         <h3 className={styles.login}>Войти</h3>
                     </Link>
                 </div>
-                <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
                         className="space-y-3 w-full px-4 flex flex-col items-center"
@@ -105,8 +109,6 @@ export const LoginForm = () => {
                             </Button>
                         </div>
                     </form>
-                </Form>
             </div>
-        </div>
     );
 };

@@ -3,6 +3,21 @@
 }
 
 
+@media screen and (max-width: 768px) {
+    .support {
+        @apply w-full flex flex-col;
+    }
+    
+    .problems {
+        @apply max-w-full flex flex-row flex-wrap;
+    }
+
+    .problem {
+        @apply max-w-[47%] rounded-[16px] max-h-[47%] m-1;
+    }
+}
+
+
 /* ============================SIDEBAR============================== */
 
 .sidebar {
@@ -49,3 +64,17 @@
     background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);    
 }
 
+
+/* ==============================adaptive========================== */
+
+.tickets_mob {
+    @apply w-[277px] px-4 flex items-center justify-between bg-[#24252F] rounded-[24px] h-[48px];
+}
+
+.arr_turn {
+    transform: rotate(270deg);
+}
+
+.shared {
+    @apply my-1 absolute z-50 bg-[#24252F] top-[15%] left-[18%] rounded-[24px] w-[277px] min-h-[48px];
+}

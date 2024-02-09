@@ -1,13 +1,64 @@
+'use client'
+
 import { FC } from "react";
 import styles from './styles/page.module.css'
 import Sidebar from "./_components/sidebar";
 import { SafetyIcon, UnnamedIcon } from "./icons/icons";
 import { Button } from "@/components/ui/button";
+import { useMediaQuery } from "react-responsive";
+import { ArrowBackIcon } from "../../(with_sidebar)/categories/[category_id]/icons/game-page-icons";
+import { useOutside } from "@/hooks/useOutside";
+import { motion } from "framer-motion"
+import Ticket from "./_components/ticket";
 
 const Support:FC = () => {
+    const mobileRes = useMediaQuery({
+        query: '(max-width: 768px)'
+    })
+
+    const {isShow, ref,  setIsShow} = useOutside(false)
+
+    const openHandler = () => {
+        setIsShow(!isShow)
+    }
+
+    const variants = {
+        open: { rotate: 450,  },
+        closed: { rotate: 270 },        
+    }
+
+
     return (
         <div className={styles.support}>
-            <Sidebar/>
+            {mobileRes ? (
+            <>
+                <div className='w-full flex items-center justify-center' onClick={openHandler}>
+                    <div className={styles.tickets_mob}>
+                        <div>
+                            <p className="font-light opacity-[0.16] text-[20px]">история тикетов</p>    
+                        </div> 
+                        <motion.div 
+                        className={styles.arr_turn} 
+                        onClick={openHandler}
+                        variants={variants}
+                        transition={{duration: 0.3}}
+                        animate={isShow ? 'open' : 'closed'}
+                        >
+                            <ArrowBackIcon/>
+                        </motion.div>  
+                    </div>
+                </div>
+                {isShow && (
+                <div className={styles.shared} ref={ref}>
+                    <Ticket/>
+                    <Ticket/>
+                    <Ticket/>
+                    <Ticket/>
+                </div>
+                )}
+            </>
+
+            ) : (<Sidebar/>)}
             <section className={styles.content}>
                 <h3 className="text-[24px]">Выберите с чем вам нужна помощь:</h3>
                 <div className={styles.problems}>

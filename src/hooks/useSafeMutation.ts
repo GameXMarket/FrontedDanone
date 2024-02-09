@@ -1,22 +1,40 @@
 import { FieldErrors } from "@/lib/create-safe-fetch";
 import { UseMutationOptions, useMutation } from "@tanstack/react-query";
+import axios, { AxiosError } from "axios";
 import { useState } from "react";
+import { useCurrentUser } from "./useCurrentUser";
+import instance from "@/requests";
 
 type Output<TInput> = {
-    fieldErrors?: FieldErrors<TInput>,
     data: TInput
 }
 
-export const useSafeMutation = <TInput> (fn: any, options?: UseMutationOptions<Output<TInput>, {}, TInput, unknown>) => {
+type Error<TInput> = {
+    fieldErrors?: FieldErrors<TInput>,
+} | AxiosError
+
+export const useSafeMutation = <TInput> (fn: any, options?: UseMutationOptions<Output<TInput>, Error<TInput>, TInput, unknown>, token?: string) => {
+    const user = useCurrentUser()
+    instance.defaults.headers.common.Authorization = `Bearer ${user?.accessToken}`
 
     const [fieldErrors, setFieldsErrors] = useState<FieldErrors<TInput>>()
-
-    const mutation = useMutation<Output<TInput>, {}, TInput>({
+    
+    const mutation = useMutation<Output<TInput>, Error<TInput>, TInput>({
         mutationFn: fn,
-        onSettled: (data) => {
-            setFieldsErrors(data?.fieldErrors)
+        onSettled: (data, error, variables, ctx) => {
+            options?.onSettled?.(data, error, variables, ctx)
         },
-        ...options
+        onError: (error, variables, ctx) => {
+            setFieldsErrors({})
+            if(!axios.isAxiosError(error)){
+                setFieldsErrors(error?.fieldErrors)
+            }
+            options?.onError?.(error, variables, ctx)
+        },
+        onSuccess: (data, variables, ctx) => {
+            setFieldsErrors({})
+            options?.onSuccess?.(data, variables, ctx)
+        }
     })
 
     return {mutation, fieldErrors}

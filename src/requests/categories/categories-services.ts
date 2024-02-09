@@ -5,7 +5,7 @@ import { createCategoriesDto } from "./schemas"
 
 export const categoryServices = {
     async getAllCategories(offset: number = 0, limit: number = 5): Promise<IGetCat[]> {
-        const data = await instance.get(`/categories/gettall?offset=${offset}&limit=${limit}`)
+        const data = await instance.get(`/categories/carcass/gettall/?offset=${offset}&limit=${limit}`)
         return data.data
     },
 

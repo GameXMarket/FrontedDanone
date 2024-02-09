@@ -18,10 +18,11 @@ const GamePage: FC = () => {
     const { data, isLoading, error } = useQuery({
         queryKey: ["get category by id"],
         queryFn: () => categoryServices.getCategoryById(+category_id),
+        retry: 0
     });
 
     return (
-        <div className="pr-20 h-full">
+        <div className="pr-20 mobile:pr-0 h-full">
             <section className={styles.back}>
                 <Link href="/catalog">
                     <div className="w-full flex items-center">
@@ -30,10 +31,11 @@ const GamePage: FC = () => {
                     </div>
                 </Link>
             </section>
-            <div className="overflow-y-auto h-[700px] pr-4">
+            <div className="overflow-y-auto h-[700px] mobile:h-full pr-4 mobile:pr-0">
                 <section className={styles.game_details}>
                     <div>
                         <Image
+                            className="min-w-[80px] min-h-[80px] mobile:w-20 mobile:h-20"
                             src="/game-assets/game.svg"
                             alt="game"
                             width={120}
@@ -42,7 +44,7 @@ const GamePage: FC = () => {
                     </div>
                     <div className="ml-8 text-left">
                         {isLoading ? (
-                            <p>Loading...</p>
+                            <p className={styles.game_title}>Loading...</p>
                         ) : data ? (
                             <div className="w-full">
                                 <h1 className={styles.game_title}>
@@ -50,15 +52,15 @@ const GamePage: FC = () => {
                                 </h1>
                             </div>
                         ) : (
-                            <div>DATA NOT FOUND</div>
+                            <div className={styles.game_title}>DATA NOT FOUND</div>
                         )}
                         <h3 className={styles.game_orders_qty}>30 000 лотов</h3>
                     </div>
-                    <div className="ml-10">
+                    <div className="ml-10 mobile:hidden">
                         {isLoading ? (
                             <p>Loading...</p>
                         ) : data ? (
-                            <div className="w-[350px] flex flex-wrap">
+                            <div className="w-[600px] flex flex-wrap justify-center">
                                 {data?.childrens.map((el: any) => (
                                     <div className={styles.option} key={el.id}>
                                         <p className={styles.option_text}>

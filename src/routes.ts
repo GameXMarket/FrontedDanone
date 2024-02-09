@@ -5,10 +5,10 @@
  */
 export const publicRoutes = [
     "/",
-    "/home",
-    "/settings/profile",
-    "/support",
-    "/ticket"
+    // "/home",
+    // "/settings/profile",
+    // "/support",
+    // "/ticket"
   ];
   
   /**
@@ -19,6 +19,7 @@ export const publicRoutes = [
   export const authRoutes = [
     "/login",
     "/register",
+    "/verify-user"
   ];
   
   /**
@@ -32,4 +33,4 @@ export const publicRoutes = [
    * The default redirect path after logging in
    * @type {string}
    */
-  export const DEFAULT_LOGIN_REDIRECT = "/";
+  export const DEFAULT_LOGIN_REDIRECT = "/home";

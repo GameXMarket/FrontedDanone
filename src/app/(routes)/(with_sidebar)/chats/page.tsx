@@ -13,16 +13,16 @@ const MessengerPage:FC = () => {
         <div className={styles.messenger_container}>
             <div className={styles.messenger_groupsandchats}>
                 <Groups/>
-                {/*<Dialogs setIsOpenedChat={setIsOpenedChat}/>*/}
+                {/*\\<Dialogs setIsOpenedChat={setIsOpenedChat}/>*/}
             </div>
-            {/* {isOpenedChat ? (
+            {isOpenedChat ? (
             <div className="w-full">
                 <Chat/>
             </div>) : (
             <div className={styles.is_opened_chat}>
                 <h2 className="text-[32px] font-semibold">Выберете диалог<br/>и начните беседу!</h2>
             </div>
-            )} */}
+            )}
         </div>
     )
 }

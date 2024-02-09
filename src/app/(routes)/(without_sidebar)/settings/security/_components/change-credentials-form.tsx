@@ -8,7 +8,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { SettingsInput } from "../../_components/input";
 import { Button } from "@/components/ui/button";
-import { useTransition } from "react";
+import { useEffect, useTransition } from "react";
 
 export const ChangeEmailForm = () => {
     const user = useCurrentUser();
@@ -18,9 +18,15 @@ export const ChangeEmailForm = () => {
     const form = useForm<z.infer<typeof changeEmailSchema>>({
         resolver: zodResolver(changeEmailSchema),
         defaultValues: {
-            email: user?.email || "asasas@gmail.com",
+            email: "",
         },
     });
+
+    useEffect(() => {
+        if(user?.email){
+            form.setValue("email", user?.email)
+        }
+    }, [user])
 
     const onSubmit = (values: ChangeEmailDto) => {
         startTransition(() => {
