@@ -1,7 +1,39 @@
 .search_container {
+<<<<<<< HEAD
     @apply flex pl-[275px];
     
+=======
+    @apply w-[1280px] pr-36 flex items-center justify-center;    
+>>>>>>> 1866d183d4488fb8cb646a00d73a24f8ae8b84ed
 }
+
+@media screen and (max-width: 768px) {
+    .search_container {
+        @apply max-w-full p-0 flex flex-col;
+    }
+
+    .game_not_found {
+        @apply text-[18px];
+    }
+
+    .search {
+        @apply max-w-[60%];
+    }
+
+    .not_found {
+        @apply m-0;
+    }
+}
+
+.search {
+    @apply w-[400px];
+}
+
+.not_found {
+    @apply ml-10;
+}
+
+
 
 .game_not_found {
     @apply text-[24px] cursor-pointer;

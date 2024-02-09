@@ -41,14 +41,6 @@ const LoginPage = () => {
                     />
                 </div>
             </div>
-            {mobileRes && (
-                <div className={styles.footer}>
-                    <div className="w-full flex justify-center">
-                        <hr className="w-[256px] opacity-[0.16]"/>
-                    </div>
-                    <p className="opacity-[0.16] font-light mt-4 text-center">2024 © Game X Все права защищены.</p>
-                </div>
-            )}
         </div>
     );
 };
