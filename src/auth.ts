@@ -33,7 +33,7 @@ export const {
   auth,
   signIn,
   signOut,
-  update,
+  unstable_update,
 } = NextAuth({
   pages: {
     signIn: "/login",
@@ -44,6 +44,7 @@ export const {
     },
     async session({ token, session }) {
       if (token.id && session.user) {
+        //@ts-expect-error
         session.user.id = token.id as number;
       }
 

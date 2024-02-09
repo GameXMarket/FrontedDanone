@@ -59,7 +59,7 @@
 }
 
 .form_input {
-    @apply bg-[#24252F] h-[72px] pl-[30px] font-light text-[24px] opacity-[0.16] rounded-[24px] outline-none border-none 
+    @apply bg-[#24252F] h-[72px] pl-[30px] font-light text-[24px] bg-opacity-40 placeholder:text-opacity-15 rounded-[24px] outline-none border-none 
     focus-visible:ring-offset-0 placeholder:text-slate-400 focus:text-white;
 }
 

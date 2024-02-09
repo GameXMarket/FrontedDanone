@@ -16,6 +16,7 @@ import Image from "next/image";
 import { FormField } from "@/components/ui/form";
 import {
     ControllerRenderProps,
+    Form,
     UseFormReturn,
     useForm,
 } from "react-hook-form";
@@ -274,7 +275,7 @@ interface SelectNameProps {
     label?: string;
     placeholder?: string;
     setName: (name: string) => void;
-    form: UseFormReturn<CreateOfferDto, any, undefined>;
+    form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
     data: IGetCat[] | undefined;
     refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
 }
@@ -316,7 +317,7 @@ interface SelectServiceProps {
     label?: string;
     placeholder?: string;
     setService: (name: string) => void;
-    form: UseFormReturn<CreateOfferDto, any, undefined>;
+    form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
     data: IGetCat;
     refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
 }
@@ -365,7 +366,7 @@ interface SelectAmountProps {
     label?: string;
     placeholder?: string;
     setAmount: (name: string) => void;
-    form: UseFormReturn<CreateOfferDto, any, undefined>;
+    form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
     data: IGetCat
     isLoading: boolean
 }
@@ -418,7 +419,7 @@ const PriceInput = ({
 }: {
     label: string;
     price: string | number;
-    form: UseFormReturn<CreateOfferDto, any, undefined>;
+    form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
     disabled?: boolean
 }) => {
     return (
