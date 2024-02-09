@@ -26,6 +26,7 @@ import { useSafeMutation } from "@/hooks/useSafeMutation";
 import { QueryObserverResult, RefetchOptions, useQuery } from "@tanstack/react-query";
 import { categoryServices } from "@/requests/categories/categories-services";
 import { IGetCat } from "@/requests/categories/categories.interfaces";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
 
 export const NewOfferForm = () => {
     const [mounted, setMounted] = useState(false);
@@ -46,9 +47,9 @@ export const NewOfferForm = () => {
         }
     });
 
-    const [name, setName] = useState<string>("a");
-    const [service, setService] = useState<string>("a");
-    const [amount, setAmount] = useState<string>("a");
+    const [name, setName] = useState<string>("");
+    const [service, setService] = useState<string>("");
+    const [amount, setAmount] = useState<string>("");
 
     const price = form.watch("price");
 
@@ -90,7 +91,7 @@ export const NewOfferForm = () => {
             return []
         }
     })
-    const {data: offerAmount, refetch: refetchAmount} = useQuery({
+    const {data: offerAmount, refetch: refetchAmount, isLoading} = useQuery({
         queryKey: ["Amount"],
         queryFn: async () => {
             const service = form.getValues("service_id")
@@ -140,6 +141,7 @@ export const NewOfferForm = () => {
                         )}
                         {name && service && (
                             <SelectAmount
+                                isLoading={isLoading}
                                 data={offerAmount}
                                 form={form}
                                 setAmount={setAmount}
@@ -365,13 +367,15 @@ interface SelectAmountProps {
     setAmount: (name: string) => void;
     form: UseFormReturn<CreateOfferDto, any, undefined>;
     data: IGetCat
+    isLoading: boolean
 }
 const SelectAmount = ({
     setAmount,
     label,
     placeholder,
     form,
-    data
+    data,
+    isLoading
 }: SelectAmountProps) => {
     const onChange = (
         field: ControllerRenderProps<CreateOfferDto, "amount_id">,
@@ -380,6 +384,7 @@ const SelectAmount = ({
         setAmount(value);
         field.onChange(value);
     };
+    console.log(isLoading)
     return (
         <div className="w-full">
             <p className="text-xs text-muted-foreground ml-2 mb-1">
@@ -395,6 +400,7 @@ const SelectAmount = ({
                             <SelectValue placeholder={placeholder} />
                         </SelectTrigger>
                         <SelectContent className="mobile:text-lg">
+                            {isLoading && (Array.from({length: 5}).map((_, idx) => <div>{idx}</div>))}
                             {data?.childrens?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
                         </SelectContent>
                     </Select>

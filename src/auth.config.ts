@@ -25,6 +25,7 @@ export default {
                         return user;
                     }
                     else {
+                        //@ts-ignore
                         return null;
                     }
                 }

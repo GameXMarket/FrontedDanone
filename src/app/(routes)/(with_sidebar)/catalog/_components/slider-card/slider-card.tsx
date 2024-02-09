@@ -3,6 +3,7 @@ import styles from "./slider-card.module.css";
 import Link from "next/link";
 import { FC, PropsWithChildren } from "react";
 import { IGetCat } from "@/requests/categories/categories.interfaces";
+import { cn } from "@/lib/utils";
 
 interface ISliderCard {
     id: number;
@@ -28,12 +29,16 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
                 <div className={styles.card_container}>
                     <h3 className="font-[500] pt-8 pl-8 text-[32px]">{name}</h3>
                     <div className={styles.card_options}>
-                        <div className="w-full flex items-center gap-x-3 gap-y-2 flex-wrap">
-                            {Array.from({length: 4}).map((el) => (
-                                <div className={styles.card_option}>
-                                    <p>Аккаунты</p>
+                        <div className="w-full grid grid-cols-10 gap-x-4 gap-y-2">
+                            {categories?.slice(0,5)?.map((el, idx) => (
+                                <div className={cn(styles.card_option,
+                                    idx === 0 || idx === 3 || idx === 4 ? "col-span-6" : "col-span-4")}>
+                                    <p className="flex items-center justify-center">{el.name}</p>
                                 </div>
                             ))}
+                            <div className={cn(styles.card_option, "col-span-4")}>
+                                <p className="flex items-center justify-center">больше...</p>
+                            </div>
                         </div>
                     </div>
                 </div>

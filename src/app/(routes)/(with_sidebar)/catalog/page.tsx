@@ -20,7 +20,7 @@ function Catalog() {
             return categoryServices.getAllCategories()
         }
     })
-
+    console.log(data)
     return (
         <div className="w-full h-full px-6">
             <section className={styles.search_container}>
@@ -42,14 +42,9 @@ function Catalog() {
                         className="max-w-[1280px]"
                     >
                         <CarouselContent className="space-x-10">
-                            {/* {data.map((el) => (
+                            {data?.map((el) => (
                                 <CarouselItem key={el.id} className="basis-1/4">
                                     <SliderCard id={el.id} categories={el.childrens} name={el.name}/>
-                                </CarouselItem>
-                            ))} */}
-                            {(Array.from({length: 5})).map((el) => (
-                                <CarouselItem className="basis-1/4">
-                                    <SliderCard id={1} name={"Category"}/>
                                 </CarouselItem>
                             ))}
                         </CarouselContent>

@@ -35,13 +35,11 @@ export const LoginForm = () => {
         },
     });
 
-    const onSubmit = (values: z.infer<typeof loginSchema>) => {
-        console.log("subm")
+    const onSubmit = async (values: z.infer<typeof loginSchema>) => {
         setIsLoading(true);
         const { email, password } = values;
 
         const validationResult = loginSchema.safeParse({ email, password });
-        console.log(validationResult)
 
         if (!validationResult.success) {
             setErrors(validationResult.error.flatten().fieldErrors);
@@ -49,11 +47,15 @@ export const LoginForm = () => {
             return;
         }
         setErrors({ email: undefined, password: undefined });
-        login(values, callbackUrl)
-        .catch(error => {
-            toast.error("Неправильный логин или пароль")
-        })
-        .finally(() => setIsLoading(false));
+        try{
+            await login(values, callbackUrl)
+        }
+        catch(err: any){
+            toast.error(err.message || "Неправильный логин или пароль")
+        }
+        finally{
+            setIsLoading(false)
+        }
     };
 
     return (

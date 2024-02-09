@@ -2,6 +2,8 @@ import { FieldErrors } from "@/lib/create-safe-fetch";
 import { UseMutationOptions, useMutation } from "@tanstack/react-query";
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
+import { useCurrentUser } from "./useCurrentUser";
+import instance from "@/requests";
 
 type Output<TInput> = {
     data: TInput
@@ -11,10 +13,12 @@ type Error<TInput> = {
     fieldErrors?: FieldErrors<TInput>,
 } | AxiosError
 
-export const useSafeMutation = <TInput> (fn: any, options?: UseMutationOptions<Output<TInput>, Error<TInput>, TInput, unknown>) => {
+export const useSafeMutation = <TInput> (fn: any, options?: UseMutationOptions<Output<TInput>, Error<TInput>, TInput, unknown>, token?: string) => {
+    const user = useCurrentUser()
+    instance.defaults.headers.common.Authorization = `Bearer ${user?.accessToken}`
 
     const [fieldErrors, setFieldsErrors] = useState<FieldErrors<TInput>>()
-
+    
     const mutation = useMutation<Output<TInput>, Error<TInput>, TInput>({
         mutationFn: fn,
         onSettled: (data, error, variables, ctx) => {

@@ -3,29 +3,30 @@ import { UserType } from "@/types/UserType";
 
 import authConfig from "@/auth.config";
 import axios from "axios";
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 
-async function refreshAccessToken() {
+
+const refreshToken = async () => {
   const cookieStore = cookies()
 
-  const response = await axios.post("https://test.yunikeil.ru/auth/refresh", null, {
-    headers: {
-      Cookie: `refresh=${cookieStore.get("refresh")?.value}`
+    const response = await axios.post("https://test.yunikeil.ru/auth/refresh", null, {
+        headers: {
+            Cookie: `refresh=${cookieStore.get("refresh")?.value}`
+        }
+    })
+
+    if (response.status === 200) {
+        const user = response.data
+        cookieStore.set("refresh", response.data.refresh)
+        return user;
     }
-  })
-
-  if (response.status === 200) {
-    const user = response.data
-    cookieStore.set("refresh", response.data.refresh)
-    return user;
-  }
-  else {
-    cookieStore.delete("refresh")
-    await signOut({redirectTo: "/login"})
-    return null
-  }
-
+    else {
+        cookieStore.delete("refresh")
+        await signOut({ redirectTo: "/login" })
+        return null
+    }
 }
+
 
 export const {
   handlers: { GET, POST },
@@ -64,7 +65,7 @@ export const {
         const expires_in = JSON.parse(atob(token.accessToken.split(".")[1])).exp
 
         if (Date.now() > expires_in * 1000) {
-          user = await refreshAccessToken()
+          user = await refreshToken()
         }
 
       }
