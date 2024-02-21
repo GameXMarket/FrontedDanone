@@ -160,3 +160,5 @@ export const ChangeNameForm = memo(({ user }: { user?: AuthType }) => {
         </div>
     );
 });
+
+ChangeNameForm.displayName = "change_name_form"

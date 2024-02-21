@@ -165,7 +165,7 @@ const MyOffersByCategory:FC = () => {
                 </div>
                 <div className={styles.orders}>
                     {data?.map(el => (
-                        <Order item={el} />
+                        <Order item={el} key={el.id} />
                     ))}
                 </div>
                 </section>

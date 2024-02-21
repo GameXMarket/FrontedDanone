@@ -95,8 +95,8 @@ export const OffersList = ({category_id}: OffersListProps) => {
 OffersList.Skeleton = function OffersListSkeleton() {
     return(
         <div className="mt-6 grid grid-cols-3 gap-10 mobile:hidden">
-            {Array.from({length: 6}).map((el) => (
-                <ItemCard.Skeleton />
+            {Array.from({length: 6}).map((el, idx) => (
+                <ItemCard.Skeleton key={idx} />
             ))}
         </div>
     )

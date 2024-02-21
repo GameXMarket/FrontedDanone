@@ -138,6 +138,7 @@ export const NewOfferForm = () => {
                     <div className="flex flex-col items-center gap-y-4 min-w-[440px] mobile:min-w-full">
                         {games?.slice(0, categories.length+1).map(el => (
                             <SelectName
+                                key={el.id}
                                 // refetch={refetchServices}
                                 data={el.values}
                                 form={form}
@@ -426,7 +427,7 @@ const SelectAmount = ({
                             <SelectValue placeholder={placeholder} />
                         </SelectTrigger>
                         <SelectContent className="mobile:text-lg">
-                            {isLoading && (Array.from({length: 5}).map((_, idx) => <div>{idx}</div>))}
+                            {isLoading && (Array.from({length: 5}).map((_, idx) => <div key={idx}>{idx}</div>))}
                             {data?.childrens?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
                         </SelectContent>
                     </Select>

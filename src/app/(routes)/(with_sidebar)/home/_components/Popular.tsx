@@ -16,16 +16,19 @@ const popular = [
                 img: "/images/temp_main/brawlstars.png",
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
+                id: 1
             },
             {
                 img: "/images/temp_main/brawlstars.png",
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
+                id: 2
             },
             {
                 img: "/images/temp_main/brawlstars.png",
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
+                id: 3
             },
         ],
     },
@@ -37,16 +40,19 @@ const popular = [
                 img: "/images/temp_main/fortnite.png",
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
+                id: 4
             },
             {
                 img: "/images/temp_main/fortnite.png",
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
+                id: 5
             },
             {
                 img: "/images/temp_main/fortnite.png",
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
+                id: 6
             },
         ],
     },
@@ -71,7 +77,7 @@ export const Popular = () => {
             </div>
             <div className="hidden mobile:block space-y-8 w-full">
                 {popular.map((row) => (
-                    <div className="space-y-4">
+                    <div key={row.name} className="space-y-4">
                         <div className="flex items-center gap-x-3">
                             <div className="relative w-[60px] h-[60px]">
                                 <Image

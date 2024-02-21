@@ -10,7 +10,8 @@ import {
 
 const { auth } = NextAuth(authConfig);
 
-export default auth((req) => {
+//@ts-ignore
+export default auth((req): void | Response | Promise<void | Response> | null  => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
 

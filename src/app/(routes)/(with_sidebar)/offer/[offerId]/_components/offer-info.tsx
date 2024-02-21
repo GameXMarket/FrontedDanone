@@ -33,8 +33,8 @@ export const OfferInfo = ({ categoryId, description }: OfferInfoProps) => {
                 </p>
             </div>
             <div className="flex flex-wrap gap-x-3 gap-y-2">
-                {data?.childrens?.map?.((el) => (
-                    <Button className="bg-bgel rounded-xl">{el.name}</Button>
+                {data?.values?.map?.((el) => (
+                    <Button key={el.id} className="bg-bgel rounded-xl">{el.value}</Button>
                 ))}
             </div>
             <div className="hidden mobile:flex gap-x-3 items-center">
