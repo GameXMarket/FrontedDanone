@@ -16,7 +16,7 @@ const OfferPage = async ({params}: {params: {offerId: string}}) => {
                 <Slider />
                 <OfferInfo categoryId={offer.category_id} description={offer.description} />
                 <OfferReviews />
-                <div className="flex justify-center items-center gap-x-4 absolute bottom-[100px] left-1/2 -translate-x-1/2 z-50">
+                <div className="hidden mobile:flex justify-center items-center gap-x-4 absolute bottom-[100px] left-1/2 -translate-x-1/2 z-50">
                     <Button variant="accent" size="lg" className="text-lg rounded-xl">Чат с продавцом</Button>
                     <div className="w-12 h-12 flex justify-center items-center p-2 bg-[#FF4141] bg-opacity-5 cursor-pointer rounded-xl hover:bg-opacity-10"><Image src="/ui-assets/dislike.svg" alt="dislike" width={30} height={30} /></div>
                 </div>

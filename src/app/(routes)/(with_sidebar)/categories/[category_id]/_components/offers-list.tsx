@@ -1,3 +1,5 @@
+'use client'
+
 import { ItemCard } from "@/components/ItemCard";
 import { Button } from "@/components/ui/button";
 import {
@@ -5,21 +7,34 @@ import {
     CarouselContent,
     CarouselItem,
 } from "@/components/ui/carousel";
+import { OfferApiService } from "@/requests/offer/offer-service";
+import { useQuery } from "@tanstack/react-query";
+import { memo, useEffect } from "react";
 
-interface OffersListPeops {
-    items: any;
+interface OffersListProps {
+    category_id: number | string;
 }
 
-export const OffersList = () => {
+export const OffersList = ({category_id}: OffersListProps) => {
+
+    const {data, isLoading} = useQuery({
+        queryKey: ["catalog_offers", {category_id}],
+        queryFn: () => OfferApiService.getAll(category_id),
+    })
+    console.log(isLoading)
+    if(isLoading) {
+        return <OffersList.Skeleton />
+    } 
     return (
         <>
             <div className="mt-6 grid grid-cols-3 gap-10 mobile:hidden">
-                {Array.from({ length: 9 }, (_, idx) => (
-                    <div className="w-full flex flex-col items-center gap-y-6">
+                {data?.map(el => (
+                    <div key={el.id} className="w-full flex flex-col items-center gap-y-6">
                         <ItemCard
                             item={{
+                                id: el.id,
                                 img: "/images/temp_main/brawlstars.png",
-                                name: "Brawl Stars",
+                                name: el.name,
                                 price: 1000,
                             }}
                         />
@@ -33,7 +48,7 @@ export const OffersList = () => {
                     </div>
                 ))}
             </div>
-            <div>
+            <div className="hidden mobile:block">
                 {Array.from({ length: 3 }).map((_, idx) => (
                     <Carousel
                         key={idx}
@@ -53,6 +68,7 @@ export const OffersList = () => {
                                     <div className="w-full flex flex-col items-center gap-y-6">
                                         <ItemCard
                                             item={{
+                                                id: 1,
                                                 img: "/images/temp_main/brawlstars.png",
                                                 name: "Brawl Stars",
                                                 price: 1000,
@@ -75,3 +91,13 @@ export const OffersList = () => {
         </>
     );
 };
+
+OffersList.Skeleton = function OffersListSkeleton() {
+    return(
+        <div className="mt-6 grid grid-cols-3 gap-10 mobile:hidden">
+            {Array.from({length: 6}).map((el) => (
+                <ItemCard.Skeleton />
+            ))}
+        </div>
+    )
+}

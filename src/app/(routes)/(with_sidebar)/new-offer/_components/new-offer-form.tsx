@@ -16,8 +16,10 @@ import Image from "next/image";
 import { FormField } from "@/components/ui/form";
 import {
     ControllerRenderProps,
-    Form,
+    UseFieldArrayAppend,
+    UseFieldArrayRemove,
     UseFormReturn,
+    useFieldArray,
     useForm,
 } from "react-hook-form";
 import { safeCreateOffer } from "@/requests/offer/offer-service";
@@ -27,13 +29,17 @@ import { useSafeMutation } from "@/hooks/useSafeMutation";
 import { QueryObserverResult, RefetchOptions, useQuery } from "@tanstack/react-query";
 import { categoryServices } from "@/requests/categories/categories-services";
 import { IGetCat } from "@/requests/categories/categories.interfaces";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useRouter } from "next/navigation";
+import { ValueType } from "@/types/CategoryType";
 
 export const NewOfferForm = () => {
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    const { push } = useRouter()
+
     const [nextPage, setNextPage] = useState(false);
 
     const form = useForm<CreateOfferDto>({
@@ -41,23 +47,31 @@ export const NewOfferForm = () => {
             name: "",
             description: "",
             price: "" as unknown as number,
-            amount_id: "" as unknown as number,
             attachment_id: null,
-            game_id: "" as unknown as number,
-            service_id: "" as unknown as number
+            count: 0,
+            category_value_ids: []
         }
     });
 
+    const [categories, setCategories] = useState<{name: string, id: number}[]>([])
+
+    const append = (val: {name: string, id: number}) => {
+        const newCategories = categories.filter(el => el.name !== val.name)
+        newCategories.push(val)
+        setCategories(newCategories)
+    }
+    
     const [name, setName] = useState<string>("");
     const [service, setService] = useState<string>("");
     const [amount, setAmount] = useState<string>("");
 
     const price = form.watch("price");
 
-    const {mutation, fieldErrors} = useSafeMutation(safeCreateOffer, {
+    const {mutation, fieldErrors} = useSafeMutation<{}, OfferType>(safeCreateOffer, {
         onSuccess: (data) => {
             toast.success("Успешно создано!")
             form.reset({description: ""})
+            push(`offer/settings/${data.data.id}`)
         },
         onError: (error) => {
             toast.error("Что-то пошло не так!")
@@ -70,9 +84,9 @@ export const NewOfferForm = () => {
             name: data.name,
             description: data.description,
             price: +data.price,
-            count: +data.amount_id!,
+            count: 1,
             attachment_id: null,
-            category_id: data.amount_id
+            category_value_ids: categories.map(el => el.id)
         }
         console.log(dto)
         mutation.mutate(dto)
@@ -82,26 +96,26 @@ export const NewOfferForm = () => {
         queryKey: ["Games"],
         queryFn: () => categoryServices.getAllCategories()
     })
-    const {data: services, refetch: refetchServices} = useQuery({
-        queryKey: ["Service"],
-        queryFn: async () => {
-            const game = form.getValues("game_id")
-            if(game){
-                return await categoryServices.getCategoryById(game)
-            }
-            return []
-        }
-    })
-    const {data: offerAmount, refetch: refetchAmount, isLoading} = useQuery({
-        queryKey: ["Amount"],
-        queryFn: async () => {
-            const service = form.getValues("service_id")
-            if(service){
-                return await categoryServices.getCategoryById(service)
-            }
-            return []
-        }
-    })
+    // const {data: services, refetch: refetchServices} = useQuery({
+    //     queryKey: ["Service"],
+    //     queryFn: async () => {
+    //         const game = form.getValues("category_value_ids")[0]
+    //         if(game){
+    //             return await categoryServices.getCategoryById(game)
+    //         }
+    //         return []
+    //     }
+    // })
+    // const {data: offerAmount, refetch: refetchAmount, isLoading} = useQuery({
+    //     queryKey: ["Amount"],
+    //     queryFn: async () => {
+    //         const service = form.getValues("category_value_ids")[1]
+    //         if(service){
+    //             return await categoryServices.getCategoryById(service)
+    //         }
+    //         return []
+    //     }
+    // })
 
     if (!mounted) return null;
 
@@ -122,7 +136,17 @@ export const NewOfferForm = () => {
                     )}
                 >
                     <div className="flex flex-col items-center gap-y-4 min-w-[440px] mobile:min-w-full">
-                        <SelectName 
+                        {games?.slice(0, categories.length+1).map(el => (
+                            <SelectName
+                                // refetch={refetchServices}
+                                data={el.values}
+                                form={form}
+                                label={el.select_name}
+                                placeholder={el.select_name}
+                                append={append}
+                            />
+                        ))}
+                        {/* <SelectName
                             refetch={refetchServices}
                             data={games}
                             form={form}
@@ -149,8 +173,8 @@ export const NewOfferForm = () => {
                                 label="Выберите номинал"
                                 placeholder="Выберите количество"
                             />
-                        )}
-                        {name && service && amount && (
+                        )} */}
+                        {categories.length === games?.length && (
                             <Button
                                 type="button"
                                 onClick={() => setNextPage(true)}
@@ -272,21 +296,22 @@ export const NewOfferForm = () => {
 };
 
 interface SelectNameProps {
-    label?: string;
+    label: string;
     placeholder?: string;
-    setName: (name: string) => void;
+    // setName: (name: string) => void;
     form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
-    data: IGetCat[] | undefined;
-    refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
+    data: ValueType[] | undefined;
+    append: (val: {name: string, id: number}) => void
+    // refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
 }
-const SelectName = ({ setName, label, placeholder, form, data, refetch }: SelectNameProps) => {
+const SelectName = ({append, label, placeholder, form, data }: SelectNameProps) => {
     const onChange = (
-        field: ControllerRenderProps<CreateOfferDto, "game_id">,
+        field: ControllerRenderProps<CreateOfferDto, "category_value_ids">,
         value: string
     ) => {
-        setName(value);
-        field.onChange(value);
-        refetch()
+        append({id: +value, name: label});
+        // field.onChange(value);
+        // refetch()
     };
 
     return (
@@ -297,14 +322,14 @@ const SelectName = ({ setName, label, placeholder, form, data, refetch }: Select
             </p>
             <FormField
                 control={form.control}
-                name="game_id"
+                name="category_value_ids"
                 render={({ field }) => (
                     <Select onValueChange={(value) => onChange(field, value)}>
                         <SelectTrigger className="min-w-[300px] px-6 mobile:px-3 mobile:text-lg">
                             <SelectValue placeholder={placeholder} />
                         </SelectTrigger>
                         <SelectContent className="text-xl mobile:text-lg">
-                            {data?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
+                            {data?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.value}</SelectItem>)}
                         </SelectContent>
                     </Select>
                 )}
@@ -330,7 +355,7 @@ const SelectService = ({
     refetch
 }: SelectServiceProps) => {
     const onChange = (
-        field: ControllerRenderProps<CreateOfferDto, "service_id">,
+        field: ControllerRenderProps<CreateOfferDto, "category_value_ids">,
         value: string
     ) => {
         setService(value);
@@ -346,7 +371,7 @@ const SelectService = ({
             </p>
             <FormField
                 control={form.control}
-                name="service_id"
+                name="category_value_ids"
                 render={({ field }) => (
                     <Select onValueChange={(value) => onChange(field, value)}>
                         <SelectTrigger className="px-6 mobile:px-3 mobile:text-lg">
@@ -379,13 +404,13 @@ const SelectAmount = ({
     isLoading
 }: SelectAmountProps) => {
     const onChange = (
-        field: ControllerRenderProps<CreateOfferDto, "amount_id">,
+        field: ControllerRenderProps<CreateOfferDto, "category_value_ids">,
         value: string
     ) => {
         setAmount(value);
         field.onChange(value);
     };
-    console.log(isLoading)
+
     return (
         <div className="w-full">
             <p className="text-xs text-muted-foreground ml-2 mb-1">
@@ -394,7 +419,7 @@ const SelectAmount = ({
             </p>
             <FormField
                 control={form.control}
-                name="amount_id"
+                name="category_value_ids"
                 render={({ field }) => (
                     <Select onValueChange={(value) => onChange(field, value)}>
                         <SelectTrigger className="px-6 mobile:px-3 mobile:text-lg">

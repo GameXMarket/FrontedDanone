@@ -16,11 +16,9 @@ import { categoryServices } from "@/requests/categories/categories-services";
 function Catalog() {
     const {data, isLoading, error} = useQuery({
         queryKey: ['get all cats'],
-        queryFn: async () => {
-            return categoryServices.getAllCategories()
-        }
+        queryFn: () => categoryServices.getCategoryWithAssociated(1)
     })
-    console.log(data)
+
     return (
         <div className="w-full h-full px-6">
             <div className="w-full flex items-center justify-center">
@@ -34,7 +32,7 @@ function Catalog() {
             <section className={styles.slider}>
                 {isLoading ? 
                  <h4 className="text-[64px] font-bold">Loading...</h4> :
-                 true ?
+                 data ?
                  (<Carousel
                         opts={{
                             align: "start",
@@ -44,9 +42,9 @@ function Catalog() {
                         className="max-w-[1280px]"
                     >
                         <CarouselContent className="space-x-10">
-                            {data?.map((el) => (
+                            {data?.category.values.map((el) => (
                                 <CarouselItem key={el.id} className="basis-1/4">
-                                    <SliderCard id={el.id} categories={el.childrens} name={el.name}/>
+                                    <SliderCard id={el.id} categories={data.associated} name={el.value}/>
                                 </CarouselItem>
                             ))}
                         </CarouselContent>

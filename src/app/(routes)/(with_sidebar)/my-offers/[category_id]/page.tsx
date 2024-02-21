@@ -18,9 +18,16 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
   } from "@/components/ui/dropdown-menu"
+import { useQuery } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
+import { OfferApiService } from "@/requests/offer/offer-service";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
 
 
 const MyOffersByCategory:FC = () => {
+    const searchParams = useParams()
+    const category_id = searchParams.category_id as string
+
     const {isShow, setIsShow, ref} = useOutside(false)
 
     const mobileRes = useMediaQuery({
@@ -37,6 +44,11 @@ const MyOffersByCategory:FC = () => {
         open: { rotate: 450,  },
         closed: { rotate: 270 },        
     }
+
+    const {data} = useAuthQuery({
+        queryKey: ["my_offers", category_id],
+        queryFn: () => OfferApiService.getMyAll()
+    })
 
     return (
         <div className={styles.mobc}> 
@@ -152,15 +164,9 @@ const MyOffersByCategory:FC = () => {
                     <p className='text-[22px] font-normal text-white'>Действия</p>
                 </div>
                 <div className={styles.orders}>
-                    <Order/>
-                    <Order/>
-                    <Order/>
-                    <Order/>
-                    <Order/>
-                    <Order/>
-                    <Order/>
-                    <Order/>
-                    <Order/>
+                    {data?.map(el => (
+                        <Order item={el} />
+                    ))}
                 </div>
                 </section>
                 </>

@@ -2,11 +2,15 @@ import { FC } from "react";
 import styles from '../styles/page.module.css'
 import { DeleteIcon, EditIcon, HideIcon, ToTopIcon } from "../icons/icons";
 
-const Order:FC = () => {
+interface OrderProps {
+    item: {name: string}
+}
+
+const Order:FC<OrderProps> = ({item}) => {
     return (
         <div>
             <div className={styles.order}>
-                <p className='text-[22px] font-normal text-white '>Brawl Stars</p>
+                <p className='text-[22px] font-normal text-white '>{item.name}</p>
                 <p className='text-[22px] font-normal text-white'>530₽</p>
                 <p className='text-[22px] font-normal text-white'>Есть</p>
                 <p className='text-[22px] font-normal text-white'>Аккаунт</p>

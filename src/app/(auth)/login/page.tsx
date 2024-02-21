@@ -4,6 +4,8 @@ import { LoginForm } from "./_components/login-form";
 import Image from "next/image";
 import styles from './_components/styles/login.module.css'
 import { useMediaQuery } from 'react-responsive'
+import { Button } from "@/components/ui/button";
+import { logout } from "@/actions/logout";
 
 const LoginPage = () => {
     const mobileRes = useMediaQuery({
@@ -12,6 +14,7 @@ const LoginPage = () => {
 
     return (
         <div className="mt-6 flex flex-col items-center">
+            <Button onClick={() => logout()}>Logout</Button>
             <div className={styles.login_page}>
                 <LoginForm />
             </div>
