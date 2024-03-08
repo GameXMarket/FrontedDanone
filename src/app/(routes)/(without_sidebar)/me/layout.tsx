@@ -1,5 +1,9 @@
+'use client'
+
+import { Button } from "@/components/ui/button";
 import { Navbar } from "./_components/navbar";
 import { UserInfo } from "./_components/user-info";
+import { logout } from "@/actions/logout";
 
 const MeLayout = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -14,3 +18,6 @@ const MeLayout = ({ children }: { children: React.ReactNode }) => {
 };
 
 export default MeLayout;
+
+
+

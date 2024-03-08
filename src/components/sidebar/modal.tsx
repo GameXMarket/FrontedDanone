@@ -4,6 +4,7 @@ import { Button } from "../ui/button";
 import MaskedInput from 'react-text-mask'
 import { SuccessIcon } from "./icons/SidebarIcons";
 import { ChevronLeft } from "lucide-react";
+import { Input } from "../ui/input";
 
 interface IModal {
     reference: any
@@ -42,7 +43,7 @@ const Modal:FC<PropsWithChildren<IModal>> = ({reference, isShow, setIsShow}) => 
                 <div className="w-full mt-4 flex justify-between items-center">
                     <div className={styles.qty}>
                         <div className="w-full flex justify-center">
-                            <p className={styles.number}>500</p>
+                            <Input placeholder="100" className={styles.number}/>
                         </div>
                         <div className={styles.qty_bg}>
 
