@@ -14,7 +14,6 @@ const LoginPage = () => {
 
     return (
         <div className="mt-6 flex flex-col items-center">
-            <Button onClick={() => logout()}>Logout</Button>
             <div className={styles.login_page}>
                 <LoginForm />
             </div>

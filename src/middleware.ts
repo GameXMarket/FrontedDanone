@@ -44,6 +44,12 @@ export default auth((req): void | Response | Promise<void | Response> | null  =>
     ));
   }
 
+  if(isPublicRoute){
+    if(nextUrl.pathname === "/"){
+      return Response.redirect(new URL("/home", nextUrl))
+    }
+  }
+
   return null;
 })
 
