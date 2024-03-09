@@ -4,17 +4,31 @@ import styles from './header.module.css'
 const Logo = dynamic(() => import("./Logo"), {ssr: false});
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Button } from '../ui/button';
+import { useCurrentUser } from '@/hooks/useCurrentUser';
 import dynamic from 'next/dynamic';
 
 const Header = ({className}: {className?: string}) => {
 
+    const session = useCurrentUser()
     const {push} = useRouter()
 
     return (
         <header className={cn(className ? className : styles.header)}>
-            <div className={styles.logo_container} onClick={() => push("/home")}>
-                <Logo/>
+            <div className={session === null ? styles.header_container : styles.header_none}>
+                <div className={styles.logo_container} onClick={() => push("/home")}>
+                    <Logo/>
+                </div>
+                {!session && (
+                    <div className={styles.btns}>
+                        <Button className={styles.btn} onClick={() => push("/login")}>Войти</Button>
+                        <Button className={styles.btn} onClick={() => push("/register")}>Регистрация</Button>
+                    </div>
+                )}
+
             </div>
+
+
         </header>
     )
 }

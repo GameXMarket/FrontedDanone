@@ -5,3 +5,5 @@ export const useCurrentUser = () => {
 
   return session.data?.user;
 };
+
+// session.data?.user INSTEAD OF NULL

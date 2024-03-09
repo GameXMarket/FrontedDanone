@@ -17,8 +17,15 @@ import { useOutside } from "@/hooks/useOutside";
 import { useMediaQuery } from "react-responsive";
 import { NotificationsModal } from "../Notifications";
 import Link from "next/link";
+import { userService } from "@/requests/user/user.service";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
 
 const Sidebar: FC = () => {
+    const {data, error, isLoading} = useAuthQuery({
+        queryKey: ['Get main user data'],
+        queryFn: () => userService.getUser()
+    })
+
     const session = useSession();
     const { ref, isShow, setIsShow } = useOutside(false);
     const [isAuth, setIsAuth] = useState<boolean>(true); // УСЛОВНО
@@ -63,7 +70,7 @@ const Sidebar: FC = () => {
                                 <div className={styles.profile_info_block}>
                                     <div className="w-full flex">
                                         <h4 className={styles.sidebar_name}>
-                                            {session.data?.user.username}
+                                            {data?.username}
                                         </h4>
                                         <NotificationsModal />
                                     </div>

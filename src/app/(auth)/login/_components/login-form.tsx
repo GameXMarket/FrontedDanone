@@ -47,7 +47,7 @@ export const LoginForm = () => {
             return;
         }
         setErrors({ email: undefined, password: undefined });
-        try{
+        try {
             await login(values, callbackUrl)
         }
         catch(err: any){
@@ -81,7 +81,7 @@ export const LoginForm = () => {
                                     disabled={loading}
                                     errors={errors}
                                     id="email"
-                                    placeholder="Имя пользователя"
+                                    placeholder="Электронная почта"
                                 />
                             )}
                         ></FormField>
@@ -90,6 +90,7 @@ export const LoginForm = () => {
                             name="password"
                             render={({ field }) => (
                                 <FormInput
+                                    type="password"
                                     {...field}
                                     disabled={loading}
                                     errors={errors}

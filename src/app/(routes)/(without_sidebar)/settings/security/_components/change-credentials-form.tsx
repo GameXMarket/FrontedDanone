@@ -9,6 +9,9 @@ import { z } from "zod";
 import { SettingsInput } from "../../_components/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useTransition } from "react";
+import { useSafeMutation } from "@/hooks/useSafeMutation";
+import { userService } from "@/requests/user/user.service";
+import toast from "react-hot-toast";
 
 export const ChangeEmailForm = () => {
     const user = useCurrentUser();
@@ -62,6 +65,11 @@ export const ChangeEmailForm = () => {
 };
 
 export const ChangePasswordForm = () => {
+    const {mutation, fieldErrors: errors} = useSafeMutation(userService.updateUserPassword, {
+        onError: (err: any) => {
+            toast.error(err.message)
+        }
+    })
 
     const [isPending, startTransition] = useTransition();
 
@@ -69,13 +77,14 @@ export const ChangePasswordForm = () => {
         resolver: zodResolver(changePasswordSchema),
         defaultValues: {
             password: "",
+            auth: {
+                old_password: "",
+            }
         },
     });
 
-    const onSubmit = (values: ChangePasswordDto) => {
-        startTransition(() => {
-            console.log(values);
-        });
+    const onSubmit = (values:any) => {
+        console.log(values)
     };
 
     return (
@@ -91,6 +100,23 @@ export const ChangePasswordForm = () => {
                                     <SettingsInput
                                         className="min-w-[400px] mobile:min-w-[300px]"
                                         label="Пароль"
+                                        placeholder="Введите текущий пароль"
+                                        {...field}
+                                        disabled={isPending}
+                                    />
+                                </FormControl>
+                            </FormItem>
+                        )}
+                    />                
+                    <FormField
+                        control={form.control}
+                        name="auth.old_password"
+                        render={({ field }) => (
+                            <FormItem className="mobile:w-full">
+                                <FormControl>
+                                    <SettingsInput
+                                        className="min-w-[400px] mobile:min-w-[300px]"
+                                        label="Пароль"
                                         placeholder="Введите новый пароль"
                                         {...field}
                                         disabled={isPending}
@@ -98,7 +124,7 @@ export const ChangePasswordForm = () => {
                                 </FormControl>
                             </FormItem>
                         )}
-                    />
+                    />     
                     <Button type="submit" variant="accent" size="lg" className="rounded-xl">Сменить пароль</Button>
                 </form>
             </Form>
