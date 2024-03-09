@@ -27,7 +27,7 @@ export const AutoGiveForm = () => {
                             className="cursor-pointer hover:opacity-80"
                         />
                     </div>
-                    <div className="space-y-3">{Array.from({length: 3}).map((_, idx) => <AutoGiveItem text="Log, pass" idx={idx} />)}</div>
+                    <div className="space-y-3">{Array.from({length: 3}).map((_, idx) => <AutoGiveItem key={idx} text="Log, pass" idx={idx} />)}</div>
                 </form>
             )}
         </div>

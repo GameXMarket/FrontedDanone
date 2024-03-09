@@ -17,7 +17,7 @@
 
 .card_option {
     transition: 0.3s;
-    @apply text-[#474850] text-[16px] font-normal;
+    @apply text-[#474850] text-[16px] font-normal flex justify-center;
 }
 
 .card_option {

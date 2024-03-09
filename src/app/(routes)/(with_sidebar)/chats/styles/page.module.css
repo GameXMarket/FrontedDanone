@@ -1,18 +1,18 @@
 .messenger_container {
-    @apply w-[1000px] flex ml-5;
+    @apply w-[1000px] mobile:w-auto flex mobile:gap-y-6 ml-5;
 }
 
 .messenger_groupsandchats {
-    @apply w-full flex;
+    @apply flex;
 }
 
 @media screen and (max-width: 440px) {
   .messenger_container {
-    @apply max-w-[400px] m-0 flex items-center justify-center;
+    @apply max-w-[400px] m-0 flex mobile:flex-col items-center justify-center;
   }
 
   .messenger_groupsandchats {
-    @apply max-w-[400px] flex flex-col items-center; 
+    @apply max-w-[400px] w-full flex flex-col items-center; 
   }
 }
 

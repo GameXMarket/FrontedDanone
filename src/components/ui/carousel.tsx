@@ -204,7 +204,7 @@ const CarouselPrevious = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute -bottom-20 right-20 h-16 w-16 rounded-full bg-transparent border-2 border-rose-600 hover:bg-inherit hover:text-inherit",
+        "-bottom-20 right-20 h-16 w-16 rounded-full bg-transparent border-2 border-rose-600 hover:bg-inherit hover:text-inherit",
         className
       )}
       disabled={!canScrollPrev}
@@ -230,7 +230,7 @@ const CarouselNext = React.forwardRef<
       variant={variant}
       size={size}
       className={cn(
-        "absolute -bottom-20 right-0 h-16 w-16 rounded-full bg-transparent border-2 border-rose-600 hover:bg-inherit hover:text-inherit",
+        "-bottom-20 right-0 h-16 w-16 rounded-full bg-transparent border-2 border-rose-600 hover:bg-inherit hover:text-inherit",
         className
       )}
       disabled={!canScrollNext}

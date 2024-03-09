@@ -16,13 +16,14 @@ export const OfferInfo = ({ categoryId, description }: OfferInfoProps) => {
     const { data, isLoading } = useQuery<CategoryType>({
         queryKey: ["offerInfo_category"],
         queryFn: () => categoryServices.getCategoryById(categoryId),
+        enabled: !!categoryId
     });
 
     return (
         <div className="space-y-6 mobile:w-full">
             <div className="flex justify-between text-xl mobile:w-full">
                 <h3 className="text-2xl">Информация о товаре:</h3>
-                <p className="text-muted-foreground flex gap-x-2 mobile:hidden">
+                <div className="text-muted-foreground flex gap-x-2 mobile:hidden">
                     Статус: <span className="text-white"> Оплачено</span>
                     <Image
                         src="/images/auth/correct.svg"
@@ -30,11 +31,11 @@ export const OfferInfo = ({ categoryId, description }: OfferInfoProps) => {
                         width={20}
                         height={20}
                     />
-                </p>
+                </div>
             </div>
             <div className="flex flex-wrap gap-x-3 gap-y-2">
-                {data?.childrens?.map?.((el) => (
-                    <Button className="bg-bgel rounded-xl">{el.name}</Button>
+                {data?.values?.map?.((el) => (
+                    <Button key={el.id} className="bg-bgel rounded-xl">{el.value}</Button>
                 ))}
             </div>
             <div className="hidden mobile:flex gap-x-3 items-center">

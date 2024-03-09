@@ -3,7 +3,6 @@ import { ChangeNameForm } from "./_components/change-name-form"
 import { currentUser } from "@/lib/auth"
 
 const ProfilePage = async () => {
-    
     const user = await currentUser()
 
     return(

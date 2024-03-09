@@ -1,5 +1,5 @@
 .chat {
-    @apply ml-5 flex flex-col w-[550px];
+    @apply ml-5 flex flex-col w-[550px] mobile:w-full mobile:ml-0;
 }
 
 .chat_name {
@@ -24,9 +24,6 @@
 
 .chat_send_msg {
     border-radius: 24px;
-    opacity: 0.08;
-    background: var(--main-color, linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%));
-    @apply cursor-pointer ml-2 flex h-16 w-16 items-center justify-center;
 }
 
 .msg_avatar {

@@ -15,7 +15,7 @@ export const Avatar = ({ size, src }: AvatarProps) => {
 
     return (
         <div
-            onClick={() => push("/settings/profile")}
+            onClick={() => push("/me/reviews")}
             className={cn(
                 `relative w-[${size || 50}px] h-[${
                     size || 50

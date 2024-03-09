@@ -64,7 +64,7 @@
 
 .section_offers {
     box-shadow: 0px -79px 25px 0px rgb(27, 28, 35) inset;
-    @apply w-[1250px] overflow-y-scroll max-h-[550px] mt-6 flex flex-wrap;
+    @apply w-[1250px] mobile:w-full overflow-y-scroll max-h-[550px] mt-6 flex flex-wrap;
     gap: 2rem;
 }
 
@@ -74,7 +74,7 @@
 
 .offer {
     transition:0.6s;
-    @apply flex w-[380px]  h-[120px] cursor-pointer rounded-[24px];
+    @apply flex w-[380px] mobile:w-full h-[120px] cursor-pointer rounded-[24px];
 }
 
 .offer_info {

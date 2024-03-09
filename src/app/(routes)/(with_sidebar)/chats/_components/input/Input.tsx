@@ -4,7 +4,7 @@ import { FC } from "react";
 const MessengerInput:FC = () => {
     return (
         <div>
-            <Input className="text-white w-[480px] h-16 rounded-[24px]" placeholder="Сообщение"/>
+            <Input id="message" className="text-white w-[480px] h-16 rounded-[24px]" placeholder="Сообщение"/>
         </div>
     )
 }

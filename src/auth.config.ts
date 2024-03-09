@@ -13,6 +13,7 @@ export default {
                 const validatedFields = loginSchema.safeParse(credentials);
                 if (validatedFields.success) {
                     const { email, password } = validatedFields.data;
+                    console.log(email, password);
 
                     const res = await axios.post("https://test.yunikeil.ru/auth/login", { email, password });
                     if (res) {
@@ -34,5 +35,6 @@ export default {
             }
         })
     ],
-    secret: process.env.NEXAUTH_JWT_SECRET
+    secret: process.env.NEXAUTH_JWT_SECRET,
+    trustHost: true
 } satisfies NextAuthConfig

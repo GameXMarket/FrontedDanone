@@ -17,7 +17,9 @@ module.exports = {
     },
     extend: {
       screens: {
-        "mobile": {'max': '440px'}
+        "mobile": {'max': '440px'},
+        "1340px": {'min': "1340px"},
+        "3xl": {'min': "1650px"},
       },
       colors: {
         bgel: "var(--bgel)",

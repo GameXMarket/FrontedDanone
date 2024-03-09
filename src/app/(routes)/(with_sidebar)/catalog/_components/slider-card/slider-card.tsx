@@ -4,11 +4,12 @@ import Link from "next/link";
 import { FC, PropsWithChildren } from "react";
 import { IGetCat } from "@/requests/categories/categories.interfaces";
 import { cn } from "@/lib/utils";
+import { ValueType } from "@/types/CategoryType";
 
 interface ISliderCard {
     id: number;
     name: string;
-    categories?: IGetCat[];
+    categories?: ValueType[];
 }
 
 const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
@@ -31,10 +32,10 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
                     <div className={styles.card_options}>
                         <div className="w-full grid grid-cols-10 gap-x-4 gap-y-2">
                             {categories?.slice(0,5)?.map((el, idx) => (
-                                <div className={cn(styles.card_option,
+                                <Link key={el.id} href={`/categories/${id}?c=${el.id}`} className={cn(styles.card_option,
                                     idx === 0 || idx === 3 || idx === 4 ? "col-span-6" : "col-span-4")}>
-                                    <p className="flex items-center justify-center">{el.name}</p>
-                                </div>
+                                    <p className="flex items-center justify-center">{el.value}</p>
+                                </Link>
                             ))}
                             <div className={cn(styles.card_option, "col-span-4")}>
                                 <p className="flex items-center justify-center">больше...</p>

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import '../styles/globals.css'
 import { QueryProvider } from '@/components/providers/query-provider'
 import { ToastProvider } from '@/components/providers/toaster-provider'
@@ -46,9 +45,6 @@ export default function RootLayout({
             {children}
           </MySessionProvider>
         </QueryProvider>
-        {/*<div className="background_wave">
-          <BackgroundWaveOne/>
-        </div>*/}
       </body>
     </html>
   )

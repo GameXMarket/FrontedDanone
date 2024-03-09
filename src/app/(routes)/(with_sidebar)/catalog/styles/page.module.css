@@ -1,34 +1,10 @@
 .search_container {
-    @apply w-[1280px] pr-36 flex items-center justify-center;    
-}
-
-@media screen and (max-width: 768px) {
-    .search_container {
-        @apply max-w-full p-0 flex flex-col;
-    }
-
-    .game_not_found {
-        @apply text-[18px];
-    }
-
-    .search {
-        @apply max-w-[60%];
-    }
-
-    .not_found {
-        @apply m-0;
-    }
-}
-
-.search {
-    @apply w-[400px];
+    @apply flex items-center justify-center;    
 }
 
 .not_found {
     @apply ml-10;
 }
-
-
 
 .game_not_found {
     @apply text-[24px] cursor-pointer;
@@ -59,4 +35,26 @@
     height: 100vh;
     flex-shrink: 0;
     background: linear-gradient(270deg, #000 -89.8%, rgba(0, 0, 0, 0.00) 90.28%);
+}
+
+@media screen and (max-width: 1180px) {
+    .search_container {
+        @apply max-w-full p-0 flex flex-col justify-center;
+    }
+}
+
+@media screen and (max-width: 440px) {
+    
+
+    .not_found {
+        @apply ml-0 mt-8
+    }
+
+    .game_not_found {
+        @apply text-[20px] underline;
+    }
+
+    .slider{
+        @apply mt-5
+    }
 }

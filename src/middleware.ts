@@ -10,12 +10,13 @@ import {
 
 const { auth } = NextAuth(authConfig);
 
-export default auth((req) => {
+//@ts-ignore
+export default auth((req): void | Response | Promise<void | Response> | null  => {
   const { nextUrl } = req;
   const isLoggedIn = !!req.auth;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = true;
+  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
   if (isApiAuthRoute) {
@@ -41,6 +42,12 @@ export default auth((req) => {
       `/login?callbackUrl=${encodedCallbackUrl}`,
       nextUrl
     ));
+  }
+
+  if(isPublicRoute){
+    if(nextUrl.pathname === "/"){
+      return Response.redirect(new URL("/home", nextUrl))
+    }
   }
 
   return null;

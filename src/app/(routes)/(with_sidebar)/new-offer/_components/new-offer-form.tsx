@@ -9,31 +9,38 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+import { cn, convertToBase64 } from "@/lib/utils";
 import { useEffect, useState } from "react";
 import styles from "../style.module.css";
 import Image from "next/image";
 import { FormField } from "@/components/ui/form";
-import {
-    ControllerRenderProps,
-    Form,
-    UseFormReturn,
-    useForm,
-} from "react-hook-form";
+import { UseFormReturn, useForm } from "react-hook-form";
 import { safeCreateOffer } from "@/requests/offer/offer-service";
 import { CreateOfferDto } from "@/requests/offer/schemas";
 import toast from "react-hot-toast";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
-import { QueryObserverResult, RefetchOptions, useQuery } from "@tanstack/react-query";
+import {
+    FetchNextPageOptions,
+    InfiniteData,
+    InfiniteQueryObserverResult,
+    useInfiniteQuery,
+    useQueryClient,
+} from "@tanstack/react-query";
 import { categoryServices } from "@/requests/categories/categories-services";
-import { IGetCat } from "@/requests/categories/categories.interfaces";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
+import { useRouter } from "next/navigation";
+import { CategoryType, ValueType } from "@/types/CategoryType";
+import { OfferType } from "@/types/OfferType";
 
 export const NewOfferForm = () => {
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    const [preview, setPreview] = useState("")
+
+    const { push } = useRouter();
+
     const [nextPage, setNextPage] = useState(false);
 
     const form = useForm<CreateOfferDto>({
@@ -41,67 +48,77 @@ export const NewOfferForm = () => {
             name: "",
             description: "",
             price: "" as unknown as number,
-            amount_id: "" as unknown as number,
             attachment_id: null,
-            game_id: "" as unknown as number,
-            service_id: "" as unknown as number
-        }
+            count: 0,
+            category_value_ids: [],
+            img: null,
+        },
     });
 
-    const [name, setName] = useState<string>("");
-    const [service, setService] = useState<string>("");
-    const [amount, setAmount] = useState<string>("");
+    const [categories, setCategories] = useState<
+        { name: string; id: number; next: number }[]
+    >([]);
 
     const price = form.watch("price");
 
-    const {mutation, fieldErrors} = useSafeMutation(safeCreateOffer, {
-        onSuccess: (data) => {
-            toast.success("Успешно создано!")
-            form.reset({description: ""})
-        },
-        onError: (error) => {
-            toast.error("Что-то пошло не так!")
+    const { mutation, fieldErrors } = useSafeMutation<{}, OfferType>(
+        safeCreateOffer,
+        {
+            onSuccess: (data) => {
+                toast.success("Успешно создано!");
+                form.reset({ description: "" });
+                push(`offer/settings/${data.data.id}`);
+            },
+            onError: (error) => {
+                toast.error("Что-то пошло не так!");
+            },
         }
-    }
-    )
+    );
+    const handleUploadedFile = async (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => {
+        const file = event.target.files![0];
+        const base64 = await convertToBase64(file);
+
+        setPreview(base64 as string);
+    };
 
     const onSubmit = (data: CreateOfferDto) => {
         const dto = {
             name: data.name,
             description: data.description,
             price: +data.price,
-            count: +data.amount_id!,
+            count: 1,
             attachment_id: null,
-            category_id: data.amount_id
-        }
-        console.log(dto)
-        mutation.mutate(dto)
-    }
+            category_value_ids: categories.map((el) => el.id),
+            img: data.img,
+        };
+        mutation.mutate(dto);
+    };
+    const {
+        data: arr,
+        fetchNextPage,
+        isFetching,
+    } = useInfiniteQuery({
+        queryKey: ["choises"],
+        queryFn: ({ pageParam }) => categoryServices.getCategoryById(pageParam),
+        initialPageParam: 1,
+        getNextPageParam: (lastPage) => {
+            if (categories.length) {
+                return categories[categories.length - 1].next;
+            }
+        },
+        retry: 0,
+    });
 
-    const {data: games} = useQuery({
-        queryKey: ["Games"],
-        queryFn: () => categoryServices.getAllCategories()
-    })
-    const {data: services, refetch: refetchServices} = useQuery({
-        queryKey: ["Service"],
-        queryFn: async () => {
-            const game = form.getValues("game_id")
-            if(game){
-                return await categoryServices.getCategoryById(game)
-            }
-            return []
-        }
-    })
-    const {data: offerAmount, refetch: refetchAmount, isLoading} = useQuery({
-        queryKey: ["Amount"],
-        queryFn: async () => {
-            const service = form.getValues("service_id")
-            if(service){
-                return await categoryServices.getCategoryById(service)
-            }
-            return []
-        }
-    })
+    const append = (
+        val: { name: string; id: number; next: number },
+        idx: number
+    ) => {
+        const newCategories = categories.slice(0, idx);
+        newCategories.push(val);
+        setCategories(newCategories);
+    };
 
     if (!mounted) return null;
 
@@ -110,11 +127,12 @@ export const NewOfferForm = () => {
             className={cn(
                 "w-full h-full flex mobile:justify-center px-8 mobile:px-0",
                 styles.wrapper
-                // !nextPage && "ml-[20px] lg:ml-[210px] xl:ml-[340px]",
-                // nextPage && "ml-[20px] lg:ml-[210px] xl:ml-[300px]"
             )}
         >
-            <form className="mobile:w-full" onSubmit={form.handleSubmit(onSubmit)}>
+            <form
+                className="mobile:w-full"
+                onSubmit={form.handleSubmit(onSubmit)}
+            >
                 <div
                     className={cn(
                         nextPage && "hidden",
@@ -122,35 +140,20 @@ export const NewOfferForm = () => {
                     )}
                 >
                     <div className="flex flex-col items-center gap-y-4 min-w-[440px] mobile:min-w-full">
-                        <SelectName 
-                            refetch={refetchServices}
-                            data={games}
-                            form={form}
-                            label="Выберите игру"
-                            placeholder="Выберите название игры"
-                            setName={setName}
-                        />
-                        {name && (
-                            <SelectService
-                                refetch={refetchAmount}
-                                data={services}
-                                form={form}
-                                setService={setService}
-                                label="Выберите услугу"
-                                placeholder="Тип объявления"
+                        {arr?.pages.map((el, idx) => (
+                            <SelectCategory
+                                key={el.id}
+                                idx={idx}
+                                fetchNextPage={fetchNextPage}
+                                data={el.values}
+                                label={el.select_name}
+                                placeholder={el.select_name}
+                                append={append}
                             />
-                        )}
-                        {name && service && (
-                            <SelectAmount
-                                isLoading={isLoading}
-                                data={offerAmount}
-                                form={form}
-                                setAmount={setAmount}
-                                label="Выберите номинал"
-                                placeholder="Выберите количество"
-                            />
-                        )}
-                        {name && service && amount && (
+                        ))}
+                        {isFetching && <SelectCategory.Skeleton />}
+                        {categories.length &&
+                        Number.isNaN(categories[categories.length - 1].next) ? (
                             <Button
                                 type="button"
                                 onClick={() => setNextPage(true)}
@@ -160,7 +163,7 @@ export const NewOfferForm = () => {
                             >
                                 Далее
                             </Button>
-                        )}
+                        ) : null}
                     </div>
                 </div>
                 <div
@@ -172,7 +175,9 @@ export const NewOfferForm = () => {
                 >
                     <div className="space-y-6">
                         <div className="space-y-4">
-                            <h2 className="text-3xl font-medium mobile:text-center">Основное</h2>
+                            <h2 className="text-3xl font-medium mobile:text-center">
+                                Основное
+                            </h2>
                             <FormField
                                 disabled={mutation.isPending}
                                 control={form.control}
@@ -230,12 +235,21 @@ export const NewOfferForm = () => {
                                 </div>
                                 <FormField
                                     control={form.control}
-                                    name="attachment_id"
-                                    render={({ field }) => (
+                                    name="img"
+                                    render={({ field: {onChange}, ...field }) => (
                                         //@ts-ignore
                                         <Input
                                             disabled={mutation.isPending}
                                             {...field}
+                                            onChange={(event) => {
+                                                const dataTransfer = new DataTransfer();
+                                                Array.from(event.target.files!).forEach((image) =>
+                                                dataTransfer.items.add(image)
+                                                );
+
+                                                const newFiles = dataTransfer.files;
+                                                onChange(newFiles);
+                                            }}
                                             type="file"
                                             className={cn(
                                                 "h-full opacity-0 cursor-pointer absolute top-0 left-0 mobile:top-1/2 mobile:left-1/2 mobile:-translate-x-1/2 mobile:-translate-y-1/2 mobile:p-0 mobile:w-[40px] mobile:h-[40px]"
@@ -271,22 +285,48 @@ export const NewOfferForm = () => {
     );
 };
 
-interface SelectNameProps {
-    label?: string;
+interface SelectCategoryProps {
+    idx: number;
+    label: string;
     placeholder?: string;
-    setName: (name: string) => void;
-    form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
-    data: IGetCat[] | undefined;
-    refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
+    data: ValueType[] | undefined;
+    append: (
+        val: { name: string; id: number; next: number },
+        idx: number
+    ) => void;
+    fetchNextPage: (
+        options?: FetchNextPageOptions | undefined
+    ) => Promise<
+        InfiniteQueryObserverResult<InfiniteData<CategoryType, unknown>, Error>
+    >;
 }
-const SelectName = ({ setName, label, placeholder, form, data, refetch }: SelectNameProps) => {
-    const onChange = (
-        field: ControllerRenderProps<CreateOfferDto, "game_id">,
-        value: string
-    ) => {
-        setName(value);
-        field.onChange(value);
-        refetch()
+const SelectCategory = ({
+    idx,
+    append,
+    label,
+    placeholder,
+    data,
+    fetchNextPage,
+}: SelectCategoryProps) => {
+    const queryClient = useQueryClient();
+
+    const onChange = (value: string) => {
+        append(
+            {
+                id: +value.split(",")[0],
+                name: label,
+                next: +value.split(",")[1],
+            },
+            idx
+        );
+        queryClient.setQueryData(
+            ["choises"],
+            (data: InfiniteData<CategoryType, unknown>) => ({
+                pages: data.pages.slice(0, idx + 1),
+                pageParams: data.pageParams,
+            })
+        );
+        setTimeout(fetchNextPage, 0);
     };
 
     return (
@@ -295,132 +335,40 @@ const SelectName = ({ setName, label, placeholder, form, data, refetch }: Select
                 {label}
                 <span className="text-rose-500"> *</span>
             </p>
-            <FormField
-                control={form.control}
-                name="game_id"
-                render={({ field }) => (
-                    <Select onValueChange={(value) => onChange(field, value)}>
-                        <SelectTrigger className="min-w-[300px] px-6 mobile:px-3 mobile:text-lg">
-                            <SelectValue placeholder={placeholder} />
-                        </SelectTrigger>
-                        <SelectContent className="text-xl mobile:text-lg">
-                            {data?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
-                        </SelectContent>
-                    </Select>
-                )}
-            />
+
+            <Select onValueChange={(value) => onChange(value)}>
+                <SelectTrigger className="min-w-[300px] px-6 mobile:px-3 mobile:text-lg">
+                    <SelectValue placeholder={placeholder} />
+                </SelectTrigger>
+                <SelectContent className="text-xl mobile:text-lg">
+                    {data?.map((el) => (
+                        <SelectItem
+                            key={el.id}
+                            value={`${el.id},${el.next_carcass_id}`}
+                        >
+                            {el.value}
+                        </SelectItem>
+                    ))}
+                </SelectContent>
+            </Select>
         </div>
     );
 };
 
-interface SelectServiceProps {
-    label?: string;
-    placeholder?: string;
-    setService: (name: string) => void;
-    form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
-    data: IGetCat;
-    refetch: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<any, Error>>
-}
-const SelectService = ({
-    setService,
-    label,
-    placeholder,
-    form,
-    data,
-    refetch
-}: SelectServiceProps) => {
-    const onChange = (
-        field: ControllerRenderProps<CreateOfferDto, "service_id">,
-        value: string
-    ) => {
-        setService(value);
-        field.onChange(value);
-        refetch()
-    };
-
-    return (
-        <div className="w-full">
-            <p className="text-xs text-muted-foreground ml-2 mb-1">
-                {label}
-                <span className="text-rose-500"> *</span>
-            </p>
-            <FormField
-                control={form.control}
-                name="service_id"
-                render={({ field }) => (
-                    <Select onValueChange={(value) => onChange(field, value)}>
-                        <SelectTrigger className="px-6 mobile:px-3 mobile:text-lg">
-                            <SelectValue placeholder={placeholder} />
-                        </SelectTrigger>
-                        <SelectContent className="mobile:text-lg">
-                            {data?.childrens?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
-                        </SelectContent>
-                    </Select>
-                )}
-            />
-        </div>
-    );
-};
-
-interface SelectAmountProps {
-    label?: string;
-    placeholder?: string;
-    setAmount: (name: string) => void;
-    form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
-    data: IGetCat
-    isLoading: boolean
-}
-const SelectAmount = ({
-    setAmount,
-    label,
-    placeholder,
-    form,
-    data,
-    isLoading
-}: SelectAmountProps) => {
-    const onChange = (
-        field: ControllerRenderProps<CreateOfferDto, "amount_id">,
-        value: string
-    ) => {
-        setAmount(value);
-        field.onChange(value);
-    };
-    console.log(isLoading)
-    return (
-        <div className="w-full">
-            <p className="text-xs text-muted-foreground ml-2 mb-1">
-                {label}
-                <span className="text-rose-500"> *</span>
-            </p>
-            <FormField
-                control={form.control}
-                name="amount_id"
-                render={({ field }) => (
-                    <Select onValueChange={(value) => onChange(field, value)}>
-                        <SelectTrigger className="px-6 mobile:px-3 mobile:text-lg">
-                            <SelectValue placeholder={placeholder} />
-                        </SelectTrigger>
-                        <SelectContent className="mobile:text-lg">
-                            {isLoading && (Array.from({length: 5}).map((_, idx) => <div>{idx}</div>))}
-                            {data?.childrens?.map((el) => <SelectItem key={el.id} value={el.id.toString()}>{el.name}</SelectItem>)}
-                        </SelectContent>
-                    </Select>
-                )}
-            />
-        </div>
-    );
+SelectCategory.Skeleton = function SelectCategorySkeleton() {
+    return <div className="animate-pulse">Loading...</div>;
 };
 
 const PriceInput = ({
     label,
     price,
     form,
-    disabled
+    disabled,
 }: {
     label: string;
     price: string | number;
     form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
-    disabled?: boolean
+    disabled?: boolean;
 }) => {
     return (
         <div>

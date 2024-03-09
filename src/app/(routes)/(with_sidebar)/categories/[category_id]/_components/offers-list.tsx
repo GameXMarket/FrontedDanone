@@ -1,3 +1,5 @@
+'use client'
+
 import { ItemCard } from "@/components/ItemCard";
 import { Button } from "@/components/ui/button";
 import {
@@ -5,22 +7,39 @@ import {
     CarouselContent,
     CarouselItem,
 } from "@/components/ui/carousel";
+import { OfferApiService } from "@/requests/offer/offer-service";
+import { useQuery } from "@tanstack/react-query";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
-interface OffersListPeops {
-    items: any;
+interface OffersListProps {
+    category_id: string;
 }
 
-export const OffersList = () => {
+export const OffersList = ({category_id}: OffersListProps) => {
+    const searchParams = useSearchParams()
+
+    const filter_categories = searchParams.getAll("val").map(el => el.split(":")[0])
+
+    const {data, isLoading} = useQuery({
+        queryKey: ["catalog_offers", category_id, filter_categories],
+        queryFn: () => OfferApiService.getAll([category_id, ...filter_categories]),
+    })
+
+    if(isLoading) {
+        return <OffersList.Skeleton />
+    } 
     return (
         <>
             <div className="mt-6 grid grid-cols-3 gap-10 mobile:hidden">
-                {Array.from({ length: 9 }, (_, idx) => (
-                    <div className="w-full flex flex-col items-center gap-y-6">
+                {data?.map(el => (
+                    <div key={el.id} className="w-full flex flex-col items-center gap-y-6">
                         <ItemCard
                             item={{
+                                id: el.id,
                                 img: "/images/temp_main/brawlstars.png",
-                                name: "Brawl Stars",
-                                price: 1000,
+                                name: el.name,
+                                price: el.price,
                             }}
                         />
                         <Button
@@ -28,12 +47,14 @@ export const OffersList = () => {
                             className="rounded-xl w-3/4 text-xl"
                             variant="accent"
                         >
-                            Чат с продавцом
+                            <Link href={`chats/${el.user_id}`}>
+                                Чат с продавцом
+                            </Link>
                         </Button>
                     </div>
                 ))}
             </div>
-            <div>
+            <div className="hidden mobile:block">
                 {Array.from({ length: 3 }).map((_, idx) => (
                     <Carousel
                         key={idx}
@@ -53,6 +74,7 @@ export const OffersList = () => {
                                     <div className="w-full flex flex-col items-center gap-y-6">
                                         <ItemCard
                                             item={{
+                                                id: 1,
                                                 img: "/images/temp_main/brawlstars.png",
                                                 name: "Brawl Stars",
                                                 price: 1000,
@@ -75,3 +97,13 @@ export const OffersList = () => {
         </>
     );
 };
+
+OffersList.Skeleton = function OffersListSkeleton() {
+    return(
+        <div className="mt-6 grid grid-cols-3 gap-10 mobile:hidden">
+            {Array.from({length: 6}).map((el, idx) => (
+                <ItemCard.Skeleton key={idx} />
+            ))}
+        </div>
+    )
+}

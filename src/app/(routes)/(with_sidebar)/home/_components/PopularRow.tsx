@@ -5,7 +5,7 @@ interface PopularRowProps {
     data: {
         img: string;
         name: string;
-        items: { img: string; name: string; price: number }[];
+        items: { img: string; name: string; price: number; id: number }[];
     };
     idx: number;
 }

@@ -17,19 +17,19 @@ export const MyOrdersButton = () => {
     return (
         <div className="">
             <Button className={styles.button}>
+            <Link href='/my-offers'>
                 <div className="w-full flex items-center">
                     <div className="w-[32px]">
                         <ShopIcon />
                     </div>
-                    <Link href='/my-offers'>
                         <div className="w-full pl-5 items-center flex mr-4">
                             <span className="text-[24px] text-left font-normal">
                                 Мои продажи
                             </span>
                         </div>
-                    </Link>
                     <div
                         onClick={(e: React.MouseEvent<HTMLDivElement>) => {
+                            e.preventDefault()
                             e.stopPropagation()
                             push("/new-offer");
                         }}
@@ -38,6 +38,7 @@ export const MyOrdersButton = () => {
                         <AddIcon />
                     </div>
                 </div>
+                </Link>
             </Button>
         </div>
     );
