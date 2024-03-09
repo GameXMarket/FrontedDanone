@@ -45,7 +45,7 @@ export const {
     //@ts-ignore //only for vercel
     async session({ token, session }) {
       if (token.id && session.user) {
-        //@ts-expect-error
+        //@ts-ignore
         session.user.id = token.id as number;
       }
 
