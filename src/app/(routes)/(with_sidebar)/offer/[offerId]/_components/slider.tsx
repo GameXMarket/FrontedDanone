@@ -9,7 +9,6 @@ import {
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { start } from "repl";
 
 const images = [
     "/images/temp_main/offer1.png",
@@ -27,7 +26,6 @@ export const Slider = () => {
         }
 
         api.on("select", () => {
-            console.log("select")
         });
     }, [api]);
     

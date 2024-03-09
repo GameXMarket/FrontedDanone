@@ -9,7 +9,6 @@ import { useSafeMutation } from "@/hooks/useSafeMutation";
 import styles from './styles/register.module.css'
 import toast from "react-hot-toast";
 import Link from "next/link";
-import { AxiosError } from 'axios';
 
 
 export const RegisterForm = () => {

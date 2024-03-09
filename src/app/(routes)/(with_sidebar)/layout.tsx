@@ -1,5 +1,6 @@
 import Header from "@/components/header/Header";
-import Sidebar from "@/components/sidebar/Sidebar";
+import dynamic from "next/dynamic";
+const Sidebar = dynamic(() => import("@/components/sidebar/Sidebar"), {ssr: false});
 
 export default function HomeLayout({
     children,

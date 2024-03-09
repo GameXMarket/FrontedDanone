@@ -1,40 +1,142 @@
-import { FC } from "react";
-import styles from './chat.module.css'
+'use client'
+
+import { FC, useEffect, useRef, useState } from "react";
+import styles from "./chat.module.css";
 import { BellIcon } from "lucide-react";
 import { LeftMessage, RightMessage } from "./messages";
-import MessengerInput from "../input/Input";
 import { SendMsgIcon } from "../../icons/BellIcon";
+import useWebSocket, { ReadyState } from "react-use-websocket";
+import { useCurrentUser } from "@/hooks/useCurrentUser";
+import instance from "@/requests";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
+import { FormField } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { useForm } from "react-hook-form";
+import { cn } from "@/lib/utils";
 
-const Chat:FC = () => {
+type MessageType = {
+    sender_id: number;
+    attachment_id: number | null;
+    reply_to: number | null;
+    created_at: number;
+    id: number;
+    receiver_id: number;
+    content: string;
+    sender: any;
+    receiver: any;
+};
+
+type SendMessageForm = {
+    message: string;
+};
+
+interface ChatProps {
+    chat?: number | string
+}
+
+const Chat: FC<ChatProps> = ({chat}) => {
+
+    const anchorRef = useRef<HTMLDivElement>(null);
+    const user = useCurrentUser();
+
+    const {
+        sendJsonMessage: sendMessage,
+        lastJsonMessage,
+        readyState,
+    } = useWebSocket(
+        process.env.NEXT_PUBLIC_WS_URL + "?token=" + user?.accessToken!,
+        {},
+        !!user?.accessToken
+    );
+
+    const { data: initMessages, isSuccess } = useAuthQuery({
+        queryKey: ["chat", chat],
+        queryFn: () =>
+            instance
+                .get<Array<MessageType>>(
+                    `chat/?receiver_id=${chat}&offset=0&limit=10000`
+                )
+                .then((res) => res.data),
+        enabled: !!chat,
+    });
+
+    useEffect(() => {
+        if (initMessages && isSuccess) {
+            setMessages(initMessages);
+            setTimeout(() => anchorRef.current?.scrollTo({top: anchorRef.current.scrollHeight}), 5)
+        }
+    }, [isSuccess]);
+
+    const [messages, setMessages] = useState<Array<MessageType>>([]);
+
+    useEffect(() => {
+        if (lastJsonMessage !== null) {
+            setMessages((prev) => prev.concat(lastJsonMessage));
+            setTimeout(() => anchorRef.current?.scrollTo({top: anchorRef.current.scrollHeight}), 5)
+        }
+    }, [lastJsonMessage, setMessages]);
+
+    const connectionStatus = {
+        [ReadyState.CONNECTING]: "Connecting",
+        [ReadyState.OPEN]: "Open",
+        [ReadyState.CLOSING]: "Closing",
+        [ReadyState.CLOSED]: "Closed",
+        [ReadyState.UNINSTANTIATED]: "Uninstantiated",
+    }[readyState];
+
+    const form = useForm<SendMessageForm>();
+
+    const send = (values: SendMessageForm) => {
+        sendMessage({
+            receiver_id: chat || user?.id,
+            content: values.message
+        })
+        form.reset({message: ""})
+    };
+
     return (
         <div className={styles.chat}>
             <div className="w-full flex">
                 <h2 className={styles.chat_name}>Heronwater</h2>
                 <div className="pt-2 w-[32px] h-[32px] flex items-center justify-center">
-                    <BellIcon/>
+                    <BellIcon />
                 </div>
             </div>
-            <div className={styles.chat_container}>
-                <RightMessage/>
-                <LeftMessage/>
-                <RightMessage/>
-                <RightMessage/>
-                <LeftMessage/>
-                <RightMessage/>
-                <LeftMessage/>
+            <div ref={anchorRef} className={styles.chat_container}>
+                {messages.map((mes) => {
+                    if (mes.sender_id === user?.id)
+                        return <RightMessage key={mes.id} text={mes.content} />;
+                    else return <LeftMessage key={mes.id} text={mes.content} />;
+                })}
+                <div  id="anchor"></div>
             </div>
-            <div className="w-full mt-10 flex">
-                <MessengerInput/>
-                <div className={styles.chat_send_msg}>
-                </div>
-                <div className="flex cursor-pointer items-center justify-center">
-                    <div className="absolute translate-x-[-32px]">
-                     <SendMsgIcon/>
-                    </div>
-                </div>
-            </div>
+            <form
+                onSubmit={form.handleSubmit(send)}
+                className="w-full mt-10 mobile:mt-4 flex gap-x-2"
+            >
+                <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                        <Input
+                            {...field}
+                            contClassName="mobile:w-full"
+                            className="text-white w-[480px] mobile:w-full h-16 mobile:h-12 rounded-[24px]"
+                            placeholder="Сообщение"
+                        />
+                    )}
+                />
+                {/* <div className={styles.chat_send_msg}></div> */}
+                <button
+                    disabled={connectionStatus !== "Open"}
+                    type="submit"
+                    className={cn(styles.chat_send_msg, "bg-bgel flex items-center justify-center w-16 min-w-16 mobile:w-12 mobile:min-w-12")}
+                >
+                        <SendMsgIcon />
+                </button>
+            </form>
         </div>
-    )
-}
+    );
+};
 
-export default Chat
+export default Chat;

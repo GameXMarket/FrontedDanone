@@ -7,11 +7,17 @@ import { AddOfferIcon } from "./icons/icons";
 import { SearchInput } from "@/components/SearchInput";
 import Offer from "./_components/offer";
 import { useMediaQuery } from "react-responsive";
-import Link from "next/link";
+import { OfferApiService } from "@/requests/offer/offer-service";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
 
 const MyOffers:FC = () => {
     const mobileRes = useMediaQuery({
         query: '(max-width: 768px)'
+    })
+
+    const {data} = useAuthQuery({
+        queryKey: ["my offers"],
+        queryFn: () => OfferApiService.getMyByCategories()
     })
 
     return (
@@ -60,19 +66,8 @@ const MyOffers:FC = () => {
             )}
             
             <section className={styles.section_offers}>
-                <Offer/>
-                <Offer/>
-                <Offer/>
-                <Offer/>
-                <Offer/> 
-                <Offer/>
-                <Offer/>                
-                <Offer/>
-                <Offer/>
-                <Offer/>
-                <Offer/>
-                <Offer/>
-                <Offer/>
+                {data?.map((el) => <Offer key={el.value_id} item={el} />)}
+                {/* TODO: Offer */}
             </section>
         </div>
     )

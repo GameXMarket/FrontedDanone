@@ -1,7 +1,11 @@
 import Image from "next/image"
 import styles from './chat.module.css'
 
-export const RightMessage = () => {
+interface MessageProps {
+    text: string
+}
+
+export const RightMessage = ({text}: MessageProps) => {
     return (
     <div className={styles.message_right}>
         <div className={styles.msg_right}>
@@ -10,14 +14,14 @@ export const RightMessage = () => {
             </div>
             <div className='w-full pt-3 flex flex-col ml-2'>
                 <h4>Heronwater</h4>
-                <p>Привет, как дела?</p>
+                <p>{text}</p>
             </div>
         </div>
     </div>
     )
 }
 
-export const LeftMessage = () => {
+export const LeftMessage = ({text}: MessageProps) => {
     return (
     <div className={styles.message_left}>
         <div className={styles.msg_left}>
@@ -26,7 +30,7 @@ export const LeftMessage = () => {
                 </div>
                 <div className='w-full pt-3 flex flex-col ml-2'>
                     <h4>Heronwater</h4>
-                    <p>Привет, как дела?</p>
+                    <p>{text}</p>
                 </div>
             </div>
     </div>        

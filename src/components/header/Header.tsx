@@ -1,9 +1,10 @@
 'use client'
 
 import styles from './header.module.css'
-import Logo from "./Logo";
+const Logo = dynamic(() => import("./Logo"), {ssr: false});
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import dynamic from 'next/dynamic';
 
 const Header = ({className}: {className?: string}) => {
 

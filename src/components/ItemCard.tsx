@@ -72,7 +72,7 @@ export const ItemCard = ({ item, lessInfo }: ItemCardProps) => {
 
 ItemCard.Skeleton = function ItemCardSkeleton() {
     return(
-        <div className="p-4 space-y-2 bg-bgel rounded-xl w-full">
+        <div className="p-4 space-y-2 bg-muted-foreground rounded-xl w-full">
             <div className="w-full h-[200px]">
                 <Skeleton className="rounded-xl w-full h-full"/>
             </div>

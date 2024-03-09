@@ -4,6 +4,7 @@ import { OfferInfo } from "./_components/offer-info";
 import { OfferReviews } from "./_components/offer-reviews";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import Chat from "../../chats/_components/chat/Chat";
 
 const OfferPage = async ({params}: {params: {offerId: string}}) => {
 
@@ -22,7 +23,7 @@ const OfferPage = async ({params}: {params: {offerId: string}}) => {
                 </div>
             </div>
             <aside className="w-full flex justify-center mobile:hidden">
-                Chat
+                <Chat chat={offer.user_id} />
             </aside>
         </main>
     )

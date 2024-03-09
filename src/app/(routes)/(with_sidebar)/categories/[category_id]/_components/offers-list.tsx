@@ -9,19 +9,23 @@ import {
 } from "@/components/ui/carousel";
 import { OfferApiService } from "@/requests/offer/offer-service";
 import { useQuery } from "@tanstack/react-query";
-import { memo, useEffect } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 interface OffersListProps {
-    category_id: number | string;
+    category_id: string;
 }
 
 export const OffersList = ({category_id}: OffersListProps) => {
+    const searchParams = useSearchParams()
+
+    const filter_categories = searchParams.getAll("val").map(el => el.split(":")[0])
 
     const {data, isLoading} = useQuery({
-        queryKey: ["catalog_offers", {category_id}],
-        queryFn: () => OfferApiService.getAll(category_id),
+        queryKey: ["catalog_offers", category_id, filter_categories],
+        queryFn: () => OfferApiService.getAll([category_id, ...filter_categories]),
     })
-    console.log(isLoading)
+
     if(isLoading) {
         return <OffersList.Skeleton />
     } 
@@ -35,7 +39,7 @@ export const OffersList = ({category_id}: OffersListProps) => {
                                 id: el.id,
                                 img: "/images/temp_main/brawlstars.png",
                                 name: el.name,
-                                price: 1000,
+                                price: el.price,
                             }}
                         />
                         <Button
@@ -43,7 +47,9 @@ export const OffersList = ({category_id}: OffersListProps) => {
                             className="rounded-xl w-3/4 text-xl"
                             variant="accent"
                         >
-                            Чат с продавцом
+                            <Link href={`chats/${el.user_id}`}>
+                                Чат с продавцом
+                            </Link>
                         </Button>
                     </div>
                 ))}

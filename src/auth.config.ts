@@ -34,5 +34,6 @@ export default {
             }
         })
     ],
-    secret: process.env.NEXAUTH_JWT_SECRET
+    secret: process.env.NEXAUTH_JWT_SECRET,
+    trustHost: true
 } satisfies NextAuthConfig

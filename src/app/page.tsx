@@ -11,7 +11,6 @@ export default function Home() {
   const form = useForm()
 
   const onSubmit = (data: FieldValues) => {
-    console.log("submit")
   }
 
   return (

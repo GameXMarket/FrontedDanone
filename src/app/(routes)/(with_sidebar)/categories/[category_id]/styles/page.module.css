@@ -35,7 +35,7 @@
 
 .option {
     transition: 0.6s;
-    @apply cursor-pointer opacity-40 mx-1 mb-2 bg-[#24252F] rounded-[21px];
+    @apply cursor-pointer mx-1 mb-2 bg-[#24252F] rounded-[21px];
 }
 
 .option_text {

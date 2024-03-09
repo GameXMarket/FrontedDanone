@@ -38,7 +38,7 @@
 }
 
 .groups_mob {
-    @apply items-center justify-between h-[48px] w-[380px] mr-2.5 flex bg-[#24252F] rounded-[20px];
+    @apply items-center justify-between h-[48px] w-[380px] mobile:w-full mr-2.5 mobile:mr-0 flex bg-[#24252F] rounded-[20px];
 }
 
 .group_mob {

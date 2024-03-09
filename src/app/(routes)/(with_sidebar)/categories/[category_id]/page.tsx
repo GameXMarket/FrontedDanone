@@ -30,14 +30,16 @@ const GamePage: FC = () => {
         queryFn: () => categoryServices.getValueById(category_id),
     });
 
-    const { data: currentData, isLoading: currentIsLoading, error: currentError, refetch: currentRefetch } = useQuery<ValueType[]>({
-        queryKey: ["get_current_category_by_id", {currentId}],
-        queryFn: async () => categoryServices.getCategoryAssociated(currentId),
+    const { data: currentData, isLoading: currentIsLoading, error: currentError, refetch: currentRefetch } = useQuery<CategoryType>({
+        queryKey: ["get_current_category_by_id", {category_id}],
+        queryFn: async () => categoryServices.getCategoryById(rootData?.[0].next_carcass_id!),
+        enabled: !!rootData
     });
     
-    const changeCategory = (id: number) => {
+    const changeCategory = (id: number, next: number) => {
         const params = new URLSearchParams(searchParams);
         params.set('c', id.toString());
+        params.set('next', next.toString());
         replace(`${pathname}?${params}`);
     }
 
@@ -81,8 +83,8 @@ const GamePage: FC = () => {
                             <p>Loading...</p>
                         ) : currentData ? (
                             <div className="w-[600px] flex flex-wrap justify-center">
-                                {currentData?.map((el) => (
-                                    <div onClick={() => changeCategory(el.id)} className={cn(styles.option, +currentId === el.id && "back-gradient bg-opacity-15")} key={el.id}>
+                                {currentData?.values.map((el) => (
+                                    <div onClick={() => changeCategory(el.id, el.next_carcass_id)} className={cn(styles.option, "opacity-40", +currentId === el.id && "back-gradient bg-opacity-15 opacity-100")} key={el.id}>
                                         <p className={styles.option_text}>
                                             {el.value}
                                         </p>

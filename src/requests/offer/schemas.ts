@@ -2,6 +2,7 @@ import { number, z } from "zod";
 
 export const createOfferSchema = z.object({
     attachment_id: z.number().nullable(),
+    img: z.any(),
     name: z.string(),
     description: z.string(),
     price: z.number(),
