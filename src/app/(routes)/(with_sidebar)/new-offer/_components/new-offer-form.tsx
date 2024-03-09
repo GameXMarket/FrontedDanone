@@ -193,7 +193,7 @@ export const NewOfferForm = () => {
                             <PriceInput
                                 disabled={mutation.isPending}
                                 price={price}
-                                form={form}
+                                form={form} // eslint-disable-line
                                 label="Цена"
                             />
                         </div>
