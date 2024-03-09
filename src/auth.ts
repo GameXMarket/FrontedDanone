@@ -42,6 +42,7 @@ export const {
     async signIn({ user, account }) {
       return true;
     },
+    //@ts-ignore //only for vercel
     async session({ token, session }) {
       if (token.id && session.user) {
         //@ts-expect-error
