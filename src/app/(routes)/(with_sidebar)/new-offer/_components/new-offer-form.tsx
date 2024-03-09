@@ -193,7 +193,8 @@ export const NewOfferForm = () => {
                             <PriceInput
                                 disabled={mutation.isPending}
                                 price={price}
-                                form={form as UseFormReturn<CreateOfferDto, any, CreateOfferDto>}
+                                //@ts-ignore
+                                form={form}
                                 label="Цена"
                             />
                         </div>
