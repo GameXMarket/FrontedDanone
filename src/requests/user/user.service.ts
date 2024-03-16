@@ -2,7 +2,6 @@ import instance from ".."
 import { passwordDto } from "./schemas"
 
 export const userService = {    
-    // NOTE: НА ВСЯКИЙ СЛУЧАЙ
     async getUser() {
         return await instance.get('users/me').then(res => res.data)
     },
@@ -20,5 +19,10 @@ export const userService = {
     async updateUserEmail(data: {email: string}) {
         return await instance.patch('users/me/update/email', {...data})
             .then(res => res.data)
-    }
+    },
+
+    async deleteUser(data: passwordDto) {
+        return await instance.delete('users/me/update/password', {data})
+            .then(res => res.data)
+    },
 }
