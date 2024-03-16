@@ -10,7 +10,8 @@ export type OfferType = {
     status: string,
     created_at: number,
     updated_at: number,
-    upped_at: number
+    upped_at: number,
+    files: Array<string>
 }
 
 export type MyOfferType = {

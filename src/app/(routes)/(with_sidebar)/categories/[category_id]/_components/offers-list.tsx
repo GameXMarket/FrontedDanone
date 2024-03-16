@@ -25,7 +25,7 @@ export const OffersList = ({category_id}: OffersListProps) => {
         queryKey: ["catalog_offers", category_id, filter_categories],
         queryFn: () => OfferApiService.getAll([category_id, ...filter_categories]),
     })
-
+    console.log(data?.[0].files[0])
     if(isLoading) {
         return <OffersList.Skeleton />
     } 
@@ -37,7 +37,7 @@ export const OffersList = ({category_id}: OffersListProps) => {
                         <ItemCard
                             item={{
                                 id: el.id,
-                                img: "/images/temp_main/brawlstars.png",
+                                img: el.files?.[0],
                                 name: el.name,
                                 price: el.price,
                             }}

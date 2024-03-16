@@ -57,6 +57,7 @@ export const {
         session.user.username = token.username as string;
         session.user.email = token.email as string;
         session.user.accessToken = token.accessToken as string
+        session.user.img = token.img as string
       }
 
       return session;

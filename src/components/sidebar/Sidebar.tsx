@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import styles from "./sidebar.module.css";
 import Image from "next/image";
 import {
-    AuthButton,
     CatalogButton,
     ChatButton,
     MyOrdersButton,
@@ -16,18 +14,12 @@ import Modal from "./modal";
 import { useOutside } from "@/hooks/useOutside";
 import { NotificationsModal } from "../Notifications";
 import Link from "next/link";
-import { userService } from "@/requests/user/user.service";
-import { useAuthQuery } from "@/hooks/useAuthQuery";
 
 interface SidebarProps {
     session: SessionContextValue;
 }
 
 export const Sidebar = ({ session }: SidebarProps) => {
-    // const { data, error, isLoading } = useAuthQuery({
-    //     queryKey: ["Get main user data"],
-    //     queryFn: () => userService.getUser(),
-    // });
 
     const { ref, isShow, setIsShow } = useOutside(false);
 
@@ -40,7 +32,7 @@ export const Sidebar = ({ session }: SidebarProps) => {
                 <div className={styles.profile_block}>
                     <Avatar
                         src={
-                            // data?.files[0] ||
+                            session.data?.user.img ||
                             "/profile-assets/avatar.svg"
                         }
                         size={60}
