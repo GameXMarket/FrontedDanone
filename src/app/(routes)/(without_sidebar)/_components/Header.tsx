@@ -2,11 +2,13 @@
 
 import Header from "@/components/header/Header";
 import { ChevronLeft } from "lucide-react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 export const NoSidebarHeader = () => {
 
     const router = useRouter()
+    const session = useSession()
 
     return (
         <nav className="flex items-center pt-12 mobile:pt-6">
@@ -17,7 +19,7 @@ export const NoSidebarHeader = () => {
                 <ChevronLeft color="#FB2A29" className="text-gradient" />
                 <p className="text-lg text-muted-foreground">Назад</p>
             </div>
-            <Header className="w-full flex justify-center" />
+            <Header session={session} className="w-full flex justify-center" />
         </nav>
     );
 };

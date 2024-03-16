@@ -13,13 +13,13 @@ type Error<TInput> = {
     fieldErrors?: FieldErrors<TInput>,
 } | AxiosError
 
-export const useSafeMutation = <TInput, TOutput> (fn: any, options?: UseMutationOptions<Output<TOutput>, Error<TInput>, TInput, unknown>, token?: string) => {
+export const useSafeMutation = <TInput, TOutput> (fn: any, options?: UseMutationOptions<TOutput, Error<TInput>, TInput, unknown>, token?: string) => {
     const user = useCurrentUser()
     instance.defaults.headers.common.Authorization = `Bearer ${user?.accessToken}`
 
     const [fieldErrors, setFieldsErrors] = useState<FieldErrors<TInput>>()
     
-    const mutation = useMutation<Output<TOutput>, Error<TInput>, TInput>({
+    const mutation = useMutation<TOutput, Error<TInput>, TInput>({
         mutationFn: fn,
         onSettled: (data, error, variables, ctx) => {
             options?.onSettled?.(data, error, variables, ctx)

@@ -24,9 +24,9 @@ export default auth((req): void | Response | Promise<void | Response> | null  =>
   }
 
   if (isAuthRoute) {
-    // if (isLoggedIn) {
-    //   return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
-    // }
+    if (isLoggedIn) {
+      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+    }
     return null;
   }
 

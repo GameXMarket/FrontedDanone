@@ -10,12 +10,11 @@ export const login = async (values: z.infer<typeof loginSchema>, callbackUrl: st
     const { email, password } = values
 
     try{
-        await console.log(email, password)
         await signIn("credentials", {
             email,
             password,
             redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
-        }).then(response => console.log(response))
+        })
 
         
     }
@@ -23,11 +22,9 @@ export const login = async (values: z.infer<typeof loginSchema>, callbackUrl: st
         if (isRedirectError(err)) {
             throw err;
         }
-        if(err?.cause?.err?.response?.status === 401){
-            throw new Error("Сначала подтвердите почту")
+        if(err?.cause?.err?.response.data.detail){
+            throw new Error(err?.cause?.err?.response.data.detail)
         }
-        if(err?.cause?.err?.response?.status === 422) {
-            console.log(err)
-        }
+        throw new Error("Что-то пошло не так")
     }
 }

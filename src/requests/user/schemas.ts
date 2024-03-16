@@ -16,5 +16,11 @@ const passwordSchema = z.object({
     })
 })
 
+const emailSchema = z.object({
+    email: z.string().email()
+})
+
+
 export type userDto = z.infer<typeof userSchema>
 export type passwordDto = z.infer<typeof passwordSchema>
+export type emailSchema = z.infer<typeof emailSchema>

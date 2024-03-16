@@ -67,7 +67,6 @@ const MyOffers:FC = () => {
             
             <section className={styles.section_offers}>
                 {data?.map((el) => <Offer key={el.value_id} item={el} />)}
-                {/* TODO: Offer */}
             </section>
         </div>
     )
