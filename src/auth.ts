@@ -89,7 +89,7 @@ export const {
       token.username = existingUser.data.username;
       token.roleId = existingUser.data.role_id;
       token.accessToken = user.access;
-      token.img = existingUser.data.files[0]
+      token.img = existingUser.data.files?.[0] // temp, do smth with files[0] 
 
       return token;
     }
