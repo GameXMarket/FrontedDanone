@@ -273,6 +273,7 @@ export const NewOfferForm = () => {
                             Назад
                         </Button>
                         <Button
+                            disabled={mutation.isPending}
                             type="submit"
                             variant="accent"
                             size="lg"

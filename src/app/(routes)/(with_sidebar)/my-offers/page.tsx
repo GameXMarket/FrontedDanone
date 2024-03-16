@@ -9,6 +9,7 @@ import Offer from "./_components/offer";
 import { useMediaQuery } from "react-responsive";
 import { OfferApiService } from "@/requests/offer/offer-service";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
+import Link from "next/link";
 
 const MyOffers:FC = () => {
     const mobileRes = useMediaQuery({
@@ -52,11 +53,11 @@ const MyOffers:FC = () => {
                                                                                                                                                                              
                     </div>
                     <div className="w-full flex items-center justify-end">
-                        <div>
-                        <Button className={styles.add_btn}>
-                            <AddOfferIcon/>
-                        </Button>
-                        </div>
+                        <Link href="/new-offer">
+                            <Button className={styles.add_btn}>
+                                <AddOfferIcon/>
+                            </Button>
+                        </Link>
                     </div>
                 </div>
                 <div className="ml-12">
