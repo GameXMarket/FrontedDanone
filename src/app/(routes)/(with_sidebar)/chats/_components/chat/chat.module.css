@@ -7,7 +7,7 @@
 }
 
 .chat_container {
-    @apply flex items-center overflow-y-scroll max-h-[500px] flex-col w-full;
+    @apply flex items-center overflow-y-scroll min-h-[500px] max-h-[500px] flex-col w-full;
 }
 
 .chat_container::-webkit-scrollbar {
