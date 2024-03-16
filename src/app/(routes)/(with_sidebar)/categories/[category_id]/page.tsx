@@ -1,12 +1,11 @@
 "use client";
 
-import { FC, Suspense, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import styles from "./styles/page.module.css";
 import { ArrowBackIcon } from "./icons/game-page-icons";
-import Link from "next/link";
 import Image from "next/image";
 import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { categoryServices } from "@/requests/categories/categories-services";
 import { FilterForm } from "./_components/filter-form";
 import { OffersList } from "./_components/offers-list";

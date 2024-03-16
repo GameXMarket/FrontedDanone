@@ -11,7 +11,8 @@ export type UserType = {
     is_verified: boolean,
     role_id: number,
     created_at: number,
-    updated_at: number
+    updated_at: number,
+    files: Array<string>
 }
 
 export enum UserRole {

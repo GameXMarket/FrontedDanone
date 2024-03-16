@@ -1,25 +1,28 @@
 'use client'
 
 import styles from './header.module.css'
-const Logo = dynamic(() => import("./Logo"), {ssr: false});
+import Logo from './Logo';
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Button } from '../ui/button';
-import { useCurrentUser } from '@/hooks/useCurrentUser';
-import dynamic from 'next/dynamic';
+import { SessionContextValue } from 'next-auth/react';
 
-const Header = ({className}: {className?: string}) => {
+interface HeaderProps {
+    className?: string,
+    session: SessionContextValue
+}
 
-    const session = useCurrentUser()
+const Header = ({className, session}: HeaderProps) => {
+
     const {push} = useRouter()
 
     return (
         <header className={cn(className ? className : styles.header)}>
-            <div className={session === null ? styles.header_container : styles.header_none}>
+            <div className={session.data?.user === undefined ? styles.header_container : styles.header_none}>
                 <div className={styles.logo_container} onClick={() => push("/home")}>
                     <Logo/>
                 </div>
-                {!session && (
+                {session.status === "unauthenticated" && (
                     <div className={styles.btns}>
                         <Button className={styles.btn} onClick={() => push("/login")}>Войти</Button>
                         <Button className={styles.btn} onClick={() => push("/register")}>Регистрация</Button>
@@ -27,8 +30,6 @@ const Header = ({className}: {className?: string}) => {
                 )}
 
             </div>
-
-
         </header>
     )
 }

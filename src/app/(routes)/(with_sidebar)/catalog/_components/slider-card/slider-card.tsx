@@ -1,10 +1,17 @@
 import Image from "next/image";
 import styles from "./slider-card.module.css";
 import Link from "next/link";
-import { FC, PropsWithChildren } from "react";
-import { IGetCat } from "@/requests/categories/categories.interfaces";
+import { Dispatch, FC, MouseEvent, PropsWithChildren, SetStateAction, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { ValueType } from "@/types/CategoryType";
+import {
+    Carousel,
+    CarouselApi,
+    CarouselContent,
+    CarouselItem,
+    CarouselNext,
+    CarouselPrevious,
+} from "@/components/ui/carousel";
 
 interface ISliderCard {
     id: number;
@@ -17,8 +24,20 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
     name,
     categories,
 }) => {
+
+    const [api, setApi] = useState<CarouselApi>()
+
+    const scrollNext = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        api?.scrollNext()
+    }
+    const scrollPrev = (e: MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault()
+        api?.scrollPrev()
+    }
+
     return (
-        <Link href={`/categories/${id}`}>
+        <Link href={`/categories/${id}`} className="mobile:flex mobile:justify-center">
             <div className=" w-[300px] h-[380px]" key={id}>
                 <Image
                     className="z-10 rounded-[24px]"
@@ -30,17 +49,53 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
                 <div className={styles.card_container}>
                     <h3 className="font-[500] pt-8 pl-8 text-[32px]">{name}</h3>
                     <div className={styles.card_options}>
-                        <div className="w-full grid grid-cols-10 gap-x-4 gap-y-2">
-                            {categories?.slice(0,5)?.map((el, idx) => (
-                                <Link key={el.id} href={`/categories/${id}?c=${el.id}`} className={cn(styles.card_option,
-                                    idx === 0 || idx === 3 || idx === 4 ? "col-span-6" : "col-span-4")}>
-                                    <p className="flex items-center justify-center">{el.value}</p>
-                                </Link>
-                            ))}
-                            <div className={cn(styles.card_option, "col-span-4")}>
-                                <p className="flex items-center justify-center">больше...</p>
-                            </div>
-                        </div>
+                        <Carousel
+                            setApi={setApi}
+                            opts={{
+                                align: "start",
+                                loop: false,
+                            }}
+                            orientation="horizontal"
+                            className="w-full flex items-center"
+                        >
+                            <CarouselPrevious onClick={scrollPrev} className="text-white hover:opacity-100 border-none" />
+                            <CarouselContent>
+                                {Array.from({
+                                    length: Math.ceil(categories?.length! / 3),
+                                }).map((_, idx) => (
+                                    <CarouselItem
+                                        key={idx}
+                                    >
+                                        <div className="w-full grid grid-cols-10 grid-rows-3 gap-x-4 gap-y-2">
+                                            {categories
+                                                ?.slice(idx*3, (idx*3) + 3)
+                                                ?.map((el, idx) => (
+                                                    <Link
+                                                        key={el.id}
+                                                        href={`/categories/${id}?c=${el.id}`}
+                                                        className={cn(
+                                                            styles.card_option,
+                                                            // idx === 0 ||
+                                                            //     idx === 3 ||
+                                                            //     idx === 4
+                                                            //     ? "col-span-6"
+                                                            //     : "col-span-4",
+                                                            // el.value.length >
+                                                            //     11 &&
+                                                                "col-span-10"
+                                                        )}
+                                                    >
+                                                        <p className="flex items-center justify-center">
+                                                            {el.value}
+                                                        </p>
+                                                    </Link>
+                                                ))}
+                                        </div>
+                                    </CarouselItem>
+                                ))}
+                            </CarouselContent>
+                            <CarouselNext onClick={scrollNext} className="text-white hover:opacity-100 border-none" />
+                        </Carousel>
                     </div>
                 </div>
             </div>

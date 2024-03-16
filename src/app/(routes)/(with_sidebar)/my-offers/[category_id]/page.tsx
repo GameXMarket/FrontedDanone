@@ -1,13 +1,12 @@
 "use client";
 
-import { FC, useState } from "react";
+import { FC } from "react";
 import styles from "./styles/page.module.css";
 import { ArrowBackIcon } from "../../categories/[category_id]/icons/game-page-icons";
 import Image from "next/image";
 import Link from "next/link";
 import { SearchInput } from "@/components/SearchInput";
 import Order from "./_components/order";
-import { useOutside } from "@/hooks/useOutside";
 import { useMediaQuery } from "react-responsive";
 import { useParams } from "next/navigation";
 import { OfferApiService } from "@/requests/offer/offer-service";

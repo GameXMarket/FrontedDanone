@@ -1,6 +1,4 @@
-
 import { NewOfferForm } from "./_components/new-offer-form";
-
 
 const NewOfferPage = () => {
 

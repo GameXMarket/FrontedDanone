@@ -67,7 +67,7 @@ export const NewOfferForm = () => {
             onSuccess: (data) => {
                 toast.success("Успешно создано!");
                 form.reset({ description: "" });
-                push(`offer/settings/${data.data.id}`);
+                push(`offer/settings/${data.id}`);
             },
             onError: (error) => {
                 toast.error("Что-то пошло не так!");
@@ -103,7 +103,7 @@ export const NewOfferForm = () => {
         queryKey: ["choises"],
         queryFn: ({ pageParam }) => categoryServices.getCategoryById(pageParam),
         initialPageParam: 1,
-        getNextPageParam: (lastPage) => {
+        getNextPageParam: () => {
             if (categories.length) {
                 return categories[categories.length - 1].next;
             }
@@ -227,7 +227,7 @@ export const NewOfferForm = () => {
                                         alt="add_photo"
                                         width={32}
                                         height={32}
-                                        src="/images/new-offer/gallery-add.svg"
+                                        src={preview || "/images/new-offer/gallery-add.svg"}
                                     />
                                     <p className="text-muted-foreground text-xl w-5/6 mobile:hidden">
                                         Перетащите изображения в эту область,
@@ -250,6 +250,7 @@ export const NewOfferForm = () => {
 
                                                 const newFiles = dataTransfer.files;
                                                 onChange(newFiles);
+                                                handleUploadedFile(event)
                                             }}
                                             type="file"
                                             className={cn(

@@ -3,7 +3,7 @@ import { UserType } from "@/types/UserType";
 
 import authConfig from "@/auth.config";
 import axios from "axios";
-import { cookies, headers } from "next/headers";
+import { cookies } from "next/headers";
 
 
 const refreshToken = async () => {
@@ -61,7 +61,10 @@ export const {
 
       return session;
     },
-    async jwt({ token, user }) {
+    async jwt({ token, user, trigger, session }) {
+      if(trigger === "update" && session?.name){
+        token.username = session.name
+      }
       if (token.accessToken) {
         //@ts-ignore
         const expires_in = JSON.parse(atob(token.accessToken.split(".")[1])).exp
@@ -86,6 +89,7 @@ export const {
       token.username = existingUser.data.username;
       token.roleId = existingUser.data.role_id;
       token.accessToken = user.access;
+      token.img = existingUser.data.files[0]
 
       return token;
     }

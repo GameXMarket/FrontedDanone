@@ -25,7 +25,7 @@
 }
 
 .slider {
-    @apply w-full mt-16;
+    @apply w-full flex gap-x-12 gap-y-8 flex-wrap mt-16;
 }
 
 .fade {

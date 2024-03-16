@@ -4,57 +4,48 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useAuthQuery } from "@/hooks/useAuthQuery";
-import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
-import { currentUser } from "@/lib/auth";
 import { cn } from "@/lib/utils";
 import { ChangeNameDto, changeNameSchema } from "@/requests/settings/schemas";
 import { userService } from "@/requests/user/user.service";
-import { AuthType } from "@/types/AuthType";
+import { UserType } from "@/types/UserType";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { memo, useTransition } from "react";
+import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
 
-type UsernameType = {
-    username: string
-}
+export const ChangeNameForm = () => {
+    const { update, data } = useSession();
 
-
-export const ChangeNameForm = memo(({ user }: { user?: AuthType }) => {
-    const {data, error, isLoading} = useAuthQuery({
-        queryKey: ['Get main user data'],
-        queryFn: () => userService.getUser()
-    })
-
-
-    const [isPending, startTransition] = useTransition();
-
-    const {mutation, fieldErrors: errors} = useSafeMutation(userService.updateUserName, {
-        onError: (err: any) => {
-            toast.error(err.message)
+    const { mutation, fieldErrors: errors } = useSafeMutation<any, UserType>(
+        userService.updateUserName,
+        {
+            onError: (err: any) => {
+                toast.error(err.message);
+            },
+            onSuccess: (data: UserType) => {
+                toast.success("Имя изменено!");
+                update({ name: data.username });
+            },
         }
-    })
+    );
 
     const form = useForm<z.infer<typeof changeNameSchema>>({
         resolver: zodResolver(changeNameSchema),
         defaultValues: {
-            name: data?.username || "asasas",
+            name: data?.user.username || "asasas",
         },
     });
 
     //            color: "1", пока цвета в АПИ НЕТ поэтому без него
 
     const onSubmit = (values: ChangeNameDto) => {
+        const username = values.name;
+        mutation.mutate({ username });
+    };
 
-        const username = values.name
-        mutation.mutate({username})
-
-    };  
-
-   // const watchColor = form.watch("color")
+    // const watchColor = form.watch("color")
 
     return (
         <div className="w-full">
@@ -75,9 +66,11 @@ export const ChangeNameForm = memo(({ user }: { user?: AuthType }) => {
                                     <FormItem>
                                         <FormControl>
                                             <Input
-                                                className={cn(`bg-transparent border-b border-muted-foreground rounded-none px-0`)}
+                                                className={cn(
+                                                    `bg-transparent border-b border-muted-foreground rounded-none px-0`
+                                                )}
                                                 {...field}
-                                                disabled={isPending}
+                                                disabled={mutation.isPending}
                                                 placeholder="Username"
                                             />
                                         </FormControl>
@@ -92,7 +85,7 @@ export const ChangeNameForm = memo(({ user }: { user?: AuthType }) => {
                             <FormField
                                 name="name"
                                 control={form.control}
-                                    render={({ field }) => (
+                                render={({ field }) => (
                                     <FormItem>
                                         <FormControl>
                                             <RadioGroup
@@ -175,7 +168,7 @@ export const ChangeNameForm = memo(({ user }: { user?: AuthType }) => {
                         variant="accent"
                         size="lg"
                         className="rounded-xl"
-                        disabled={isPending}
+                        disabled={mutation.isPending}
                         type="submit"
                     >
                         Сохранить
@@ -184,7 +177,4 @@ export const ChangeNameForm = memo(({ user }: { user?: AuthType }) => {
             </Form>
         </div>
     );
-});
-
-
-ChangeNameForm.displayName = "change_name_form"
+};

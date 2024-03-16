@@ -19,7 +19,7 @@ export const MainContentItem = ({ url, idx, name }: MainContentItemProps) => {
             styles.game_item
             )}
         >
-            <Image alt="game" fill className="object-cover rounded-3xl" src={url} />
+            <Image sizes="(max-width: 440px) 50vw, 500px" alt="game" fill className="object-cover rounded-3xl" src={url} />
             <label className="absolute bottom-3 left-3 text-2xl z-10 font-medium cursor-pointer">{name}</label>
         </div>
     );
