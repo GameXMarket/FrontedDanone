@@ -11,18 +11,21 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import styles from './change-avatar.module.css'
 import { Input } from "@/components/ui/input";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 
 
 const ChangeAvatar:FC = () => {
     const {mutation} = useSafeMutation(AttachmentApiService.uploadFileUser, {
         onSuccess: () => {
-            toast.success('Изменения применены!')
+            toast.success('Изменения применены')
         },
         onError: () => {
             toast.error('Что-то пошло не так!')
         }
     })
+
+    const deleteAvatar = AttachmentApiService.removeUserAvatar // TODO:
 
     const [avatar, setAvatar] = useState<string>('')
 
@@ -47,6 +50,7 @@ const ChangeAvatar:FC = () => {
 
 
     return (
+        <>
         <form onSubmit={form.handleSubmit(onSubmitHandler)} >
             <div className="flex items-center flex-col justify-center">
             <div  className="relative rounded-full w-[90px] h-[90px] mobile:mt-8">
@@ -82,8 +86,11 @@ const ChangeAvatar:FC = () => {
                 
             </div>
             <Button className="mt-3" type="submit">Изменить Аватар /*временно*/</Button>
+            
             </div>                
         </form>
+        <Button className="mt-3 w-full" onClick={() => deleteAvatar}>Удалить Аватар /*временно*/</Button>
+    </>
     )
 }
 

@@ -36,6 +36,11 @@ export const AttachmentApiService = {
                 "Content-Type": "multipart/form-data"
             }
         }).then(res => res)
+    },
+
+    async removeUserAvatar() {
+        return instance.delete('attacment/deletefiles/user')
+            .then(res => res.data)
     }
 
 }
