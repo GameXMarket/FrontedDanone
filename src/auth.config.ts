@@ -1,4 +1,4 @@
-import type { NextAuthConfig, User } from "next-auth";
+import type { NextAuthConfig } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 
@@ -31,15 +31,6 @@ export default {
                 }
 
                 return null;
-            }
-        }),
-        Credentials({
-            id: "verify",
-            async authorize(credentials) {
-                const {access, refresh} = credentials
-                const cookieStore = cookies()
-                cookieStore.set("refresh", refresh as string)
-                return {access} as User
             }
         })
     ],

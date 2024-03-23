@@ -1,35 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState } from 'react'
 import { Button } from "@/components/ui/button";
 import { FormInput } from "../../_components/form-input";
 import { useFormStatus } from "react-dom";
 import { safeRegister } from "@/requests/auth/auth-service";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
-import styles from "./styles/register.module.css";
+import styles from './styles/register.module.css'
 import toast from "react-hot-toast";
 import Link from "next/link";
 
+
 export const RegisterForm = () => {
-    const [isAvailableNick, setIsAvailableNick] = useState<boolean>(false);
 
-    const { pending } = useFormStatus();
 
-    const [success, setSuccess] = useState(false);
+    const [isAvailableNick, setIsAvailableNick] = useState<boolean>(false)
 
-    const { mutation, fieldErrors: errors } = useSafeMutation(safeRegister, {
+    const {pending} = useFormStatus()
+
+    const [success, setSuccess] = useState(false)
+
+    const {mutation, fieldErrors: errors} = useSafeMutation(safeRegister, {
         onError: (error) => {
             //@ts-ignore
-            const isArray = Array.isArray(error.response?.data.detail);
+            const isArray = Array.isArray(error.response?.data.detail)
             //@ts-ignore
-            toast.error(isArray ? error.response?.data.detail[0].msg : error.response?.data.detail || "Something went wrong"
-            );
-            setSuccess(false);
+            toast.error(isArray ? error.response?.data.detail[0].msg : error.response?.data.detail || "Something went wrong")
+            setSuccess(false)
         },
         onSuccess: () => {
-            setSuccess(true);
-        },
-    });
+            setSuccess(true)
+        }
+    })
 
     const onSubmit = (formData: FormData) => {
         const username = formData.get("username") as string;
@@ -37,18 +39,14 @@ export const RegisterForm = () => {
         const password = formData.get("password") as string;
         const repassword = formData.get("repassword") as string;
 
-        mutation.mutate({ username, email, password, repassword });
+        mutation.mutate({username, email, password, repassword})
     };
 
     return (
         <div className="w-full h-full flex flex-col items-center ">
             <div className={styles.title_container}>
-                <Link href="/register">
-                    <h3 className={styles.register}>Регистрация</h3>
-                </Link>
-                <Link href="/login">
-                    <h3 className={styles.login}>Войти</h3>
-                </Link>
+                <Link href="/register"><h3 className={styles.register}>Регистрация</h3></Link>
+                <Link href="/login"><h3 className={styles.login}>Войти</h3></Link>
             </div>
 
             <form
@@ -62,20 +60,14 @@ export const RegisterForm = () => {
                     placeholder="Введите имя пользователя"
                 />
                 {isAvailableNick && (
-                    <div className="w-full pl-8">
-                        <span className="text-thin text-[16px] text-[#8E2222]">
-                            *Такое имя уже занято
-                        </span>
-                        <div className="w-full flex justify-between mt-4 items-center">
-                            <p className="text-normal text-[16px]">Доступно:</p>
-                            <span className="px-6 bg-[#24252F] rounded-2xl py-2 cursor-pointer">
-                                Lestty123
-                            </span>
-                            <span className="px-6 bg-[#24252F] rounded-2xl py-2 cursor-pointer">
-                                Lestty2323
-                            </span>
-                        </div>
+                <div className='w-full pl-8'>
+                    <span className='text-thin text-[16px] text-[#8E2222]'>*Такое имя уже занято</span>
+                    <div className='w-full flex justify-between mt-4 items-center'>
+                        <p className='text-normal text-[16px]'>Доступно:</p>
+                        <span className='px-6 bg-[#24252F] rounded-2xl py-2 cursor-pointer'>Lestty123</span>
+                        <span className='px-6 bg-[#24252F] rounded-2xl py-2 cursor-pointer'>Lestty2323</span>
                     </div>
+                </div>
                 )}
                 <FormInput
                     disabled={mutation.isPending}
@@ -86,10 +78,9 @@ export const RegisterForm = () => {
                 <FormInput
                     type="password"
                     disabled={mutation.isPending}
-                    errors={errors}
-                    id="password"
-                    placeholder="Пароль"
-                />
+                    errors={errors} 
+                    id="password" 
+                    placeholder="Пароль" />
                 <FormInput
                     type="password"
                     disabled={mutation.isPending}
@@ -97,23 +88,11 @@ export const RegisterForm = () => {
                     id="repassword"
                     placeholder="Повторите пароль"
                 />
-                {success && (
-                    <>
-                    <div className="mt-6 bg-bgel p-4 rounded-xl">
-                        <p className="text-xl text-green-400 text-center">
-                            Письмо с подтверждением отправлено на вашу почту
-                        </p>
-                    </div>
-                    <Button className="w-full text-lg" size="lg" variant="secondary">Отправить письмо еще раз</Button>
-                    </>
-                )}
+                {success && <div className='mt-6 bg-bgel p-4 rounded-xl'>
+                    <p className='text-xl text-green-400 text-center'>Письмо с подтверждением отправлено на вашу почту</p>
+                </div>}
                 <div className="pt-[56px]">
-                    <Button
-                        disabled={pending || mutation.isPending}
-                        className={styles.auth_btn}
-                        type="submit"
-                        variant="primary"
-                    >
+                    <Button disabled={pending || mutation.isPending} className={styles.auth_btn} type="submit" variant="primary">
                         Далее
                     </Button>
                 </div>

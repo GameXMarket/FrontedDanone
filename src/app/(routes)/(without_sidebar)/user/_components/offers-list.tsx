@@ -96,10 +96,7 @@ export const OffersList = () => {
             </div>
             <div className="space-y-8 w-[80%] mobile:hidden">
                 {items.map((row, idx) => (
-                    <PopularRow key={row.name}
-                    //@ts-ignore
-                    data={row}
-                    idx={idx} />
+                    <PopularRow key={row.name} data={row} idx={idx} />
                 ))}
             </div>
             <div className="hidden mobile:block space-y-8 w-full">
@@ -130,10 +127,7 @@ export const OffersList = () => {
                                         key={el.name}
                                         className="basis-[340px]"
                                     >
-                                        <ItemCard
-                                        key={el.name}
-                                        //@ts-ignore
-                                        item={el} />
+                                        <ItemCard key={el.name} item={el} />
                                     </CarouselItem>
                                 ))}
                             </CarouselContent>

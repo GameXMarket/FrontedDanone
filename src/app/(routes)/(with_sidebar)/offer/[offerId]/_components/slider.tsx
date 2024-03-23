@@ -10,7 +10,13 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export const Slider = ({images}: {images: Array<string>}) => {
+const images = [
+    "/images/temp_main/offer1.png",
+    "/images/temp_main/offer2.png",
+    "/images/temp_main/offer1.png",
+];
+
+export const Slider = () => {
     const [api, setApi] = useState<CarouselApi>();
     const [selected, setSelected] = useState<number>(0)
 

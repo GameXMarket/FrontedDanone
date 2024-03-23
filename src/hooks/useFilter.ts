@@ -2,13 +2,11 @@ import { categoryServices } from "@/requests/categories/categories-services";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffectAfterMount } from "./useEffectAfterMount";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 type initialPageParam = string | number
 
 export const useFilter = (key: string | string[], initialPageParam?: initialPageParam) => {
-    const [priceFilter, setPriceFilter] = useState<"descending" | "ascending" | "none">("none")
-
     const pathname = usePathname();
     const { push } = useRouter();
     
@@ -35,13 +33,6 @@ export const useFilter = (key: string | string[], initialPageParam?: initialPage
         params.append('val', category_id);
         push(`${pathname}?${params}`);
     }
-
-    useEffectAfterMount(() => {
-        const params = new URLSearchParams(searchParams);
-        params.delete('price');
-        params.append('price', priceFilter);
-        push(`${pathname}?${params}`);
-    }, [priceFilter])
     
     useEffectAfterMount(() => {
         const params = new URLSearchParams(searchParams);
@@ -55,5 +46,5 @@ export const useFilter = (key: string | string[], initialPageParam?: initialPage
         }
     }, [isSuccess])
 
-    return {data: arr, isFetching, onCategoryChange, setPriceFilter, priceFilter}
+    return {data: arr, isFetching, onCategoryChange}
 }

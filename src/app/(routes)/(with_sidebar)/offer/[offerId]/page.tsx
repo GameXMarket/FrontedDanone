@@ -1,3 +1,5 @@
+'use client'
+
 import { OfferApiService } from "@/requests/offer/offer-service";
 import { Slider } from "./_components/slider";
 import { OfferInfo } from "./_components/offer-info";
@@ -5,8 +7,17 @@ import { OfferReviews } from "./_components/offer-reviews";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Chat from "../../chats/_components/chat/Chat";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
+import { messengerService } from "@/requests/messenger/messenger.service";
 
 const OfferPage = async ({params}: {params: {offerId: string}}) => {
+    const {data, error, isLoading} = useAuthQuery({
+        queryKey: ['get dialogs'],
+        queryFn: () => messengerService.getDialogById(offer.user_id),
+    })
+
+    console.log(data)
+
 
     const offer = await OfferApiService.getOfferById(params.offerId)
 
@@ -14,7 +25,7 @@ const OfferPage = async ({params}: {params: {offerId: string}}) => {
         <main className="flex justify-between mobile:block">
             <div className="w-[720px] mobile:w-full shrink-0 space-y-6">
                 <h1 className="text-5xl mobile:text-4xl">{offer.name}</h1>
-                <Slider images={offer.offer_files} />
+                <Slider />
                 <OfferInfo categoryId={offer.category_id} description={offer.description} />
                 <OfferReviews />
                 <div className="hidden mobile:flex justify-center items-center gap-x-4 absolute bottom-[100px] left-1/2 -translate-x-1/2 z-50">
@@ -23,7 +34,7 @@ const OfferPage = async ({params}: {params: {offerId: string}}) => {
                 </div>
             </div>
             <aside className="w-full flex justify-center mobile:hidden">
-                <Chat chat={offer.user_id} />
+                <Chat  />
             </aside>
         </main>
     )
