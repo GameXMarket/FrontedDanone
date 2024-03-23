@@ -3,7 +3,6 @@
 import { signIn } from "@/auth";
 import { loginSchema } from "@/requests/auth/schemas";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
-import { LoginType } from "@/types/UserType";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import * as z from "zod";
 
@@ -28,14 +27,4 @@ export const login = async (values: z.infer<typeof loginSchema>, callbackUrl: st
         }
         throw new Error("Что-то пошло не так")
     }
-}
-
-export const verifyLogin = async (values: LoginType) => {
-    const {access, refresh} = values
-
-    await signIn("verify", {
-        access,
-        refresh,
-        redirectTo: "/home"
-    })
 }

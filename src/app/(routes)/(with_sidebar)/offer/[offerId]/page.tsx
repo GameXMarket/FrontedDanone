@@ -14,7 +14,7 @@ const OfferPage = async ({params}: {params: {offerId: string}}) => {
         <main className="flex justify-between mobile:block">
             <div className="w-[720px] mobile:w-full shrink-0 space-y-6">
                 <h1 className="text-5xl mobile:text-4xl">{offer.name}</h1>
-                <Slider images={offer.offer_files} />
+                <Slider />
                 <OfferInfo categoryId={offer.category_id} description={offer.description} />
                 <OfferReviews />
                 <div className="hidden mobile:flex justify-center items-center gap-x-4 absolute bottom-[100px] left-1/2 -translate-x-1/2 z-50">

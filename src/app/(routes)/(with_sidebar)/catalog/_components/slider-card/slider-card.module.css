@@ -11,7 +11,7 @@
 }
 
 .card_options {
-    @apply w-full pb-3 items-center justify-center;
+    @apply w-full pb-3 flex items-center justify-center;
 }
 
 .card_option {

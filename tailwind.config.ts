@@ -12,17 +12,14 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1300px",
+        "2xl": "1400px",
       },
     },
     extend: {
       screens: {
-        "2xl": {'min': "1670px"},
-        "4xl": {'min': "2000px"},
         "mobile": {'max': '440px'},
         "1340px": {'min': "1340px"},
         "3xl": {'min': "1650px"},
-        "830px": {'max': "830px"}
       },
       colors: {
         bgel: "var(--bgel)",
