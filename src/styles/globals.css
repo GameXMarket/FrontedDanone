@@ -64,8 +64,8 @@ body{
 
 @layer base {
   .back-gradient{
-    background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);;
-    background-color: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);;
+    background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);
+    background-color: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);
   }
   :root {
     --bgel: #24252F;

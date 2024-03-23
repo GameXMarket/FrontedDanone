@@ -6,26 +6,27 @@ import {
     CarouselItem,
 } from "@/components/ui/carousel";
 import { ItemCard } from "@/components/ItemCard";
+import { OfferType, getAllOffers } from "@/types/OfferType";
 
 const popular = [
     {
         name: "Brawl Stars",
-        img: "/images/temp_main/bslogo.png",
+        files_offer: ["/images/temp_main/bslogo.png"],
         items: [
             {
-                img: "/images/temp_main/brawlstars.png",
+                files_offer: ["/images/temp_main/brawlstars.png"],
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
                 id: 1
             },
             {
-                img: "/images/temp_main/brawlstars.png",
+                files_offer: ["/images/temp_main/brawlstars.png"],
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
                 id: 2
             },
             {
-                img: "/images/temp_main/brawlstars.png",
+                files_offer: ["/images/temp_main/brawlstars.png"],
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
                 id: 3
@@ -34,22 +35,22 @@ const popular = [
     },
     {
         name: "Fortnite",
-        img: "/images/temp_main/fortnite.png",
+        files_offer: ["/images/temp_main/fortnite.png"],
         items: [
             {
-                img: "/images/temp_main/fortnite.png",
+                files_offer: ["/images/temp_main/fortnite.png"],
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
                 id: 4
             },
             {
-                img: "/images/temp_main/fortnite.png",
+                files_offer: ["/images/temp_main/fortnite.png"],
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
                 id: 5
             },
             {
-                img: "/images/temp_main/fortnite.png",
+                files_offer: ["/images/temp_main/fortnite.png"],
                 name: "ДЕШЁВЫЕ ГЕМЫ!!!",
                 price: 100,
                 id: 6
@@ -82,7 +83,7 @@ export const Popular = () => {
                             <div className="relative w-[60px] h-[60px]">
                                 <Image
                                     className="absolute rounded-tl-2xl rounded-br-2xl rounded-tr-lg rounded-bl-lg object-cover"
-                                    src={row.img}
+                                    src={row.files_offer[0]}
                                     alt="category"
                                     fill
                                 />
@@ -103,7 +104,10 @@ export const Popular = () => {
                                         key={el.name}
                                         className="basis-[340px]"
                                     >
-                                        <ItemCard key={el.name} item={el} />
+                                        <ItemCard
+                                        key={el.name}
+                                        //@ts-ignore
+                                        item={el} />
                                     </CarouselItem>
                                 ))}
                             </CarouselContent>
