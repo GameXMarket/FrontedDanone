@@ -11,11 +11,11 @@ import {
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useFilter } from "@/hooks/useFilter";
-import PriceIcon from "./price-icon";
+import Image from "next/image";
 
 export const FilterForm = () => {
 
-    const {data, isFetching, onCategoryChange, setPriceFilter, priceFilter} = useFilter("offers")
+    const {data, isFetching, onCategoryChange} = useFilter("offers")
 
     if(isFetching){
         return <FilterForm.Skeleton />
@@ -35,9 +35,9 @@ export const FilterForm = () => {
                     </SelectContent>
                 </Select>
             ))}
-            <div className="mobile:col-start-8 mobile:col-end-11 bg-bgel rounded-lg h-[48px] px-4 flex justify-between min-w-[100px] items-center">
-                <p onClick={() => setPriceFilter("none")} className="rounded-lg w-full mobile:px-2 cursor-pointer">Цена</p>
-                <PriceIcon priceFilter={priceFilter} setPriceFilter={setPriceFilter} />
+            <div className="relative mobile:col-start-8 mobile:col-end-11">
+                <Input className="placeholder:text-white mobile:px-2" placeholder="Цена" />
+                <Image className="absolute top-1/2 -translate-y-1/2 right-2" src="/ui-assets/candle.svg" alt="candle" width={20} height={20} />
             </div>
         </div>
     );

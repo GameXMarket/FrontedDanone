@@ -6,9 +6,6 @@
 export const publicRoutes = [
   "/",
   "/home",
-  "/offer",
-  "/catalog",
-  "/categories"
 ];
 
 /**
