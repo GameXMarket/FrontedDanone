@@ -1,7 +1,11 @@
 import { FC, PropsWithChildren, useState } from "react";
 import styles from './dialogs.module.css'
 import Image from "next/image";
-import { IDialog } from "./dialogs";
+import { IDialogsComponent } from "./dialogs";
+
+interface IDialog extends IDialogsComponent {
+    dialog_id: number
+}
 
 const Dialog:FC<PropsWithChildren<IDialog>> = ({setIsOpenedChat}) => {
     const [isSelected, setIsSelected] = useState<boolean>(false)

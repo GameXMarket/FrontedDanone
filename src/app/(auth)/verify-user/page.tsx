@@ -1,6 +1,9 @@
 "use client";
 
+import { verifyLogin } from "@/actions/login";
+import { useEffectAfterMount } from "@/hooks/useEffectAfterMount";
 import { AuthApiService } from "@/requests/auth/auth-service";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import toast from "react-hot-toast";
@@ -9,13 +12,14 @@ const VerifyUserPage = () => {
     const searchParams = useSearchParams();
     const { push } = useRouter();
 
+    // TODO: Finish this shit
     useEffect(() => {
         (async function () {
             if (searchParams.get("token")) {
                 try {
-                    await AuthApiService.verifyUser(searchParams.get("token")!);
+                    const data = await AuthApiService.verifyUser(searchParams.get("token")!);
                     toast.success("Verified");
-                    push("/login");
+                    verifyLogin(data)
                 } catch (e) {
                     toast.error("Smth Wrong");
                     push("/register");
