@@ -25,7 +25,7 @@ export const OffersList = ({category_id}: OffersListProps) => {
         queryKey: ["catalog_offers", category_id, filter_categories],
         queryFn: () => OfferApiService.getAll([category_id, ...filter_categories]),
     })
-    console.log(data?.[0].files[0])
+
     if(isLoading) {
         return <OffersList.Skeleton />
     } 
