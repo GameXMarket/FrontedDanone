@@ -30,7 +30,7 @@
 
 
 .is_opened_chat {
-    @apply w-full h-[648px] flex items-center rounded-[32px] justify-center;
+    @apply w-full h-[648px] flex items-center rounded-[32px] ml-6 justify-center;
     border: dashed 1px;
     animation: gradientAnimation 20s ease infinite;
     background: linear-gradient(-45deg, #491e17, #1B1C23, #1B1C23, #491e17);

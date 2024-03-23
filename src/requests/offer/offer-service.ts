@@ -1,7 +1,7 @@
 import { createSafeFetch } from "@/lib/create-safe-fetch"
 import instance from ".."
 import {CreateOfferDto, createOfferSchema} from "./schemas"
-import { MyOfferType, OfferType, OffersGroup } from "@/types/OfferType"
+import { MyOfferType, OfferType, OffersGroup, getAllOffers } from "@/types/OfferType"
 import { AttachmentApiService } from "../attachment/attachment-service"
 
 export const OfferApiService = {
@@ -17,11 +17,11 @@ export const OfferApiService = {
         .then(res => res.data)
     },
 
-    async getAll(category_id?: number | string | number[] | string[], offset: number = 0, limit: number = 10) {
-        return instance.get<OfferType[]>(`offers/getall?offset=${offset}&limit=${limit}`, {
-            params: {category_value_ids: category_id},
+    async getAll(category_id?: number | string | number[] | string[], priceFilter?: boolean | null, search?: string | null ,offset: number = 0, limit: number = 10) {
+        return instance.get<getAllOffers[]>(`offers/getall?offset=${offset}&limit=${limit}`, {
+            params: {category_value_ids: category_id, is_descending: priceFilter, search_query: search},
             paramsSerializer: {
-                indexes: null
+                indexes: null,
             }
         })
         .then(res => res.data)

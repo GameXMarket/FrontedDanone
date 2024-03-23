@@ -50,7 +50,7 @@ const GamePage: FC = () => {
                     <p className={styles.back_text}>Назад</p>
                 </div>
             </section>
-            <div className="overflow-y-auto h-[700px] mobile:h-full pr-4 mobile:pr-0">
+            <div className="overflow-y-auto h-full pr-4 mobile:pr-0">
                 <section className={styles.game_details}>
                     <div>
                         <Image

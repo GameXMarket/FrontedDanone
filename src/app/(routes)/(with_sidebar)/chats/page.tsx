@@ -4,6 +4,7 @@ import { FC, useEffect, useState } from "react";
 import styles from './styles/page.module.css'
 import Chat from "./_components/chat/Chat";
 import Groups from "./_components/groups/groups";
+import Dialogs from "./_components/dialogs/dialogs";
 
 const MessengerPage:FC = () => {
     const [isOpenedChat, setIsOpenedChat] = useState<boolean>(true);
@@ -12,7 +13,7 @@ const MessengerPage:FC = () => {
         <main className={styles.messenger_container}>
             <div className={styles.messenger_groupsandchats}>
                 <Groups/>
-                {/*\\<Dialogs setIsOpenedChat={setIsOpenedChat}/>*/}
+                <Dialogs setIsOpenedChat={setIsOpenedChat}/>
             </div>
             {isOpenedChat ? (
             <div className="w-full">

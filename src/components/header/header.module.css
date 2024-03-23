@@ -7,16 +7,19 @@
 }
 
 .header_container {
-    display: grid;
-    grid-template-areas: 'L B'; 
+    width: 80%;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-between;
+    @apply 830px:w-full 830px:justify-center;
 }
 
 .btns {
-    @apply ml-10;
+    @apply ml-10 space-x-6 830px:hidden;
     grid-area: B;
 }
 
 
 .btn {
-    @apply mx-1 w-[157px] h-[42px] text-[20px] bg-[#24252F] rounded-[24px];
+    @apply relative transition-colors z-10 py-8 mobile:py-6 px-10 bg-[#24252F] rounded-[24px] text-xl opacity-60 hover:opacity-100 hover:outline hover:outline-2 hover:outline-[#FB2A29] before:hover:bg-black before:rounded-[24px] before:top-0 before:left-0 before:w-full before:h-full before:absolute before:opacity-70 before:-z-10;
 }
