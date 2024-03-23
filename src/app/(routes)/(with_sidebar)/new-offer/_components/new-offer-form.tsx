@@ -103,12 +103,14 @@ export const NewOfferForm = () => {
         queryKey: ["choises"],
         queryFn: ({ pageParam }) => categoryServices.getCategoryById(pageParam),
         initialPageParam: 1,
-        getNextPageParam: () => {
+        getNextPageParam: (pages) => {
+            if(pages.is_last) return
             if (categories.length) {
                 return categories[categories.length - 1].next;
             }
         },
         retry: 0,
+        refetchOnWindowFocus: false,
     });
 
     const append = (

@@ -25,15 +25,34 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
     categories,
 }) => {
 
+    const [next, setNext] = useState(true)
+    const [prev, setPrev] = useState(false)
+
     const [api, setApi] = useState<CarouselApi>()
 
     const scrollNext = (e: MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation()
         e.preventDefault()
         api?.scrollNext()
+        if(!api?.canScrollNext()){
+            setNext(false)
+        }
+        if(api?.canScrollPrev()){
+            setPrev(true)
+        }
+        return false
     }
     const scrollPrev = (e: MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation()
         e.preventDefault()
         api?.scrollPrev()
+        if(!api?.canScrollPrev()){
+            setPrev(false)
+        }
+        if(api?.canScrollNext()){
+            setNext(true)
+        }
+        return false
     }
 
     return (
@@ -46,9 +65,9 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
                     height={378}
                     alt="game"
                 />
-                <div className={styles.card_container}>
+                <div className={cn(styles.card_container, "group")}>
                     <h3 className="font-[500] pt-8 pl-8 text-[32px]">{name}</h3>
-                    <div className={styles.card_options}>
+                    <div className={cn(styles.card_options, "opacity-0 group-hover:opacity-100 transition-opacity")}>
                         <Carousel
                             setApi={setApi}
                             opts={{
@@ -58,7 +77,7 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
                             orientation="horizontal"
                             className="w-full flex items-center"
                         >
-                            <CarouselPrevious onClick={scrollPrev} className="text-white hover:opacity-100 border-none" />
+                            <CarouselPrevious disabled={false} onClick={scrollPrev} className={cn("text-white hover:opacity-100 border-none", prev ? "opacity-100" : "opacity-0 hover:opacity-0")} />
                             <CarouselContent>
                                 {Array.from({
                                     length: Math.ceil(categories?.length! / 3),
@@ -75,13 +94,6 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
                                                         href={`/categories/${id}?c=${el.id}`}
                                                         className={cn(
                                                             styles.card_option,
-                                                            // idx === 0 ||
-                                                            //     idx === 3 ||
-                                                            //     idx === 4
-                                                            //     ? "col-span-6"
-                                                            //     : "col-span-4",
-                                                            // el.value.length >
-                                                            //     11 &&
                                                                 "col-span-10"
                                                         )}
                                                     >
@@ -94,7 +106,7 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
                                     </CarouselItem>
                                 ))}
                             </CarouselContent>
-                            <CarouselNext onClick={scrollNext} className="text-white hover:opacity-100 border-none" />
+                            <CarouselNext disabled={false} onClick={scrollNext} className={cn("text-white hover:opacity-100 border-none", next ? "opacity-100" : "opacity-0 hover:opacity-0")} />
                         </Carousel>
                     </div>
                 </div>
