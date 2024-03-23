@@ -38,13 +38,10 @@ export const Sidebar = ({ session }: SidebarProps) => {
                         size={60}
                     />
                     <div className={styles.profile_info_block}>
-
                         <div className="w-full flex">
-                            <Link href={'/me/reviews'}>
-                                <h4 className={styles.sidebar_name}>
-                                    {session?.data?.user.username}
-                                </h4>
-                            </Link>
+                            <h4 className={styles.sidebar_name}>
+                                {session?.data?.user.username}
+                            </h4>
                             <NotificationsModal />
                         </div>
                         <div
