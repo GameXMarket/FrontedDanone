@@ -1,30 +1,33 @@
-import NextAuth from "next-auth"
+import NextAuth, { User } from "next-auth"
 import { UserType } from "@/types/UserType";
 
 import authConfig from "@/auth.config";
 import axios from "axios";
 import { cookies } from "next/headers";
+import { logout } from "./actions/logout";
+import { isRedirectError } from "next/dist/client/components/redirect";
 
 
 const refreshToken = async () => {
   const cookieStore = cookies()
-
-    const response = await axios.post("https://test.yunikeil.ru/auth/refresh", null, {
-        headers: {
-            Cookie: `refresh=${cookieStore.get("refresh")?.value}`
-        }
+    return axios.post("https://test.yunikeil.ru/auth/refresh", null, {
+      headers: {
+        Cookie: `refresh=${cookieStore.get("refresh")?.value}`
+      }
     })
-
-    if (response.status === 200) {
+    .then((response) => {
+      if (response.status === 200) {
         const user = response.data
         cookieStore.set("refresh", response.data.refresh)
-        return user;
-    }
-    else {
-        cookieStore.delete("refresh")
-        await signOut({ redirectTo: "/login" })
-        return null
-    }
+        // return user;
+        return null as unknown as User
+      }
+      return null as unknown as User
+    })
+    .catch((err) => {
+      cookieStore.delete("refresh")
+      return null as unknown as User
+    })
 }
 
 
@@ -39,7 +42,6 @@ export const {
   },
   callbacks: {
     async redirect({ url, baseUrl }) {
-      console.log({url, baseUrl})
       if (url.startsWith("/")) return `${baseUrl}${url}`
       else if (new URL(url).origin === baseUrl) return url
       return baseUrl
@@ -68,7 +70,7 @@ export const {
       return session;
     },
     async jwt({ token, user, trigger, session }) {
-      if(trigger === "update" && session?.name){
+      if (trigger === "update" && session?.name) {
         token.username = session.name
       }
       if (token.accessToken) {
@@ -77,6 +79,16 @@ export const {
 
         if (Date.now() > expires_in * 1000) {
           user = await refreshToken()
+          if(user === null){
+            try{
+              await signOut({redirectTo: "/login"})
+            }
+            catch(err){
+              if(isRedirectError(err)){
+                throw err
+              }
+            }
+          }
         }
 
       }

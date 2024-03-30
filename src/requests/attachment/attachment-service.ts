@@ -7,8 +7,9 @@ export const AttachmentApiService = {
 
     async uploadOfferImage(data: UploadFileDto) {
         const formData = new FormData()
-        formData.append('files', data.files[0])
-        console.log(formData)
+        for(let i = data.files?.length!-1; i >= 0; i--){
+            formData.append('files', data.files[i])
+        }        
         return instance.post(`attacment/uploadfiles/offer?offer_id=${data.offer_id}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data"

@@ -10,15 +10,19 @@ import { useMediaQuery } from "react-responsive";
 import { OfferApiService } from "@/requests/offer/offer-service";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 const MyOffers:FC = () => {
     const mobileRes = useMediaQuery({
         query: '(max-width: 768px)'
     })
 
+    const searchParams = useSearchParams()
+    const searchTerm = searchParams.get("search_offers")
+
     const {data} = useAuthQuery({
-        queryKey: ["my offers"],
-        queryFn: () => OfferApiService.getMyByCategories()
+        queryKey: ["my offers", searchTerm],
+        queryFn: () => OfferApiService.getMyByCategories(searchTerm)
     })
 
     return (

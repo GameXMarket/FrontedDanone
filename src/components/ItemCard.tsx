@@ -58,14 +58,16 @@ export const ItemCard = ({ item, lessInfo }: ItemCardProps) => {
             <div className="space-y-2">
                 <div className="flex items-center justify-between flex-wrap min-h-5 px-1">
                     {item.category_values?.map((el, idx, arr) => (
-                        <div key={el.id} className="flex items-center h-8 gap-x-2 mb-2">
+                        <div key={el.id} className="flex items-center h-8 gap-x-4 mb-2">
+                            <Separator
+                                className="bg-muted-foreground"
+                                orientation="vertical"
+                            />
                             <Button onClick={(e) => changeCategory(e, el.id)} variant="link" className="p-0">{el.value}</Button>
-                            {idx+1 !== arr.length && (
-                                <Separator
-                                    className="bg-muted-foreground"
-                                    orientation="vertical"
-                                />
-                            )}
+                            <Separator
+                                className="bg-muted-foreground"
+                                orientation="vertical"
+                            />
                         </div>
                     ))}
                 </div>

@@ -1,6 +1,4 @@
-import { auth } from "@/auth";
 import axios from "axios";
-import { useSession } from "next-auth/react";
 
 const instance = axios.create({
     baseURL: 'https://test.yunikeil.ru/',
@@ -10,7 +8,7 @@ const instance = axios.create({
 // instance.interceptors.request.use(async function (config) {
 //     return config;
 //   }, function (error) {
-//     // Do something with request error
+//     if(error)
 //     return Promise.reject(error);
 //   });
 
