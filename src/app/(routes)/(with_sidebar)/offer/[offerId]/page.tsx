@@ -1,5 +1,3 @@
-'use client'
-
 import { OfferApiService } from "@/requests/offer/offer-service";
 import { Slider } from "./_components/slider";
 import { OfferInfo } from "./_components/offer-info";
@@ -7,18 +5,9 @@ import { OfferReviews } from "./_components/offer-reviews";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Chat from "../../chats/_components/chat/Chat";
-import { useAuthQuery } from "@/hooks/useAuthQuery";
-import { messengerService } from "@/requests/messenger/messenger.service";
+
 
 const OfferPage = async ({params}: {params: {offerId: string}}) => {
-    const {data, error, isLoading} = useAuthQuery({
-        queryKey: ['get dialogs'],
-        queryFn: () => messengerService.getDialogById(offer.user_id),
-    })
-
-    console.log(data)
-
-
     const offer = await OfferApiService.getOfferById(params.offerId)
 
     return(

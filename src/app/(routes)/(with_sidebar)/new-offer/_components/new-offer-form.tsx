@@ -37,7 +37,7 @@ export const NewOfferForm = () => {
         setMounted(true);
     }, []);
 
-    const [preview, setPreview] = useState("")
+    const [preview, setPreview] = useState<Array<string>>([])
 
     const { push } = useRouter();
 
@@ -51,7 +51,7 @@ export const NewOfferForm = () => {
             attachment_id: null,
             count: 0,
             category_value_ids: [],
-            img: null,
+            img: {},
         },
     });
 
@@ -66,7 +66,8 @@ export const NewOfferForm = () => {
         {
             onSuccess: (data) => {
                 toast.success("Успешно создано!");
-                form.reset({ description: "" });
+                form.reset();
+                setPreview([])
                 push(`offer/settings/${data.id}`);
             },
             onError: (error) => {
@@ -77,10 +78,13 @@ export const NewOfferForm = () => {
     const handleUploadedFile = async (
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
-        const file = event.target.files![0];
-        const base64 = await convertToBase64(file);
-
-        setPreview(base64 as string);
+        const files = event.target.files;
+        const previews = []
+        for(let i = files?.length!-1; i >= 0; i--){
+            const file = await convertToBase64(files![i])
+            previews.push(file as string)
+        }
+        setPreview(previews)
     };
 
     const onSubmit = (data: CreateOfferDto) => {
@@ -194,7 +198,6 @@ export const NewOfferForm = () => {
                             />
                             <PriceInput
                                 disabled={mutation.isPending}
-                                price={price}
                                 //@ts-ignore
                                 form={form}
                                 label="Цена"
@@ -221,20 +224,35 @@ export const NewOfferForm = () => {
                             <div
                                 className={cn(
                                     styles.dash_space,
-                                    "h-[130px] mobile:h-auto flex mobile:justify-center items-center px-6 mobile:p-0 relative"
+                                    "mobile:h-auto flex mobile:justify-center items-center px-6 mobile:p-0 relative",
+                                    !preview.length && "h-[130px]",
+                                    preview.length && "px-0"
                                 )}
                             >
-                                <div className="flex mobile:block mobile:w-fit items-center justify-between mobile:p-3 mobile:bg-bgel mobile:rounded-xl">
-                                    <Image
-                                        alt="add_photo"
-                                        width={32}
-                                        height={32}
-                                        src={preview || "/images/new-offer/gallery-add.svg"}
-                                    />
-                                    <p className="text-muted-foreground text-xl w-5/6 mobile:hidden">
-                                        Перетащите изображения в эту область,
-                                        или нажмите внутри неё
-                                    </p>
+                                <div className="w-full h-full flex flex-wrap mobile:block mobile:w-fit items-center justify-center gap-x-2 mobile:p-3 mobile:bg-bgel mobile:rounded-xl">
+                                    {preview.map((preview) => (
+                                        <Image
+                                            // className="w-full"
+                                            alt="add_photo"
+                                            width={100}
+                                            height={100}
+                                            src={preview}
+                                        />
+                                    ))}
+                                    {!preview.length && 
+                                    <>
+                                        <Image
+                                                alt="add_photo"
+                                                width={32}
+                                                height={32}
+                                                src={"/images/new-offer/gallery-add.svg"}
+                                            />
+                                        <p className="text-muted-foreground text-xl w-5/6 mobile:hidden">
+                                            Перетащите изображения в эту область,
+                                            или нажмите внутри неё
+                                        </p>
+                                    </>
+                                    }
                                 </div>
                                 <FormField
                                     control={form.control}
@@ -255,6 +273,7 @@ export const NewOfferForm = () => {
                                                 handleUploadedFile(event)
                                             }}
                                             type="file"
+                                            multiple
                                             className={cn(
                                                 "h-full opacity-0 cursor-pointer absolute top-0 left-0 mobile:top-1/2 mobile:left-1/2 mobile:-translate-x-1/2 mobile:-translate-y-1/2 mobile:p-0 mobile:w-[40px] mobile:h-[40px]"
                                             )}
@@ -366,12 +385,10 @@ SelectCategory.Skeleton = function SelectCategorySkeleton() {
 
 const PriceInput = ({
     label,
-    price,
     form,
     disabled,
 }: {
     label: string;
-    price: string | number;
     form: UseFormReturn<CreateOfferDto, any, CreateOfferDto>;
     disabled?: boolean;
 }) => {
@@ -382,26 +399,31 @@ const PriceInput = ({
                 <span className="text-rose-500"> *</span>
             </p>
             <div className="flex items-center mobile:flex-col mobile:items-start mobile:gap-y-4">
-                <div className="flex w-[170px]">
+                
                     <FormField
                         disabled={disabled}
                         control={form.control}
                         name="price"
                         render={({ field }) => (
-                            <Input {...field} className="rounded-r-none" />
+                            <>
+                            <div className="flex w-[170px]">
+                                <Input {...field} className="rounded-r-none" />
+                                <div className="flex justify-center items-center rounded-xl rounded-l-none bg-[#272228] w-4/5 text-2xl">
+                                    <p className="text-gradient">₽</p>
+                                </div>
+                            </div>
+                            <div className="text-xl ml-6 mobile:ml-0 flex items-center gap-x-2">
+                                <span>Цена для покупателя</span>
+                                <span className="text-gradient">
+                                    { +field.value + Math.ceil((+field.value / 100) * 12) || 0} ₽
+                                </span>
+                            </div>
+                            </>
                         )}
                     />
 
-                    <div className="flex justify-center items-center rounded-xl rounded-l-none bg-[#272228] w-4/5 text-2xl">
-                        <p className="text-gradient">₽</p>
-                    </div>
-                </div>
-                <div className="text-xl ml-6 mobile:ml-0 flex items-center gap-x-2">
-                    <span>Цена для покупателя</span>
-                    <span className="text-gradient">
-                        {+price + Math.ceil((+price / 100) * 12) || 0} ₽
-                    </span>
-                </div>
+                    
+                
             </div>
         </div>
     );
