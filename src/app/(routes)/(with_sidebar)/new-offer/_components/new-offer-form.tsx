@@ -232,6 +232,7 @@ export const NewOfferForm = () => {
                                 <div className="w-full h-full flex flex-wrap mobile:block mobile:w-fit items-center justify-center gap-x-2 mobile:p-3 mobile:bg-bgel mobile:rounded-xl">
                                     {preview.map((preview) => (
                                         <Image
+                                            key={preview}
                                             // className="w-full"
                                             alt="add_photo"
                                             width={100}
