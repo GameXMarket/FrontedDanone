@@ -27,6 +27,10 @@ export const Sidebar = ({ session }: SidebarProps) => {
         queryFn: () => userService.getUser()
     })
 
+    if (data === null) {
+        data.files = ['']
+    }
+
     const { ref, isShow, setIsShow } = useOutside(false);
 
     return (
@@ -38,7 +42,7 @@ export const Sidebar = ({ session }: SidebarProps) => {
                 <div className={styles.profile_block}>
                     <Avatar
                         src={
-                            data?.files[0] ||
+                            data?.files?.[0] ||
                             "/profile-assets/avatar.svg"
                         }
                         size={60}

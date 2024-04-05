@@ -50,13 +50,16 @@ const ChangeAvatar:FC = () => {
 
     }
 
+    if (data === null) {
+        data.files = ['']
+    }
 
     return (
         <>
         <form>
             <div className="flex items-center flex-col justify-center">
             <div  className="relative rounded-full w-[90px] h-[90px] mobile:mt-8">
-                <Image src={avatar || data?.files[0]} alt="profileImg" fill className="absolute object-cover rounded-full" />
+                <Image src= {avatar || data?.files?.[0]} alt="profileImg" fill className="absolute object-cover rounded-full" />
                 <div>
                 <FormField
                     control={form.control}

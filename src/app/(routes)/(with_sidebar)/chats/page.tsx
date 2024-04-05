@@ -7,17 +7,18 @@ import Groups from "./_components/groups/groups";
 import Dialogs from "./_components/dialogs/dialogs";
 
 const MessengerPage:FC = () => {
-    const [isOpenedChat, setIsOpenedChat] = useState<boolean>(true);
+    const [isOpenedChat, setIsOpenedChat] = useState<boolean>(false);
+    const [dialog, setDialog] = useState({})
 
     return (
         <main className={styles.messenger_container}>
             <div className={styles.messenger_groupsandchats}>
                 <Groups/>
-                <Dialogs setIsOpenedChat={setIsOpenedChat}/>
+                <Dialogs setDialog={setDialog} setIsOpenedChat={setIsOpenedChat}/>
             </div>
             {isOpenedChat ? (
             <div className="w-full">
-                <Chat />
+                <Chat dialog={dialog}/>
             </div>) : (
             <div className={styles.is_opened_chat}>
                 <h2 className="text-[32px] font-semibold">Выберете диалог<br/>и начните беседу!</h2>

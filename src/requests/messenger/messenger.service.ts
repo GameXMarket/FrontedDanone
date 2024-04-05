@@ -3,9 +3,9 @@ import { IDialogs } from "./messenger.interfaces"
 
 
 export const messengerService = {
-    async getAllChats(offset:number = 0, limit:number = 10): Promise<IDialogs> {
+    async getAllChats(offset:number = 0, limit:number = 10) {
         return instance.get(`chat/my/getall/?offset=${offset}&limit=${limit}`)
-            .then(res => res)
+            .then(res => res.data)
     },
 
     async getDialogById(interlocutor_id: number) {

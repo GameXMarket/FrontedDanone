@@ -53,7 +53,7 @@ export const RegisterForm = () => {
 
             <form
                 action={onSubmit}
-                className="space-y-3 w-full px-2 flex flex-col items-center"
+                className="space-y-3 w-full mt-[30px] px-2 flex flex-col items-center"
             >
                 <FormInput
                     disabled={mutation.isPending}

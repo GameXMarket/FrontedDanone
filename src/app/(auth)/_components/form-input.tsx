@@ -22,7 +22,7 @@ export const FormInput = ({
 
     const {pending} = useFormStatus()
     return (
-        <div className="w-full mt-[56px] relative">
+        <div className="w-full relative">
             {errors?.[id]?.map((error: string) => (
                 <p
                     key={error}
