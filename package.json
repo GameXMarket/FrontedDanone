@@ -27,6 +27,7 @@
     "axios": "^1.6.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
+    "dayjs": "^1.11.10",
     "embla-carousel-react": "^8.0.0-rc18",
     "framer-motion": "^11.0.3",
     "jsonwebtoken": "^9.0.2",
@@ -39,8 +40,10 @@
     "react-hot-toast": "^2.4.1",
     "react-responsive": "^9.0.2",
     "react-text-mask": "^5.5.0",
+    "socket.io-client": "^4.7.5",
     "tailwind-merge": "^2.0.0",
     "tailwindcss-animate": "^1.0.7",
+    "websocket": "^1.0.34",
     "zod": "^3.22.4"
   },
   "devDependencies": {

@@ -8,7 +8,7 @@ interface FormInputProps {
     id: string;
     errors?: Record<string, string[] | undefined> | undefined;
     disabled?: boolean,
-    type?: "password"
+    type?: "password",
 }
 
 export const FormInput = ({
@@ -22,7 +22,7 @@ export const FormInput = ({
 
     const {pending} = useFormStatus()
     return (
-        <div className="w-full mt-[56px] relative">
+        <div className="w-full relative">
             {errors?.[id]?.map((error: string) => (
                 <p
                     key={error}

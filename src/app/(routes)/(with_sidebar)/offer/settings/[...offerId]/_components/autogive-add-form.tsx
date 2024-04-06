@@ -61,10 +61,6 @@ export const AutogiveAddForm = ({ offerId }: AutogiveAddFormProps) => {
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
                     <DialogTitle>Добавить автовыдачу</DialogTitle>
-                    <DialogDescription>
-                        Make changes to your profile here. Click save when
-                        you're done.
-                    </DialogDescription>
                 </DialogHeader>
                 <form onSubmit={form.handleSubmit(onSubmit)}>
                     <FormField
@@ -79,7 +75,7 @@ export const AutogiveAddForm = ({ offerId }: AutogiveAddFormProps) => {
                             />
                         )}
                     />
-                    <div className="text-sm text-rose-600 my-2">{fieldErrors?.["value"]?.map((el) => <p>{el}</p>)}</div>
+                    <div className="text-sm text-rose-600 my-2">{fieldErrors?.["value"]?.map((el) => <p key={el}>{el}</p>)}</div>
                     <DialogFooter>
                         <Button className="mt-4" variant="accent" type="submit">Добавить</Button>
                     </DialogFooter>

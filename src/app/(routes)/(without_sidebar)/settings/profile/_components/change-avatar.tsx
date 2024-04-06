@@ -12,10 +12,17 @@ import toast from "react-hot-toast";
 import styles from './change-avatar.module.css'
 import { Input } from "@/components/ui/input";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
+import { userService } from "@/requests/user/user.service";
 
 
 
 const ChangeAvatar:FC = () => {
+    const {data, error, isLoading} = useAuthQuery({
+        queryKey: ['get user data'],
+        queryFn: () => userService.getUser()
+    })
+
     const {mutation} = useSafeMutation(AttachmentApiService.uploadFileUser, {
         onSuccess: () => {
             toast.success('Изменения применены')
@@ -40,21 +47,19 @@ const ChangeAvatar:FC = () => {
         const base64 = await convertToBase64(file)
 
         setAvatar(base64 as string)
+
     }
 
-    const onSubmitHandler = (data: any) => {
-        const files = data.img  
-        mutation.mutate({files})
-    
+    if (data === null) {
+        data.files = ['']
     }
-
 
     return (
         <>
-        <form onSubmit={form.handleSubmit(onSubmitHandler)} >
+        <form>
             <div className="flex items-center flex-col justify-center">
             <div  className="relative rounded-full w-[90px] h-[90px] mobile:mt-8">
-                <Image src={avatar || '/images/temp_main/diablo.png'} alt="profileImg" fill className="absolute object-cover rounded-full" />
+                <Image src= {avatar || data?.files?.[0]} alt="profileImg" fill className="absolute object-cover rounded-full" />
                 <div>
                 <FormField
                     control={form.control}
@@ -71,9 +76,10 @@ const ChangeAvatar:FC = () => {
                                 dataTransfer.items.add(image)
                                 );
 
-                                const newFiles = dataTransfer.files
-                                onChange(newFiles)
+                                const files = dataTransfer.files
+                                onChange(files)
                                 uploadFileHandler(event)
+                                mutation.mutate({files})
                             }}
                             type="file"
                             placeholder=""
@@ -85,11 +91,9 @@ const ChangeAvatar:FC = () => {
                       
                 
             </div>
-            <Button className="mt-3" type="submit">Изменить Аватар /*временно*/</Button>
             
             </div>                
         </form>
-        <Button className="mt-3 w-full" onClick={() => deleteAvatar}>Удалить Аватар /*временно*/</Button>
     </>
     )
 }

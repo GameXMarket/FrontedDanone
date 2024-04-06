@@ -37,7 +37,7 @@ export const FilterForm = () => {
                 placeholder="Поиск по названию"
             />
             {data?.pages.map((el) => (
-                <FilterSelect onCategoryChange={onCategoryChange} el={el} />
+                <FilterSelect key={el.id} onCategoryChange={onCategoryChange} el={el} />
             ))}
             <div className="mobile:col-start-8 mobile:col-end-11 bg-bgel rounded-lg h-[48px] px-4 flex justify-between min-w-[100px] items-center">
                 <p

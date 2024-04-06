@@ -22,7 +22,7 @@ export const UserInfo = () => {
     return (
         <div className="flex flex-col items-center gap-y-6">
             <div className="flex gap-x-6 items-center">
-                <Avatar size={80} />
+                <Avatar size={80} src={data?.files?.[0]}/>
                 <div>
                     <p className="text-3xl">{data?.username}</p>
                     <div className="flex items-center gap-x-1">
