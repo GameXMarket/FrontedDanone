@@ -6,6 +6,14 @@ import { Skeleton } from "./ui/skeleton";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "./ui/button";
 import { MouseEvent } from "react";
+import { MessageCircleMore } from "lucide-react";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipProvider,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
+import Link from "next/link";
 
 interface ItemCardProps {
     item: {
@@ -24,22 +32,22 @@ interface ItemCardProps {
 export const ItemCard = ({ item, lessInfo }: ItemCardProps) => {
     const { push } = useRouter();
     const pathname = usePathname();
-    
-    const searchParams = useSearchParams()
+
+    const searchParams = useSearchParams();
 
     const changeCategory = (e: MouseEvent<HTMLButtonElement>, id: number) => {
-        e.preventDefault()
-        e.stopPropagation()
+        e.preventDefault();
+        e.stopPropagation();
         const params = new URLSearchParams(searchParams);
-        params.delete('val');
-        params.append('val', id + ":" + 1);
+        params.delete("val");
+        params.append("val", id + ":" + 1);
         push(`${pathname}?${params}`);
-    }
+    };
 
     return (
-        <div
-            onClick={() => push(`/offer/${item.id}`)}
-            className="p-4 flex flex-col justify-between bg-bgel h-full rounded-xl w-full cursor-pointer"
+        <Link
+            href={`/offer/${item.id}`}
+            className="p-4 flex flex-col justify-between bg-bgel h-full rounded-xl w-full cursor-pointer gap-y-2"
         >
             <div className="space-y-2">
                 <div className="relative w-full h-[200px]">
@@ -56,7 +64,7 @@ export const ItemCard = ({ item, lessInfo }: ItemCardProps) => {
                 <p className="text-3xl font-medium ">{item.name}</p>
             </div>
             <div className="space-y-2">
-                <div className="flex items-center justify-between flex-wrap min-h-5 px-1">
+                {/* <div className="flex items-center justify-between flex-wrap min-h-5 px-1">
                     {item.category_values?.map((el, idx, arr) => (
                         <div key={el.id} className="flex items-center h-8 gap-x-4 mb-2">
                             <Separator
@@ -70,12 +78,15 @@ export const ItemCard = ({ item, lessInfo }: ItemCardProps) => {
                             />
                         </div>
                     ))}
-                </div>
+                </div> */}
                 {!lessInfo && (
                     <div className="flex items-center gap-x-3 px-1">
                         <div className="h-[50px] w-[50px] relative">
                             <Image
-                                src={item.files_user?.[0] || "/images/temp_main/seller.png"}
+                                src={
+                                    item.files_user?.[0] ||
+                                    "/ui-assets/default_avatar.jpg"
+                                }
                                 alt="seller"
                                 fill
                                 className="rounded-full object-cover absolute"
@@ -96,10 +107,33 @@ export const ItemCard = ({ item, lessInfo }: ItemCardProps) => {
                                 <span>5.0</span>
                             </div>
                         </div>
+                        <TooltipProvider>
+                            <Tooltip disableHoverableContent delayDuration={200}>
+                                <Link
+                                    className="ml-auto"
+                                    href={`/chats/${item.id}`}
+                                >
+                                    <TooltipTrigger>
+                                        <Button
+                                            size="sm"
+                                            variant="accent"
+                                            className="rounded-full"
+                                        >
+                                            <MessageCircleMore className="w-7 h-7" />
+                                        </Button>
+                                    </TooltipTrigger>
+                                </Link>
+                                <TooltipContent className="back-gradient border-none">
+                                    <p className="text-white">
+                                        Открыть чат с {item.username}
+                                    </p>
+                                </TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
                     </div>
                 )}
             </div>
-        </div>
+        </Link>
     );
 };
 

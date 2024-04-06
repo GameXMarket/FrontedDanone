@@ -33,7 +33,7 @@ export const Sidebar = ({ session }: SidebarProps) => {
                     <Avatar
                         src={
                             session.data?.user.img ||
-                            "/profile-assets/avatar.svg"
+                            "/ui-assets/default_avatar.jpg"
                         }
                         size={60}
                     />

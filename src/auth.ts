@@ -19,8 +19,7 @@ const refreshToken = async () => {
       if (response.status === 200) {
         const user = response.data
         cookieStore.set("refresh", response.data.refresh)
-        // return user;
-        return null as unknown as User
+        return user;
       }
       return null as unknown as User
     })
@@ -70,8 +69,13 @@ export const {
       return session;
     },
     async jwt({ token, user, trigger, session }) {
-      if (trigger === "update" && session?.name) {
-        token.username = session.name
+      if (trigger === "update") {
+        if(session?.name){
+          token.username = session.name
+        }
+        else if(session?.img){
+          token.img = session.img
+        }
       }
       if (token.accessToken) {
         //@ts-ignore
