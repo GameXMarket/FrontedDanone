@@ -14,17 +14,20 @@ import { Input } from "@/components/ui/input";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { userService } from "@/requests/user/user.service";
+import { useSession } from "next-auth/react";
 
 
 
 const ChangeAvatar:FC = () => {
+    const {update} = useSession()
     const {data, error, isLoading} = useAuthQuery({
         queryKey: ['get user data'],
         queryFn: () => userService.getUser()
     })
-
-    const {mutation} = useSafeMutation(AttachmentApiService.uploadFileUser, {
-        onSuccess: () => {
+    const {mutation} = useSafeMutation<any, {user_files: string[]}>(AttachmentApiService.uploadFileUser, {
+        onSuccess: (data) => {
+            console.log(data.user_files[0])
+            update({img: data.user_files[0]})
             toast.success('Изменения применены')
         },
         onError: () => {

@@ -55,7 +55,7 @@ export const ItemCard = ({ item, lessInfo }: ItemCardProps) => {
                         fill
                         className="object-cover rounded-xl"
                         alt="game"
-                        src={item.files_offer?.[0] || ""}
+                        src={item.files_offer?.[0] || "/ui-assets/default_offer_img.jpg"}
                     />
                 </div>
                 <p className="text-3xl font-bold text-gradient">

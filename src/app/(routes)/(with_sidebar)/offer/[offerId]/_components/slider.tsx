@@ -26,11 +26,11 @@ export const Slider = ({images}: {images: Array<string>}) => {
     return (
       <div>
         <div className="relative w-full h-[300px] mb-8 mobile:hidden">
-          <Image src={images[selected]} alt="img" fill className="absolute object-cover rounded-2xl" />
+          <Image src={images?.[selected] || "/ui-assets/default_offer_img.jpg"} alt="img" fill className="absolute object-cover rounded-2xl" />
         </div>
         <Carousel opts={{align: "start"}} className="w-full mobile:max-w-sm" setApi={setApi}>
             <CarouselContent className="gap-x-4 -ml-0">
-                {images.map((el, idx) => (
+                {images?.map((el, idx) => (
                     <CarouselItem onClick={() => {setSelected(idx); api?.scrollTo(idx)}} key={idx} className="relative h-32 mobile:h-48 basis-[270px] mobile:basis-[340px] cursor-pointer pl-0">
                         <Image
                             src={el}
