@@ -6,29 +6,8 @@ import axios from "axios";
 import { cookies } from "next/headers";
 import { logout } from "./actions/logout";
 import { isRedirectError } from "next/dist/client/components/redirect";
+import { refreshToken } from "./actions/refreshToken";
 
-
-const refreshToken = async () => {
-  const cookieStore = cookies()
-    return axios.post("https://test.yunikeil.ru/auth/refresh", null, {
-      headers: {
-        Cookie: `refresh=${cookieStore.get("refresh")?.value}`
-      }
-    })
-    .then((response) => {
-      if (response.status === 200) {
-        const user = response.data
-        cookieStore.set("refresh", response.data.refresh)
-        // return user;
-        return null as unknown as User
-      }
-      return null as unknown as User
-    })
-    .catch((err) => {
-      cookieStore.delete("refresh")
-      return null as unknown as User
-    })
-}
 
 
 export const {
@@ -70,8 +49,13 @@ export const {
       return session;
     },
     async jwt({ token, user, trigger, session }) {
-      if (trigger === "update" && session?.name) {
-        token.username = session.name
+      if (trigger === "update") {
+        if(session?.name){
+          token.username = session.name
+        }
+        else if(session?.img){
+          token.img = session.img
+        }
       }
       if (token.accessToken) {
         //@ts-ignore

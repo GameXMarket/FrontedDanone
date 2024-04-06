@@ -42,7 +42,7 @@ function Catalog() {
                         <SliderCard
                             key={el.id}
                             id={el.id}
-                            categories={data.associated}
+                            categories={el.subvalues}
                             name={el.value}
                         />
                     ))

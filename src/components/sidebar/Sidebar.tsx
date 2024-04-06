@@ -14,12 +14,22 @@ import Modal from "./modal";
 import { useOutside } from "@/hooks/useOutside";
 import { NotificationsModal } from "../Notifications";
 import Link from "next/link";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
+import { userService } from "@/requests/user/user.service";
 
 interface SidebarProps {
     session: SessionContextValue;
 }
 
 export const Sidebar = ({ session }: SidebarProps) => {
+    const {data, error, isLoading} = useAuthQuery({
+        queryKey: ['get user data'],
+        queryFn: () => userService.getUser()
+    })
+
+    if (data === null) {
+        data.files = ['']
+    }
 
     const { ref, isShow, setIsShow } = useOutside(false);
 
@@ -33,7 +43,7 @@ export const Sidebar = ({ session }: SidebarProps) => {
                     <Avatar
                         src={
                             session.data?.user.img ||
-                            "/profile-assets/avatar.svg"
+                            "/ui-assets/default_avatar.jpg"
                         }
                         size={60}
                     />

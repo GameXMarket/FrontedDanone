@@ -24,12 +24,12 @@ export const OffersList = ({ category_id }: OffersListProps) => {
     const filter_categories = searchParams
         .getAll("val")
         .map((el) => el.split(":")[0]);
-    
-    const searchTerm = searchParams.get("search_offers")
+
+    const searchTerm = searchParams.get("search_offers");
 
     const getPriceFilter = useCallback(() => {
-        const priceFilter = searchParams.get("price")
-        switch(priceFilter){
+        const priceFilter = searchParams.get("price");
+        switch (priceFilter) {
             case "none":
                 return null;
             case "descending":
@@ -37,14 +37,25 @@ export const OffersList = ({ category_id }: OffersListProps) => {
             case "ascending":
                 return false;
             default:
-                return null
+                return null;
         }
-    }, [searchParams.get("price")])
+    }, [searchParams.get("price")]);
 
     const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery({
-        queryKey: ["catalog_offers", category_id, filter_categories, getPriceFilter(), searchTerm],
-        queryFn: ({pageParam}) =>
-            OfferApiService.getAll([category_id, ...filter_categories], getPriceFilter(), searchTerm ,pageParam),
+        queryKey: [
+            "catalog_offers",
+            category_id,
+            filter_categories,
+            getPriceFilter(),
+            searchTerm,
+        ],
+        queryFn: ({ pageParam }) =>
+            OfferApiService.getAll(
+                [category_id, ...filter_categories],
+                getPriceFilter(),
+                searchTerm,
+                pageParam
+            ),
         initialPageParam: 0,
         getNextPageParam: (lastPage, allPages, lastPageParam) => {
             if (lastPage.length !== 10) {
@@ -60,25 +71,9 @@ export const OffersList = ({ category_id }: OffersListProps) => {
     return (
         <>
             <div className="mt-6 grid grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5 gap-10 mobile:hidden">
-                {data?.pages?.map((arr) => arr.map((el) => (
-                    <div
-                        key={el.id}
-                        className="w-full flex flex-col items-center gap-y-6"
-                    >
-                        <ItemCard
-                            item={el}
-                        />
-                        <Button
-                            size="lg"
-                            className="rounded-xl w-3/4 text-xl"
-                            variant="accent"
-                        >
-                            <Link href={`chats/${el.id}`}>
-                                Чат с продавцом
-                            </Link>
-                        </Button>
-                    </div>
-                )))}
+                {data?.pages?.map((arr) =>
+                    arr.map((el) => <ItemCard key={el.id} item={el} />)
+                )}
             </div>
             <div className="hidden mobile:block">
                 {Array.from({ length: 3 }).map((_, idx) => (
@@ -99,16 +94,25 @@ export const OffersList = ({ category_id }: OffersListProps) => {
                                 >
                                     <div className="w-full flex flex-col items-center gap-y-6">
                                         <ItemCard
-                                            item={{
-                                                id: 1,
-                                                files_offer: ["/images/temp_main/brawlstars.png"],
-                                                name: "Brawl Stars",
-                                                price: 1000,
-                                                category_values: [{id: 1, value: "Brawl Stars"}],
-                                                description: "description",
-                                                files_user: [""],
-                                                username: "danone"
-                                            } as getAllOffers}
+                                            item={
+                                                {
+                                                    id: 1,
+                                                    files_offer: [
+                                                        "/images/temp_main/brawlstars.png",
+                                                    ],
+                                                    name: "Brawl Stars",
+                                                    price: 1000,
+                                                    category_values: [
+                                                        {
+                                                            id: 1,
+                                                            value: "Brawl Stars",
+                                                        },
+                                                    ],
+                                                    description: "description",
+                                                    files_user: [""],
+                                                    username: "danone",
+                                                } as getAllOffers
+                                            }
                                         />
                                         <Button
                                             size="lg"
@@ -125,7 +129,13 @@ export const OffersList = ({ category_id }: OffersListProps) => {
                 ))}
             </div>
             <div className="w-full flex justify-center">
-                <Button disabled={!hasNextPage} onClick={() => fetchNextPage()} className="mt-6" size="lg" variant="accent">
+                <Button
+                    disabled={!hasNextPage}
+                    onClick={() => fetchNextPage()}
+                    className="mt-6"
+                    size="lg"
+                    variant="accent"
+                >
                     Загрузить ещё...
                 </Button>
             </div>

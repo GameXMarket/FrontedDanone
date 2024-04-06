@@ -26,12 +26,26 @@ export const useFilter = (key: string | string[], initialPageParam?: initialPage
         refetchOnWindowFocus: false
     })
 
-    const onCategoryChange = (category_id: string) => {
+    const onCategoryChange = (category_id: string, carcass_id?: string) => {
         const params = new URLSearchParams(searchParams);
-        const index = searchParams.getAll("val").map(el => el.split(":")[1]).indexOf(category_id.split(":")[1])
-        if(index !== -1){
-            params.delete("val", searchParams.getAll("val")[index])
+
+        if(carcass_id){
+            //Check if it is the same category
+            const sameCategoryIndex = searchParams.getAll("val").map(el => el.split(":")[1]).indexOf(carcass_id)
+            if(sameCategoryIndex !== -1){
+                params.delete("val", searchParams.getAll("val")[sameCategoryIndex])
+                push(`${pathname}?${params}`);
+                return
+            }
+            return
         }
+
+        // Check if category in the same group
+        const sameGroupIndex = searchParams.getAll("val").map(el => el.split(":")[1]).indexOf(category_id.split(":")[1])
+        if(sameGroupIndex !== -1){
+            params.delete("val", searchParams.getAll("val")[sameGroupIndex])
+        }
+
         params.append('val', category_id);
         push(`${pathname}?${params}`);
     }
@@ -48,6 +62,12 @@ export const useFilter = (key: string | string[], initialPageParam?: initialPage
         params.delete('val');
         push(`${pathname}?${params}`);
     }, [root_category])
+
+    useEffectAfterMount(() => {
+        if(!searchParams.get("price")){
+            setPriceFilter("none")
+        }
+    }, [searchParams.get("price")])
 
     useEffect(() => {
         if(arr?.pageParams){

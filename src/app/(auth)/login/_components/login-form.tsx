@@ -70,7 +70,7 @@ export const LoginForm = () => {
                 </div>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="space-y-3 w-full px-4 flex flex-col items-center"
+                        className="space-y-3 w-full mt-[30px] px-4 flex flex-col items-center"
                     >
                         <FormField
                             control={form.control}

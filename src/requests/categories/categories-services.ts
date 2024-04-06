@@ -23,9 +23,9 @@ export const categoryServices = {
         return data.data
     },  
 
-    async getCategoryWithAssociated(category_id: number | string): Promise<{category: CategoryType, associated: ValueType[]}> {
-        const data = await Promise.all([this.getCategoryById(category_id), this.getCategoryAssociated(category_id)])
-        return {category: data[0], associated: data[1]}
+    async getCategoryWithAssociated(category_id: number | string): Promise<{category: CategoryType}> {
+        const category = await this.getCategoryById(category_id)
+        return {category:category}
     },  
 
     async createCategory(data: createCategoriesDto) {

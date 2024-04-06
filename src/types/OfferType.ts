@@ -15,7 +15,7 @@ export type OfferType = {
 }
 
 export type MyOfferType = {
-    offer_id: number,
+    id: number,
     name: string,
     price: number,
     count: number,

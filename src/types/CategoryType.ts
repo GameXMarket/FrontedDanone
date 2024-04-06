@@ -22,5 +22,6 @@ export type ValueType = {
     created_at: number,
     next_carcass: any, //temp
     author: any, //temp
-    carcass: any //temp
+    carcass: any //temp,
+    subvalues?: ValueType[]
 }

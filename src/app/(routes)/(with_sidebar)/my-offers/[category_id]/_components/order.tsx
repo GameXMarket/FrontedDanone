@@ -7,6 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { OfferApiService } from "@/requests/offer/offer-service";
 import { useParams } from "next/navigation";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
+import Link from "next/link";
 
 interface OrderProps {
     item: MyOfferType
@@ -36,8 +37,8 @@ const Order:FC<OrderProps> = ({item}) => {
                 <p className='text-[22px] font-normal text-white'>{item.carcass_in_offer_value}</p>
                 <div className={styles.order_edit}>
                     <div className="flex justify-evenly cursor-pointer">
-                        <EditIcon/>
-                        <button onClick={() => deleteOffer(item.offer_id)}><DeleteIcon/></button>
+                        <Link href={`/offer/settings/${item.id}`}><EditIcon/></Link>
+                        <button onClick={() => deleteOffer(item.id)}><DeleteIcon/></button>
                         <HideIcon/>
                         <ToTopIcon/>
                     </div>

@@ -24,7 +24,7 @@ export const Avatar = ({ size, src }: AvatarProps) => {
         >
             <Image
                 className="absolute object-cover rounded-full group-hover:opacity-50"
-                src={src || "/images/temp_main/diablo.png"}
+                src={src || "/ui-assets/default_avatar.jpg"}
                 alt="logo"
                 fill
             />

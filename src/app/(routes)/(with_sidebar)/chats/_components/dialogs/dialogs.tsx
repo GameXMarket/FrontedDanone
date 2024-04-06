@@ -6,39 +6,35 @@ import { ChevronLeft } from 'lucide-react'
 import Dialog from './dialog'
 import { messengerService } from '@/requests/messenger/messenger.service'
 import { useAuthQuery } from '@/hooks/useAuthQuery'
-
-export interface IDialogsComponent {
-    setIsOpenedChat: Dispatch<SetStateAction<boolean>>
-}
-
-type Dialogs = {
-    chat_ids: [number]
-}
+import { useCurrentUser } from '@/hooks/useCurrentUser'
+import Link from 'next/link'
 
 
-const Dialogs:FC<PropsWithChildren<IDialogsComponent>> = ({setIsOpenedChat}) => {
+const Dialogs = () => {
+    const user = useCurrentUser()
+    const username = user?.username
+
+
     const {data, error, isLoading} = useAuthQuery({
         queryKey: ['get all chats'],
         queryFn: () => messengerService.getAllChats()
     })
 
-
     return (
         <div className={styles.dialogs}>
-            <div className="w-full ml-5 flex mt-7 items-center" onClick={() => setIsOpenedChat(false)}>
+            <Link href={"/chats"}>
+            <div className="w-full ml-5 flex mt-7 items-center">
                 <ChevronLeft />
                 <p className={styles.back_text}>Назад</p>
             </div>
+            </Link>
             <div className={styles.dialog_container}>
-                {/* {data && data.data.chat_ids.map(dialog => (
-                    <Dialog key={dialog} dialog_id={dialog} setIsOpenedChat={setIsOpenedChat}/>
+                {data && data.filter((dialog: any) => dialog.interlocutor_username !== username).map((dialog: any) => (
+                    <Dialog key={dialog.chat_id} dialog={dialog} />
                 ))}
-                */}
             </div>
         </div>
     )
 }
 
 export default Dialogs
-
-//s

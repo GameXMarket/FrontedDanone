@@ -35,7 +35,6 @@ const MyOffersByCategory: FC = () => {
     });
 
     const { data: selects, onCategoryChange, isFetching } = useFilter("my offers", undefined);
-
     return (
         <div className={styles.mobc}>
             {mobileRes ? (
@@ -171,7 +170,7 @@ const MyOffersByCategory: FC = () => {
                         </div>
                         <div className={styles.orders}>
                             {data?.map((el) => (
-                                <Order item={el} key={el.offer_id} />
+                                <Order item={el} key={el.id} />
                             ))}
                         </div>
                     </section>
