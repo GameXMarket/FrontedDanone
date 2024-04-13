@@ -1,6 +1,6 @@
 import { createSafeFetch } from "@/lib/create-safe-fetch"
 import instance from ".."
-import {UploadFileDto, uploadFilesSchema, UploadUserFileDto} from "./schemas"
+import {UploadFileDto, UploadMessageFileDto, uploadFilesSchema, UploadUserFileDto} from "./schemas"
 import { toFormData } from "axios"
 
 export const AttachmentApiService = {
@@ -35,6 +35,18 @@ export const AttachmentApiService = {
         return instance.post('attacment/uploadfiles/user', formattedData, {
             headers: {
                 "Content-Type": "multipart/form-data"
+            }
+        }).then(res => res.data)
+    },
+
+    async uploadFileMessage(data: UploadMessageFileDto, accessToken: string) {
+        const formattedData = new FormData() 
+        formattedData.append('files', data.files[0])
+    
+        return instance.post(`attacment/uploadfiles/message?message_id=${data.message_id}`, formattedData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                "Authorization": `Bearer ${accessToken}` 
             }
         }).then(res => res.data)
     },

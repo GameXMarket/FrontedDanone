@@ -26,6 +26,18 @@ const Dialog: FC<PropsWithChildren<IDialog>> = ({
         queryFn: () => messengerService.getChatMessages(dialog.chat_id),
     });
 
+    const validateLastMessage = (message: string) => {
+        if (message.length >= 20) {
+            let arrMsg = Array.from(message)
+            arrMsg.splice(20)
+            const res = arrMsg.join('') + '...'
+
+            return res
+        }
+
+        return message
+    }
+
     return (
         <Link href={`/chats/${dialog.interlocutor_id}`}>
             <div className={styles.dialog}>
@@ -53,7 +65,7 @@ const Dialog: FC<PropsWithChildren<IDialog>> = ({
                         {dialog.interlocutor_username}
                     </h3>
                     <p className={styles.dialog_preview}>
-                        {data && data.at(-1).content}
+                        {data && validateLastMessage(data.at(-1).content)}
                     </p>
                 </div>
             </div>

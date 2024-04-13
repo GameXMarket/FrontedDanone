@@ -2,7 +2,6 @@ import {
     ChangeEmailForm,
     ChangePasswordForm,
 } from "./_components/change-credentials-form";
-import { ConfirmModal } from "./_components/confirm-modal";
 
 const SecurityPage = () => {
     return (

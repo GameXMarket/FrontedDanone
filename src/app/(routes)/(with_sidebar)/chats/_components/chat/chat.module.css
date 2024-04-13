@@ -39,6 +39,7 @@
 }
 
 .msg_right p {
+    word-wrap: break-word;
     @apply text-[16px] pl-2 font-normal;
 }
 
@@ -51,13 +52,35 @@
 }
 
 .msg_left p {
+    word-wrap: break-word;
     @apply text-[16px] pl-2 font-normal;
 }
 
 .msg_left  {
+
     @apply flex w-[400px] min-h-[80px] rounded-[21px] bg-[#24252F];
 }
 
 .message_left {
     @apply my-2 w-full flex items-center justify-start;
+}
+
+.add_photo {
+    @apply absolute z-20  rounded-[24px]  text-[#24252F] text-[1px] w-[62px] h-[62px];
+    opacity: 0;
+    transform: translate(-40px, 10px);
+    background-repeat: no-repeat;
+    background-size:80%; 
+    background-position: center center;
+    padding: 0
+}
+
+.add_photo_i {
+    @apply absolute z-10 cursor-pointer w-[62px] h-[62px];
+    transform: translate(-40px, 10px);
+}
+
+.form_chat {
+    transform: translate(30px, 0px);
+    @apply w-full mt-10 mobile:mt-4 flex gap-x-2;
 }
