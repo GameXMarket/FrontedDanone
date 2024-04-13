@@ -36,7 +36,7 @@ body{
 
 /* Scrollbar */
 *::-webkit-scrollbar {
-  width: 17px;
+  width: 10px;
 }
 *::-webkit-scrollbar-track {
   background: var(--bgel);

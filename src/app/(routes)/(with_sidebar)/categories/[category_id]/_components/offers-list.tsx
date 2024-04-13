@@ -70,12 +70,12 @@ export const OffersList = ({ category_id }: OffersListProps) => {
     }
     return (
         <>
-            <div className="mt-6 grid grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5 gap-10 mobile:hidden">
+            <div className="mt-6 grid grid-cols-3 2xl:grid-cols-4 4xl:grid-cols-5 gap-10 mobile:grid-cols-1">
                 {data?.pages?.map((arr) =>
                     arr.map((el) => <ItemCard key={el.id} item={el} />)
                 )}
             </div>
-            <div className="hidden mobile:block">
+            <div className="hidden">
                 {Array.from({ length: 3 }).map((_, idx) => (
                     <Carousel
                         key={idx}

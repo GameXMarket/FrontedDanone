@@ -9,7 +9,6 @@ const SecurityPage = () => {
         <div className="flex flex-col items-center gap-y-12 mobile:mt-8">
             <ChangeEmailForm />
             <ChangePasswordForm />
-            <ConfirmModal />
         </div>
     );
 };

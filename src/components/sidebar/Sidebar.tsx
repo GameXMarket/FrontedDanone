@@ -22,17 +22,10 @@ interface SidebarProps {
 }
 
 export const Sidebar = ({ session }: SidebarProps) => {
-    const {data, error, isLoading} = useAuthQuery({
-        queryKey: ['get user data'],
-        queryFn: () => userService.getUser()
-    })
-
-    if (data === null) {
-        data.files = ['']
-    }
 
     const { ref, isShow, setIsShow } = useOutside(false);
 
+    if(!session.data?.user) return null
     return (
         <>
             {isShow && (
@@ -113,13 +106,14 @@ export const Sidebar = ({ session }: SidebarProps) => {
                     </div>
                 </div>
             </aside>
+            <MobileSidebar session={session} />
         </>
     );
 };
 
 export const MobileSidebar = ({ session }: SidebarProps) => {
     return (
-        <aside className="fixed bottom-0 left-0 w-full flex justify-around items-center bg-[#1F2028] p-2 z-50 rounded-t-3xl">
+        <aside className="hidden mobile:flex fixed bottom-0 left-0 w-full justify-around items-center bg-[#1F2028] p-2 z-40 rounded-t-3xl">
             <Link
                 href="/catalog"
                 className="flex flex-col items-center gap-y-2"
@@ -157,7 +151,7 @@ export const MobileSidebar = ({ session }: SidebarProps) => {
                 href="/settings/profile"
                 className="flex flex-col items-center gap-y-2"
             >
-                <Avatar src="/profile-assets/avatar.svg" size={32} />
+                <Avatar src={session.data?.user.img || "/ui-assets/default_avatar.jpg"} size={32} />
                 <span>Профиль</span>
             </Link>
         </aside>

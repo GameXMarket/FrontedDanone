@@ -18,7 +18,7 @@ const Header = ({className, session}: HeaderProps) => {
 
     return (
         <header className={cn(className ? className : styles.header)}>
-            <div className={session.data?.user === undefined ? styles.header_container : styles.header_none}>
+            <div className={(session.data?.user === undefined && session.status !== "loading") ? styles.header_container : styles.header_none}>
                 <div />
                 <div className={styles.logo_container} onClick={() => push("/home")}>
                     <Logo/>

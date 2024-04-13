@@ -24,10 +24,15 @@ const buttonVariants = cva(
                 lg: "h-11 px-10",
                 icon: "h-10 w-10",
             },
+            feature: {
+                default: "",
+                noFocus: "focus-visible:ring-offset-0 focus-visible:ring-0"
+            }
         },
         defaultVariants: {
             variant: "default",
             size: "default",
+            feature: "default"
         },
     }
 );
@@ -40,12 +45,12 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-    ({ className, variant, size, asChild = false, label, ...props }, ref) => {
+    ({ className, variant, size, feature, asChild = false, label, ...props }, ref) => {
         const Comp = asChild ? Slot : "button";
         if (label)
             return (
                 <Comp
-                    className={cn(buttonVariants({ variant, size, className }))}
+                    className={cn(buttonVariants({ variant, size, feature, className }))}
                     ref={ref}
                     {...props}
                 >
@@ -54,7 +59,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             );
         return (
             <Comp
-                className={cn(buttonVariants({ variant, size, className }))}
+                className={cn(buttonVariants({ variant, size, feature, className }))}
                 ref={ref}
                 {...props}
             />

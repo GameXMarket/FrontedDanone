@@ -30,7 +30,7 @@ const MyOffersByCategory: FC = () => {
 
     const { data } = useAuthQuery({
         queryKey: ["my_offers", category_id],
-        queryFn: () => OfferApiService.getMyByCarcassId(category_id),
+        queryFn: () => OfferApiService.getMyByValueId(category_id),
         enabled: !!category_id,
     });
 
@@ -42,7 +42,7 @@ const MyOffersByCategory: FC = () => {
             ) : (
                 <section className={styles.category}>
                     <div className="flex items-center justify-center">
-                        <Link href="/home">
+                        <Link href="/my-offers">
                             <div className="flex items-center cursor-pointer">
                                 <div>
                                     <ArrowBackIcon />
