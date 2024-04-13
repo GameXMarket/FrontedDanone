@@ -21,7 +21,8 @@ export type MyOfferType = {
     count: number,
     carcass_select_name: string,
     carcass_in_offer_name: string,
-    carcass_in_offer_value: string
+    carcass_in_offer_value: string,
+    category_value: string
 }
 
 export type OffersGroup = {

@@ -19,11 +19,11 @@ import { useSession } from "next-auth/react";
 
 
 const ChangeAvatar:FC = () => {
-    const {update} = useSession()
-    const {data, error, isLoading} = useAuthQuery({
-        queryKey: ['get user data'],
-        queryFn: () => userService.getUser()
-    })
+    const {update, data: session} = useSession()
+    // const {data, error, isLoading} = useAuthQuery({
+    //     queryKey: ['get user data'],
+    //     queryFn: () => userService.getUser()
+    // })
     const {mutation} = useSafeMutation<any, {user_files: string[]}>(AttachmentApiService.uploadFileUser, {
         onSuccess: (data) => {
             console.log(data.user_files[0])
@@ -53,16 +53,12 @@ const ChangeAvatar:FC = () => {
 
     }
 
-    if (data === null) {
-        data.files = ['']
-    }
-
     return (
         <>
         <form>
             <div className="flex items-center flex-col justify-center">
             <div  className="relative rounded-full w-[90px] h-[90px] mobile:mt-8">
-                <Image src= {avatar || data?.files?.[0]} alt="profileImg" fill className="absolute object-cover rounded-full" />
+                <Image src= {avatar || session?.user.img || "/ui-assets/default_avatar.jpg"} alt="profileImg" fill className="absolute object-cover rounded-full" />
                 <div>
                 <FormField
                     control={form.control}

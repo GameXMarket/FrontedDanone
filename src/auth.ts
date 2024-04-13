@@ -56,6 +56,9 @@ export const {
         else if(session?.img){
           token.img = session.img
         }
+        else if(session?.email){
+          token.email = session.email
+        }
       }
       if (token.accessToken) {
         //@ts-ignore

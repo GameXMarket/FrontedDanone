@@ -13,6 +13,7 @@ import styles from "./styles/page.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { categoryServices } from "@/requests/categories/categories-services";
 import { useState } from "react";
+import { Slider } from "../offer/[offerId]/_components/slider";
 
 function Catalog() {
     const { data, isLoading, error } = useQuery({
@@ -36,7 +37,7 @@ function Catalog() {
             </div>
             <section className={styles.slider}>
                 {isLoading ? (
-                    <h4 className="text-[64px] font-bold">Loading...</h4>
+                    Array.from({length: 3}).map((_, idx) => <SliderCard.Skeleton key={idx} />)
                 ) : data ? (
                     data.category.values.map((el) => (
                         <SliderCard

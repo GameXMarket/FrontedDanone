@@ -25,9 +25,7 @@ export default function HomeLayout({
             <GlobalLoader session={session} />
             <Header session={session} />
             <main className="w-full flex mt-16 mobile:mt-8">
-                {session.data?.user && (
-                    mobileRes ? <MobileSidebar session={session} /> : <Sidebar session={session} />
-                )}
+                <Sidebar session={session} />
                 <div className="w-full">{children}</div>
             </main>
         </div>

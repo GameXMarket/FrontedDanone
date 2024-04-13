@@ -98,3 +98,40 @@ export const SendMsgIcon = () => {
 
     )
 }
+
+export const AddFileIcon = () => {
+  return (
+<svg
+  width={44}
+  height={44}
+  viewBox="0 0 44 44"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <g opacity="0.16">
+    <path
+      d="M13.6557 21.7858L12.649 23.5294C10.6357 27.0166 11.8345 31.5269 15.3332 33.5469C18.8204 35.5603 23.3308 34.3615 25.3508 30.8627L26.3574 29.1191"
+      stroke="white"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M30.3509 22.2025L31.3509 20.4705C33.3709 16.9717 32.1655 12.473 28.6667 10.453C25.1795 8.43963 20.6692 9.6384 18.6492 13.1371L17.6492 14.8692"
+      stroke="white"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M24.6665 17.3813L19.3332 26.619"
+      stroke="white"
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </g>
+</svg>
+
+  )
+}

@@ -9,7 +9,7 @@ import styles from './styles/navbar.module.css'
 
 const SettingsLayout = ({ children }: { children: React.ReactNode }) => {
     const mobileRes = useMediaQuery({
-        query: '(max-width: 768px)'
+        query: '(max-width: 440px)'
     })
     
     return(

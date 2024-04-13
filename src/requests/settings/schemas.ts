@@ -11,9 +11,6 @@ export const changeEmailSchema = z.object({
 
 export const changePasswordSchema = z.object({
     password: z.string().min(7, { message: "Пароль должен быть не меньше 7 символов" }),
-    auth: object({
-        old_password: z.string().min(7, { message: "Пароль должен быть не меньше 7 символов" }),
-    })
 })
 
 export type ChangeNameDto = z.infer<typeof changeNameSchema>

@@ -40,8 +40,8 @@ export const FormInput = ({
                 placeholder={placeholder}
                 {...props}
             />
-            {errors?.[id] && <Image className="absolute bottom-[23px] right-4" height={26} width={26} alt="incorrect" src="/images/auth/incorrect.svg" />}
-            {!errors?.[id] && errors && <Image className="absolute bottom-[23px] right-4" height={26} width={26} alt="incorrect" src="/images/auth/correct.svg" />}
+            {errors?.[id] && <Image className="absolute top-1/2 -translate-y-1/2 right-4" height={26} width={26} alt="incorrect" src="/images/auth/incorrect.svg" />}
+            {!errors?.[id] && errors && <Image className="absolute top-1/2 -translate-y-1/2 right-4" height={26} width={26} alt="correct" src="/images/auth/correct.svg" />}
         </div>
     );
 };

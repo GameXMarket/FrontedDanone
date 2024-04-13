@@ -30,6 +30,7 @@
     "dayjs": "^1.11.10",
     "embla-carousel-react": "^8.0.0-rc18",
     "framer-motion": "^11.0.3",
+    "input-otp": "^1.2.4",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.295.0",
     "next": "14.0.3",

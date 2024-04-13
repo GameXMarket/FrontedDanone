@@ -25,12 +25,22 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
+import { Select, SelectTrigger } from "@/components/ui/select";
+import { SelectContent, SelectValue } from "@radix-ui/react-select";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 const GamePage: FC = () => {
     const user = useCurrentUser();
     const searchParams = useSearchParams();
     const pathname = usePathname();
-    const { replace, back } = useRouter();
+    const { replace, back, push } = useRouter();
 
     const params = useParams();
     const category_id: string = params.category_id as string;
@@ -70,17 +80,17 @@ const GamePage: FC = () => {
     return (
         <div className={cn("pr-20 mobile:pr-0 h-full", !user && "pr-0")}>
             <section className={styles.back}>
-                <div
-                    onClick={() => back()}
+                <Link
+                    href="/catalog"
                     className="w-full flex items-center"
                 >
                     <ArrowBackIcon />
                     <p className={styles.back_text}>Назад</p>
-                </div>
+                </Link>
             </section>
-            <div className="overflow-y-auto h-full pr-4 mobile:pr-0">
+            <div className="overflow-y-auto mobile:overflow-y-visible h-full pr-4 mobile:pr-0">
                 <section className={styles.game_details}>
-                    <div>
+                    <div className="flex items-center gap-x-10 mobile:gap-x-4">
                         <Image
                             className="min-w-[80px] min-h-[80px] mobile:w-20 mobile:h-20"
                             src="/game-assets/game.svg"
@@ -88,22 +98,59 @@ const GamePage: FC = () => {
                             width={120}
                             height={115}
                         />
+                        <div>
+                            <h1 className={styles.game_title}>
+                                {rootData?.[0].value}
+                            </h1>
+                            <h3 className={styles.game_orders_qty}>30 000 лотов</h3>
+                        </div>
                     </div>
-                    <div className="ml-8 text-left">
-                        {rootIsLoading ? (
-                            <p className={styles.game_title}>Loading...</p>
-                        ) : rootData ? (
-                            <div className="w-full">
-                                <h1 className={styles.game_title}>
-                                    {rootData[0].value}
-                                </h1>
-                            </div>
-                        ) : (
-                            <div className={styles.game_title}>
-                                DATA NOT FOUND
-                            </div>
-                        )}
-                        <h3 className={styles.game_orders_qty}>30 000 лотов</h3>
+                    <div className="hidden mobile:block">
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button feature="noFocus" variant="outline">
+                                    <Image
+                                        src="/ui-assets/filter-search.svg"
+                                        width={24}
+                                        height={24}
+                                        alt="filter"
+                                    />
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent className="bg-bgel border-none max-h-[152px] overflow-y-auto">
+                                <DropdownMenuRadioGroup>
+                                    {currentData?.values.map((el) => (
+                                        <DropdownMenuRadioItem
+                                            value="1"
+                                            onClick={() =>
+                                                changeCategory(
+                                                    el.id,
+                                                    el.next_carcass_id
+                                                )
+                                            }
+                                            className={cn(
+                                                "flex items-center justify-center px-1 py-2 text-white ",
+                                                +currentId === el.id &&
+                                                    "back-gradient"
+                                            )}
+                                            key={el.id}
+                                        >
+                                            <p>
+                                                {el.value}
+                                            </p>
+                                        </DropdownMenuRadioItem>
+                                    ))}
+                                </DropdownMenuRadioGroup>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                        <Button
+                            onClick={() =>
+                                replace(pathname)
+                            }
+                            className="text-center rounded-full bg-rose-500 w-5 h-5 p-0 ml-2"
+                        >
+                            <Trash2 className="w-3 h-3" />
+                        </Button>
                     </div>
                     <div className="ml-10 mobile:hidden">
                         {currentIsLoading ? (
@@ -163,12 +210,8 @@ const GamePage: FC = () => {
                     </div>
                 </section>
                 <div>
-                    {/* {rootData && (
-                        <> */}
                     <FilterForm />
                     <OffersList category_id={currentId} />
-                    {/* </>
-                    )} */}
                 </div>
             </div>
         </div>

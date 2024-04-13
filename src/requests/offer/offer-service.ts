@@ -54,6 +54,10 @@ export const OfferApiService = {
         return instance.get<MyOfferType[]>(`offers/my/bycarcassid?offset=${offset}&limit=${limit}&carcass_id=${carcass_id}`)
         .then(res => res.data)
     },
+    async getMyByValueId(value_id?: number | string, offset: number = 0, limit: number = 5) {
+        return instance.get<MyOfferType[]>(`offers/my/byvalueid?offset=${offset}&limit=${limit}&value_id=${value_id}`)
+        .then(res => res.data)
+    },
 }
 
 export const safeCreateOffer = createSafeFetch(createOfferSchema, OfferApiService.createOffer)

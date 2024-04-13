@@ -11,7 +11,7 @@ const LoginPage = () => {
     })
 
     return (
-        <div className="mt-6 flex flex-col items-center">
+        <div className="mt-6 w-full flex flex-col items-center">
             <div className={styles.login_page}>
                 <LoginForm />
             </div>

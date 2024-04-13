@@ -12,6 +12,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface ISliderCard {
     id: number;
@@ -19,11 +20,11 @@ interface ISliderCard {
     categories?: ValueType[];
 }
 
-const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
+const SliderCard = ({
     id,
     name,
     categories,
-}) => {
+}: ISliderCard) => {
 
     const [next, setNext] = useState(true)
     const [prev, setPrev] = useState(false)
@@ -57,17 +58,17 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
 
     return (
         <Link href={`/categories/${id}`} className="mobile:flex mobile:justify-center">
-            <div className=" w-[300px] h-[380px]" key={id}>
+            <div className="w-[300px] h-[380px]" key={id}>
                 <Image
                     className="z-10 rounded-[24px]"
                     src="/catalog/game.jpg"
                     width={300}
-                    height={378}
+                    height={380}
                     alt="game"
                 />
                 <div className={cn(styles.card_container, "group")}>
                     <h3 className="font-[500] pt-8 pl-8 text-[32px]">{name}</h3>
-                    <div className={cn(styles.card_options, "opacity-0 group-hover:opacity-100 transition-opacity")}>
+                    <div className={cn(styles.card_options, "opacity-0 group-hover:opacity-100 transition-opacity mobile:opacity-100")}>
                         <Carousel
                             setApi={setApi}
                             opts={{
@@ -97,7 +98,7 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
                                                                 "col-span-10"
                                                         )}
                                                     >
-                                                        <p className="flex items-center justify-center">
+                                                        <p className="flex items-center justify-center mobile:text-white">
                                                             {el.value}
                                                         </p>
                                                     </Link>
@@ -114,5 +115,18 @@ const SliderCard: FC<PropsWithChildren<ISliderCard>> = ({
         </Link>
     );
 };
+
+SliderCard.Skeleton = function SliderCardSkeleton() {
+    return(
+        <div className="w-[300px] h-[380px] rounded-[22px] flex bg-muted-foreground flex-col justify-between p-4">
+                <Skeleton className="w-3/4 h-10 mt-4" />
+                <div className="w-full grid grid-cols-1 grid-rows-3 gap-y-2 px-4">
+                    <Skeleton className="bg-[#24252F] rounded-[16px] w-full h-8" />
+                    <Skeleton className="bg-[#24252F] rounded-[16px] w-full h-8" />
+                    <Skeleton className="bg-[#24252F] rounded-[16px] w-full h-8" />
+                </div>
+        </div>
+    )
+}
 
 export default SliderCard;

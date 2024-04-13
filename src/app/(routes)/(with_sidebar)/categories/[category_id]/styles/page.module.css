@@ -22,11 +22,11 @@
 /* GAME DETAILS */ 
 
 .game_details {
-    @apply flex w-full items-center;
+    @apply flex w-full items-center mobile:justify-between;
 }
 
 .game_title {
-    @apply w-full font-medium text-[40px];
+    @apply font-medium text-[40px];
 }
 
 .game_orders_qty {
@@ -39,7 +39,7 @@
 }
 
 .option_text {
-    @apply font-light text-[20px] py-1 px-4;
+    @apply font-light text-[20px] py-1 px-4 mobile:text-[12px];
 }
 
 .option:hover {

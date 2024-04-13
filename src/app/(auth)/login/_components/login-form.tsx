@@ -12,8 +12,7 @@ import { loginSchema } from "@/requests/auth/schemas";
 import { login } from "@/actions/login";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Form, FormField } from "@/components/ui/form";
+import { FormField } from "@/components/ui/form";
 import toast from "react-hot-toast";
 
 export const LoginForm = () => {
