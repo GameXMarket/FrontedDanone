@@ -19,7 +19,7 @@ export const userService = {
     },
 
     async verifyPasswordChange(data: passwordWithCodeDto) {
-        return await instance.post(`auth/password-change?code=${data.code}`, {password: data.password})
+        return await instance.post(`auth/password-change`, {password: data.password, code: data.code})
             .then(res => res)
     },
 
