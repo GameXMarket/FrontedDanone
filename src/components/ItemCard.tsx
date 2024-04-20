@@ -107,7 +107,7 @@ export const ItemCard = ({ item, lessInfo }: ItemCardProps) => {
                                 <span>5.0</span>
                             </div>
                         </div>
-                        <TooltipProvider>
+                        {/* <TooltipProvider>
                             <Tooltip disableHoverableContent delayDuration={200}>
                                 <Link
                                     className="ml-auto"
@@ -129,7 +129,7 @@ export const ItemCard = ({ item, lessInfo }: ItemCardProps) => {
                                     </p>
                                 </TooltipContent>
                             </Tooltip>
-                        </TooltipProvider>
+                        </TooltipProvider> */}
                     </div>
                 )}
             </div>
