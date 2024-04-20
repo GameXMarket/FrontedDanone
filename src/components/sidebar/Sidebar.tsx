@@ -14,8 +14,8 @@ import Modal from "./modal";
 import { useOutside } from "@/hooks/useOutside";
 import { NotificationsModal } from "../Notifications";
 import Link from "next/link";
-import { useAuthQuery } from "@/hooks/useAuthQuery";
-import { userService } from "@/requests/user/user.service";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface SidebarProps {
     session: SessionContextValue;
@@ -112,6 +112,8 @@ export const Sidebar = ({ session }: SidebarProps) => {
 };
 
 export const MobileSidebar = ({ session }: SidebarProps) => {
+    const pathname = usePathname()
+
     return (
         <aside className="hidden mobile:flex fixed bottom-0 left-0 w-full justify-around items-center bg-[#1F2028] p-2 z-40 rounded-t-3xl">
             <Link
@@ -119,40 +121,41 @@ export const MobileSidebar = ({ session }: SidebarProps) => {
                 className="flex flex-col items-center gap-y-2"
             >
                 <Image
-                    src="/sidebar/catalog.svg"
+                    src={pathname.includes("/catalog") ? "/sidebar/catalog_active.svg" : "/sidebar/catalog.svg"}
                     alt="catalog"
                     width={32}
                     height={32}
                 />
-                <span>Каталог</span>
+                <span className={cn("text-muted-foreground", pathname.includes("/catalog") && "text-white")}>Каталог</span>
             </Link>
             <Link
                 href="/my-offers"
                 className="flex flex-col items-center gap-y-2"
             >
                 <Image
-                    src="/sidebar/plus.svg"
+                    src={pathname.includes("/my-offers") ? "/sidebar/plus_active.svg" : "/sidebar/plus.svg"}
                     alt="catalog"
                     width={32}
                     height={32}
                 />
-                <span>Продажи</span>
+                <span className={cn("text-muted-foreground", pathname.includes("/my-offers") && "text-white")}>Продажи</span>
             </Link>
             <Link href="/chats" className="flex flex-col items-center gap-y-2">
                 <Image
-                    src="/sidebar/chat.svg"
+                    className="stroke-black"
+                    src={pathname.includes("/chats") ? "/sidebar/chat_active.svg" : "/sidebar/chat.svg"}
                     alt="catalog"
                     width={32}
                     height={32}
                 />
-                <span>Чаты</span>
+                <span className={cn("text-muted-foreground", pathname.includes("/chat") && "text-white")}>Чаты</span>
             </Link>
             <Link
                 href="/settings/profile"
                 className="flex flex-col items-center gap-y-2"
             >
                 <Avatar src={session.data?.user.img || "/ui-assets/default_avatar.jpg"} size={32} />
-                <span>Профиль</span>
+                <span className={cn("text-muted-foreground", pathname.includes("/settings") && "text-white")}>Профиль</span>
             </Link>
         </aside>
     );

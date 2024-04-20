@@ -1,10 +1,8 @@
-import NextAuth, { User } from "next-auth"
+import NextAuth from "next-auth"
 import { UserType } from "@/types/UserType";
 
 import authConfig from "@/auth.config";
 import axios from "axios";
-import { cookies } from "next/headers";
-import { logout } from "./actions/logout";
 import { isRedirectError } from "next/dist/client/components/redirect";
 import { refreshToken } from "./actions/refreshToken";
 

@@ -81,7 +81,7 @@ export const ItemCard = ({ item, lessInfo }: ItemCardProps) => {
                 </div> */}
                 {!lessInfo && (
                     <div className="flex items-center gap-x-3 px-1">
-                        <div className="h-[50px] w-[50px] relative">
+                        <div className="h-[50px] w-[50px] min-w-[50px] relative">
                             <Image
                                 src={
                                     item.files_user?.[0] ||

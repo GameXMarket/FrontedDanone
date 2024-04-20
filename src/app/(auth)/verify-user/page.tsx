@@ -1,9 +1,7 @@
 "use client";
 
 import { verifyLogin } from "@/actions/login";
-import { useEffectAfterMount } from "@/hooks/useEffectAfterMount";
 import { AuthApiService } from "@/requests/auth/auth-service";
-import { signIn, useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import toast from "react-hot-toast";

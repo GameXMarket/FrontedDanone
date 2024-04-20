@@ -6,5 +6,5 @@ export function useAuthQuery<TQueryFnData = unknown, TError = DefaultError, TDat
     const user = useCurrentUser()
     instance.defaults.headers.common.Authorization = `Bearer ${user?.accessToken}`
 
-    return useQuery(options)
+    return useQuery({...options, enabled: (!!user?.accessToken && options.enabled)})
 }

@@ -1,4 +1,4 @@
-import type { NextAuthConfig, User } from "next-auth";
+import type { User } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { cookies } from "next/headers";
 
@@ -36,6 +36,7 @@ export default {
         Credentials({
             id: "verify",
             async authorize(credentials) {
+                //@ts-ignore
                 const {access, refresh} = credentials
                 const cookieStore = cookies()
                 cookieStore.set("refresh", refresh as string)
@@ -45,4 +46,4 @@ export default {
     ],
     secret: process.env.NEXTAUTH_SECRET,
     trustHost: true,
-} satisfies NextAuthConfig
+}

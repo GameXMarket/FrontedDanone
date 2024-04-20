@@ -60,6 +60,7 @@ const SliderCard = ({
         <Link href={`/categories/${id}`} className="mobile:flex mobile:justify-center">
             <div className="w-[300px] h-[380px]" key={id}>
                 <Image
+                    priority={true}
                     className="z-10 rounded-[24px]"
                     src="/catalog/game.jpg"
                     width={300}

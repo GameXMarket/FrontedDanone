@@ -3,11 +3,11 @@
 }
 
 .chat_name {
-    @apply  ml-1 text-[28px] font-semibold;
+    @apply  ml-1 text-[28px] font-semibold mobile:ml-0 mobile:text-[16px];
 }
 
 .chat_container {
-    @apply flex items-center overflow-y-scroll min-h-[500px] max-h-[500px] flex-col w-full;
+    @apply flex items-center mobile:items-baseline overflow-y-auto h-[500px] mobile:h-[calc(100vh-340px)] flex-col mobile:gap-y-2 w-full;
 }
 
 .chat_container::-webkit-scrollbar {
@@ -15,7 +15,7 @@
 }
 
 .message_right {
-    @apply my-2 pr-1 w-full flex items-center justify-end;
+    @apply my-2 pr-1 w-full flex items-center justify-end mobile:hidden;
 }
 
 .msg_right  {
@@ -23,7 +23,7 @@
 }
 
 .chat_send_msg {
-    border-radius: 24px;
+    border-radius: 18px;
 }
 
 .msg_avatar {
@@ -40,7 +40,7 @@
 
 .msg_right p {
     word-wrap: break-word;
-    @apply text-[16px] pl-2 font-normal;
+    @apply text-[16px] leading-[16px] pl-2 font-light mobile:pl-0;
 }
 
 .msg_left h4 {
@@ -53,22 +53,21 @@
 
 .msg_left p {
     word-wrap: break-word;
-    @apply text-[16px] pl-2 font-normal;
+    @apply text-[16px] leading-[16px] pl-2 font-light mobile:pl-0;
 }
 
 .msg_left  {
-
     @apply flex w-[400px] min-h-[80px] rounded-[21px] bg-[#24252F];
 }
 
 .message_left {
-    @apply my-2 w-full flex items-center justify-start;
+    @apply my-2 w-full flex items-center justify-start mobile:hidden;
 }
 
 .add_photo {
-    @apply absolute z-20  rounded-[24px]  text-[#24252F] text-[1px] w-[62px] h-[62px];
+    @apply absolute z-30 rounded-[24px] text-[#24252F] text-[1px] w-[62px] h-[62px] mobile:w-[48px] mobile:h-[48px] cursor-pointer;
     opacity: 0;
-    transform: translate(-40px, 10px);
+    /* transform: translate(-40px, 10px); */
     background-repeat: no-repeat;
     background-size:80%; 
     background-position: center center;
@@ -76,11 +75,11 @@
 }
 
 .add_photo_i {
-    @apply absolute z-10 cursor-pointer w-[62px] h-[62px];
-    transform: translate(-40px, 10px);
+    @apply absolute flex justify-center items-center z-10 cursor-pointer w-[62px] h-[62px] mobile:w-[48px] mobile:h-[48px];
+    /* transform: translate(-40px, 10px); */
 }
 
 .form_chat {
-    transform: translate(30px, 0px);
-    @apply w-full mt-10 mobile:mt-4 flex gap-x-2;
+    /* transform: translate(30px, 0px); */
+    @apply relative w-full mt-10 mobile:mt-4 flex;
 }

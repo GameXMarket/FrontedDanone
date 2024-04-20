@@ -1,7 +1,7 @@
 .dialogs {
-    @apply w-[380px] h-[648px];
     border-radius: 32px 32px 100px 32px;
-    background: #24252F; 
+    background: #24252F;
+    @apply w-[380px] h-[648px] mobile:w-full mobile:h-auto mobile:bg-transparent;
 }
 
 .back_text {
@@ -21,7 +21,7 @@
 
 .dialog {
     transition: 0.6s;
-    @apply cursor-pointer flex w-full items-center py-3 px-12;
+    @apply cursor-pointer flex w-full items-center py-3 px-12 mobile:px-0;
 }
 
 .dialog h3 {

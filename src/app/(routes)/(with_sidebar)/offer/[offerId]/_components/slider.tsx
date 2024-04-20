@@ -1,5 +1,6 @@
 'use client'
 
+import { ImagesSlider } from "@/components/ImagesSlider";
 import {
     Carousel,
     CarouselApi,
@@ -8,11 +9,14 @@ import {
 } from "@/components/ui/carousel";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import { useEffect, useMemo, useState } from "react";
 
 export const Slider = ({images}: {images: Array<string>}) => {
     const [api, setApi] = useState<CarouselApi>();
     const [selected, setSelected] = useState<number>(0)
+
+    const [open, setIsOpen] = useState(false)
 
     useEffect(() => {
         if (!api) {
@@ -25,8 +29,9 @@ export const Slider = ({images}: {images: Array<string>}) => {
     
     return (
       <div>
+        <ImagesSlider selected={selected} isOpen={open} setIsOpen={setIsOpen} imgs={images || ["/ui-assets/default_offer_img.jpg"]} />
         <div className="relative w-full h-[300px] mb-8 mobile:hidden">
-          <Image src={images?.[selected] || "/ui-assets/default_offer_img.jpg"} alt="img" fill className="absolute object-cover rounded-2xl" />
+          <Image onClick={() => setIsOpen(true)} src={images?.[selected] || "/ui-assets/default_offer_img.jpg"} alt="img" fill className="absolute object-cover rounded-2xl cursor-pointer" />
         </div>
         <Carousel opts={{align: "start"}} className="w-full mobile:max-w-sm" setApi={setApi}>
             <CarouselContent className="gap-x-4 -ml-0">
