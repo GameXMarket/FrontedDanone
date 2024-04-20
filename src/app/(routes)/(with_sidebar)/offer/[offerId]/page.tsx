@@ -17,18 +17,22 @@ const OfferPage = ({ params }: { params: { offerId: string } }) => {
         error,
         isSuccess,
     } = useAuthQuery({
-        queryKey: ["get offer"],
+        queryKey: ["get offer", params.offerId],
         queryFn: () => OfferApiService.getOfferById(params.offerId),
     });
 
-    const { data: dialog } = useAuthQuery({
+    const { data: dialog, isError } = useAuthQuery({
         queryKey: ["get dialog", params.offerId],
         queryFn: () => {
             if (offer) {
                 return messengerService.getDialogById(offer.user_id);
             }
+            else{
+                return null
+            }
         },
         enabled: !!offer,
+        retry: false
     });
 
     if (offer) {
@@ -61,7 +65,7 @@ const OfferPage = ({ params }: { params: { offerId: string } }) => {
                     </div>
                 </div>
                 <aside className="w-full flex justify-center mobile:hidden">
-                    <Chat dialog={dialog} />
+                    <Chat offerId={params.offerId} userIdFromOffer={offer.user_id} dialogError={isError} dialog={dialog} />
                 </aside>
             </main>
         );

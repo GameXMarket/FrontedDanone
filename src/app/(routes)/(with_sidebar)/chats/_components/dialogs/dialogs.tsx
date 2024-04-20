@@ -15,14 +15,13 @@ const Dialogs = () => {
     const username = user?.username
 
 
-    const {data, error, isLoading} = useAuthQuery({
+    const {data} = useAuthQuery({
         queryKey: ['get all chats'],
         queryFn: () => messengerService.getAllChats()
     })
-
     return (
         <div className={styles.dialogs}>
-            <Link href={"/chats"}>
+            <Link className='mobile:hidden' href={"/chats"}>
             <div className="w-full ml-5 flex mt-7 items-center">
                 <ChevronLeft />
                 <p className={styles.back_text}>Назад</p>

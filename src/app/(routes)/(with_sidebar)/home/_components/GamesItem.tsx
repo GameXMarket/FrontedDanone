@@ -23,6 +23,7 @@ export const MainContentItem = ({ url, idx, name }: MainContentItemProps) => {
             href="/catalog"
         >
             <Image
+                priority={true}
                 sizes="(max-width: 440px) 50vw, 500px"
                 alt="game"
                 fill

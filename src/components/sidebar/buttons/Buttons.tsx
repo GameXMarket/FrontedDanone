@@ -8,6 +8,8 @@ import {
 } from "../icons/SidebarIcons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useAtomValue } from "jotai";
+import { chatNotifAtom } from "@/atoms/chatAtom";
 
 export const MyOrdersButton = () => {
     "use client";
@@ -45,6 +47,9 @@ export const MyOrdersButton = () => {
 };
 
 export const ChatButton = () => {
+    "use client"
+
+    const chatNotif = useAtomValue(chatNotifAtom)
     return (
         <Link href='/chats'> 
             <div className="">
@@ -56,9 +61,9 @@ export const ChatButton = () => {
                         <div className="w-full pl-5 flex justify-start">
                             <span className="text-[24px] font-normal">Чаты</span>
                         </div>
-                        <div className={styles.button_msg_wrapper}>
-                            <div className={styles.button_count_msg}>3</div>
-                        </div>
+                        {chatNotif > 0 && <div className={styles.button_msg_wrapper}>
+                            <div className={styles.button_count_msg}>{chatNotif}</div>
+                        </div>}
                     </div>
                 </Button>
             </div>

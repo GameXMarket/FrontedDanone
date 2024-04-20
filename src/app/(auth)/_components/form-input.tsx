@@ -8,7 +8,7 @@ interface FormInputProps {
     id: string;
     errors?: Record<string, string[] | undefined> | undefined;
     disabled?: boolean,
-    type?: "password",
+    type?: "password" | "email",
 }
 
 export const FormInput = ({

@@ -1,5 +1,5 @@
 .groups {
-    @apply flex flex-col items-center h-[648px] bg-[#1C1D24] relative  w-[100px];
+    @apply flex mobile:hidden flex-col items-center h-[648px] bg-[#1C1D24] relative  w-[100px];
     border-radius:100px 32px 32px 32px ;
     bottom: 0px;
 }
@@ -42,5 +42,5 @@
 }
 
 .group_mob {
-    @apply w-full flex items-center justify-center text-[18px] font-light opacity-[0.16];
+    @apply w-full h-full rounded-[20px] flex items-center justify-center text-[18px] font-light;
 }

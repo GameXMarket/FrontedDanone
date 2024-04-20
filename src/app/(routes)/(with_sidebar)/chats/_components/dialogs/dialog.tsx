@@ -14,6 +14,9 @@ interface IDialog {
         interlocutor_id: number,
         interlocutor_username: string;
         interlocutor_files: Array<string>;
+        last_message: {
+            content: string
+        }
     };
 }
 
@@ -21,10 +24,10 @@ const Dialog: FC<PropsWithChildren<IDialog>> = ({
     dialog,
 }) => {
     const params = useParams()
-    const { data, error, isLoading } = useAuthQuery({
-        queryKey: ["get messages for dialog", dialog?.chat_id],
-        queryFn: () => messengerService.getChatMessages(dialog.chat_id),
-    });
+    // const { data, error, isLoading } = useAuthQuery({
+    //     queryKey: ["get messages for dialog", dialog?.chat_id],
+    //     queryFn: () => messengerService.getChatMessages(dialog.chat_id),
+    // });
 
     const validateLastMessage = (message: string) => {
         if (message.length >= 20) {
@@ -46,15 +49,15 @@ const Dialog: FC<PropsWithChildren<IDialog>> = ({
                         src={
                             dialog.interlocutor_files
                                 ? dialog.interlocutor_files?.[0]
-                                : "/messenger/cringeman.svg"
+                                : "/ui-assets/default_avatar.jpg"
                         }
                         alt="avatar"
                         width={70}
                         height={70}
-                        className="rounded-full w-[60px] h-[60px]"
+                        className="rounded-full w-[60px] h-[60px] max-w-[60px]"
                     />
                 </div>
-                <div className="ml-3">
+                <div className="ml-4">
                     <h3
                         className={
                             +params.second_user_id?.[0] === dialog.interlocutor_id
@@ -65,7 +68,7 @@ const Dialog: FC<PropsWithChildren<IDialog>> = ({
                         {dialog.interlocutor_username}
                     </h3>
                     <p className={styles.dialog_preview}>
-                        {data && validateLastMessage(data.at(-1).content)}
+                        {validateLastMessage(dialog.last_message.content)}
                     </p>
                 </div>
             </div>

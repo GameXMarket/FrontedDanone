@@ -20,7 +20,6 @@ const nextConfig = {
             },
         ],
     },
-    reactStrictMode: false,
 };
 
 module.exports = withBundleAnalyzer(nextConfig);

@@ -4,15 +4,15 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FormInput } from "../../_components/form-input";
 import { useFormStatus } from "react-dom";
-import { safeRegister } from "@/requests/auth/auth-service";
+import { AuthApiService, safeRegister } from "@/requests/auth/auth-service";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
 import styles from "./styles/register.module.css";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { AuthType } from "@/types/AuthType";
 
 export const RegisterForm = () => {
-    const [isAvailableNick, setIsAvailableNick] = useState<boolean>(false);
-
+    const [email, setEmail] = useState("")
     const { pending } = useFormStatus();
 
     const [success, setSuccess] = useState(false);
@@ -26,8 +26,9 @@ export const RegisterForm = () => {
             );
             setSuccess(false);
         },
-        onSuccess: () => {
+        onSuccess: (data: AuthType) => {
             setSuccess(true);
+            setEmail(data.email)
         },
     });
 
@@ -39,6 +40,21 @@ export const RegisterForm = () => {
 
         mutation.mutate({ username, email, password, repassword });
     };
+
+    const sendMailAgain = async () => {
+        try{
+            const response = await AuthApiService.sendMailAgain(email)
+            if(response.status === 200){
+                toast.success("Письмо отправлено повторно")
+            }
+            else{
+                toast.error("Не получилось отправить письмо повторно")
+            }
+        }
+        catch(err){
+            toast.error("Не получилось отправить письмо повторно")
+        }
+    }
 
     return (
         <div className="w-full h-full flex flex-col items-center ">
@@ -61,22 +77,6 @@ export const RegisterForm = () => {
                     id="username"
                     placeholder="Введите имя пользователя"
                 />
-                {isAvailableNick && (
-                    <div className="w-full pl-8">
-                        <span className="text-thin text-[16px] text-[#8E2222]">
-                            *Такое имя уже занято
-                        </span>
-                        <div className="w-full flex justify-between mt-4 items-center">
-                            <p className="text-normal text-[16px]">Доступно:</p>
-                            <span className="px-6 bg-[#24252F] rounded-2xl py-2 cursor-pointer">
-                                Lestty123
-                            </span>
-                            <span className="px-6 bg-[#24252F] rounded-2xl py-2 cursor-pointer">
-                                Lestty2323
-                            </span>
-                        </div>
-                    </div>
-                )}
                 <FormInput
                     disabled={mutation.isPending}
                     errors={errors}
@@ -104,7 +104,7 @@ export const RegisterForm = () => {
                             Письмо с подтверждением отправлено на вашу почту
                         </p>
                     </div>
-                    <Button className="w-full text-lg" size="lg" variant="secondary">Отправить письмо еще раз</Button>
+                    <Button type="button" onClick={() => sendMailAgain()} className="w-full text-lg" size="lg" variant="secondary">Отправить письмо еще раз</Button>
                     </>
                 )}
                 <div className="pt-[56px]">

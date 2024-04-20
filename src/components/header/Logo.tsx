@@ -1,15 +1,8 @@
-'use client'
-
 import Image from 'next/image'
-import { useMediaQuery } from 'react-responsive'
 
 const Logo = () => {
-    const mobileRes = useMediaQuery({
-        query: '(max-width:440px)'
-    })
-
     return (
-        <Image priority src='/logo.svg' width={mobileRes ? 137 : 210} height={mobileRes ? 26 : 32} alt="logo"/>
+        <Image className='w-[210px] h-[37px] mobile:w-[127px] mobile:h-[23px]' priority src='/logo.svg' width={210} height={32} alt="logo"/>
     )
 }
 

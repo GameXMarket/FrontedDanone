@@ -45,7 +45,7 @@ export const BellIcon = () => {
     )
 }
 
-export const SendMsgIcon = () => {
+export const SendMsgIcon = ({className}: {className?: string}) => {
     return (
         <svg
   xmlns="http://www.w3.org/2000/svg"
@@ -53,6 +53,7 @@ export const SendMsgIcon = () => {
   height={32}
   viewBox="0 0 32 32"
   fill="none"
+  className={className}
 >
   <path
     d="M9.86674 8.42687L21.1867 4.65354C26.2667 2.96021 29.0267 5.73354 27.3467 10.8135L23.5734 22.1335C21.0401 29.7469 16.8801 29.7469 14.3467 22.1335L13.2267 18.7735L9.86674 17.6535C2.25341 15.1202 2.25341 10.9735 9.86674 8.42687Z"
@@ -99,14 +100,15 @@ export const SendMsgIcon = () => {
     )
 }
 
-export const AddFileIcon = () => {
+export const AddFileIcon = ({width, height, className}: {width?: number, height?: number, className?: string}) => {
   return (
 <svg
-  width={44}
-  height={44}
+  width={width || 44}
+  height={height || 44}
   viewBox="0 0 44 44"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
+  className={className}
 >
   <g opacity="0.16">
     <path

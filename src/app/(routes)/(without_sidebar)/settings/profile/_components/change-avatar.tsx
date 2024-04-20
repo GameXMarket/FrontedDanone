@@ -26,7 +26,6 @@ const ChangeAvatar:FC = () => {
     // })
     const {mutation} = useSafeMutation<any, {user_files: string[]}>(AttachmentApiService.uploadFileUser, {
         onSuccess: (data) => {
-            console.log(data.user_files[0])
             update({img: data.user_files[0]})
             toast.success('Изменения применены')
         },

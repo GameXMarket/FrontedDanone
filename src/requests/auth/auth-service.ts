@@ -17,6 +17,10 @@ export const AuthApiService = {
     async verifyUser(token: string) {
         return instance.get<LoginType>("auth/verify-user", {params: {token}})
         .then(res => res.data)
+    },
+    async sendMailAgain(email: string) {
+        return instance.post("users/send-verify-mail", {email})
+        .then(res => res)
     }
 }
 

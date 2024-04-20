@@ -25,8 +25,6 @@ import {
 } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { Trash2 } from "lucide-react";
-import { Select, SelectTrigger } from "@/components/ui/select";
-import { SelectContent, SelectValue } from "@radix-ui/react-select";
 import {
     DropdownMenu,
     DropdownMenuContent,
