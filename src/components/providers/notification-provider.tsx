@@ -37,6 +37,9 @@ export const NotificationProvider = ({
                     setChatNotifAtom((prev) => prev+1)
                     queryClient.invalidateQueries({queryKey: ['get all chats']})
                 }
+                else if(e.event === "test"){
+                    toast.success(e.data, {icon: '🔨', duration: 8000 })
+                }
                 // console.log("sse message", e)
             },
             onclose() {
