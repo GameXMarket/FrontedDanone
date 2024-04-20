@@ -122,12 +122,10 @@ const Chat: FC<ChatProps> = ({ dialog, dialogError, userIdFromOffer, offerId }) 
             }
         } else {
             const content = data.text;
+            if(content === "" && !form.getValues("img")) return
             const message = {
                 chat_id: dialog.chat_id,
-                content:
-                    form.getValues("img") && content === ""
-                        ? "илья сделай нормально"
-                        : content,
+                content: content,
                 need_wait: form.getValues("img") ? 1 : undefined,
                 event: "message",
             };
