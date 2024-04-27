@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { OfferApiService } from "@/requests/offer/offer-service";
 import { Slider } from "./_components/slider";
@@ -10,8 +10,11 @@ import Chat from "../../chats/_components/chat/Chat";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { messengerService } from "@/requests/messenger/messenger.service";
 import { useQuery } from "@tanstack/react-query";
+import { PurchaseInfo } from "./_components/purchase-info";
+import { useState } from "react";
 
 const OfferPage = ({ params }: { params: { offerId: string } }) => {
+    const [vis, setVis] = useState(false);
     const {
         data: offer,
         error,
@@ -26,13 +29,12 @@ const OfferPage = ({ params }: { params: { offerId: string } }) => {
         queryFn: () => {
             if (offer) {
                 return messengerService.getDialogById(offer.user_id);
-            }
-            else{
-                return null
+            } else {
+                return null;
             }
         },
         enabled: !!offer,
-        retry: false
+        retry: false,
     });
 
     if (offer) {
@@ -64,9 +66,24 @@ const OfferPage = ({ params }: { params: { offerId: string } }) => {
                         </div>
                     </div>
                 </div>
-                <aside className="w-full flex justify-center mobile:hidden">
-                    <Chat offerId={params.offerId} userIdFromOffer={offer.user_id} dialogError={isError} dialog={dialog} />
-                </aside>
+                {vis ? (
+                    <aside className="w-full flex justify-center mobile:hidden">
+                        <PurchaseInfo
+                            username={offer.username}
+                            user_files={offer.user_files}
+                        />
+                    </aside>
+                ) : (
+                    <aside className="w-full flex justify-center mobile:hidden">
+                        <Chat
+                            offerId={params.offerId}
+                            userIdFromOffer={offer.user_id}
+                            dialogError={isError}
+                            dialog={dialog}
+                        />
+                    </aside>
+                )}
+                <Button onClick={() => setVis(prev => !prev)}>dd</Button>
             </main>
         );
     }

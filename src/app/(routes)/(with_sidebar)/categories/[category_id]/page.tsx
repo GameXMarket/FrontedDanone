@@ -91,7 +91,7 @@ const GamePage: FC = () => {
                     <div className="flex items-center gap-x-10 mobile:gap-x-4">
                         <Image
                             className="min-w-[80px] min-h-[80px] mobile:w-20 mobile:h-20"
-                            src="/game-assets/game.svg"
+                            src={rootData?.[0].files?.[0] || "/game-assets/game.svg"}
                             alt="game"
                             width={120}
                             height={115}

@@ -2,12 +2,13 @@ import styles from "./chat.module.css";
 import dayjs from "dayjs";
 import utc from "dayjs/plugin/utc";
 import Image from "next/image";
+import { FC, PropsWithChildren } from "react";
 
 interface MessageProps {
     date: number;
     name?: string;
     text: string;
-    files: string[];
+    files?: string[];
 }
 
 export const RightMessage = ({ text, name, date, files }: MessageProps) => {
@@ -20,6 +21,7 @@ export const RightMessage = ({ text, name, date, files }: MessageProps) => {
                             <h4>{name}</h4>
                             <p className="pb-2">{text}</p>
                             {files && (
+                                <div className="mb-2">
                                 <Image
                                     className="rounded-[24px]"
                                     src={files[0]}
@@ -27,10 +29,11 @@ export const RightMessage = ({ text, name, date, files }: MessageProps) => {
                                     width={340}
                                     height={420}
                                 />
+                                </div>
                             )}
                         </div>
                         <div className="w-full flex justify-end">
-                            <p className="text-[14px] opacity-[0.16] ml-2">
+                            <p className="text-[16px] opacity-[0.16] py-1 ml-2">
                                 {dayjs
                                     .unix(date)
                                     .format("DD.MM, HH:mm")
@@ -44,13 +47,15 @@ export const RightMessage = ({ text, name, date, files }: MessageProps) => {
                 <h4 className="mobile:hidden">{name}</h4>
                 <p className="pb-2 mobile:pb-0 mobile:text-[16px] mobile:font-light mobile:leading-[16px]">{text}</p>
                 {files && (
-                    <Image
-                        className="rounded-[24px]"
-                        src={files[0]}
-                        alt="msg file"
-                        width={340}
-                        height={420}
-                    />
+                  <div className="mb-2">
+                  <Image
+                      className="rounded-[24px]"
+                      src={files[0]}
+                      alt="msg file"
+                      width={340}
+                      height={420}
+                  />
+                  </div>
                 )}
             </div>
         </>
@@ -67,6 +72,7 @@ export const LeftMessage = ({ text, name, date, files }: MessageProps) => {
                             <h4 className="mobile:hidden">{name}</h4>
                             <p className="pb-2 mobile:pb-0">{text}</p>
                             {files && (
+                                <div className="mb-2">
                                 <Image
                                     className="rounded-[24px]"
                                     src={files[0]}
@@ -74,10 +80,11 @@ export const LeftMessage = ({ text, name, date, files }: MessageProps) => {
                                     width={340}
                                     height={420}
                                 />
+                                </div>
                             )}
                         </div>
                         <div className="w-full flex justify-end mobile:hidden">
-                            <p className="text-[14px] opacity-[0.16] ml-2">
+                            <p className="text-[16px] opacity-[0.16] py-1 ml-2">
                                 {dayjs
                                     .unix(date)
                                     .format("DD.MM, HH:mm")
@@ -91,6 +98,7 @@ export const LeftMessage = ({ text, name, date, files }: MessageProps) => {
                 <h4 className="mobile:hidden">{name}</h4>
                 <p className="pb-2 mobile:pb-0 mobile:text-[16px] mobile:font-light mobile:leading-[16px]">{text}</p>
                 {files && (
+                    <div className="mb-2">
                     <Image
                         className="rounded-[24px]"
                         src={files[0]}
@@ -98,8 +106,19 @@ export const LeftMessage = ({ text, name, date, files }: MessageProps) => {
                         width={340}
                         height={420}
                     />
+                    </div>
                 )}
             </div>
         </>
     );
 };
+
+export const AdminMessage:FC<PropsWithChildren<{text: string}>> = ({text}) => {
+    return (
+        <>
+            <div className={styles.admin_msg}>
+                <p className="text-white opacity-[0.16] font-light max-w-xs">{text}</p>
+            </div>
+        </>
+    )
+}

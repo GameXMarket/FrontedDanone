@@ -23,5 +23,6 @@ export type ValueType = {
     next_carcass: any, //temp
     author: any, //temp
     carcass: any //temp,
+    files?: string[]
     subvalues?: ValueType[]
 }
