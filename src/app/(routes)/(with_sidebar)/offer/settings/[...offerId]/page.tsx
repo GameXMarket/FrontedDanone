@@ -1,11 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { AutoGiveForm } from "./_components/autogive-form";
+import { OfferApiService } from "@/requests/offer/offer-service";
 
-const OfferSettingsPage = () => {
+const OfferSettingsPage = async ({params}: {params: {offerId: string}}) => {
+    const offer = await OfferApiService.getOfferById(params.offerId)
     return (
         <div className="w-[calc(100%-382px)] mobile:w-full h-full flex flex-col items-start justify-center gap-y-12">
-            <AutoGiveForm />
+            <AutoGiveForm offer={offer} />
             <div className="flex mobile:flex-col mobile:gap-y-4 items-center gap-x-4 self-start ml-8 mobile:ml-0">
                 <h2 className="text-3xl mobile:text-center">
                     Подключить автоматическое поднятие?

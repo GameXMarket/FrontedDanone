@@ -1,7 +1,7 @@
 import { FC } from "react";
 import styles from '../styles/page.module.css'
 import { DeleteIcon, EditIcon, HideIcon, ToTopIcon } from "../icons/icons";
-import { MyOfferType } from "@/types/OfferType";
+import { MyOfferType, OmitedOfferType } from "@/types/OfferType";
 import { Button } from "@/components/ui/button";
 import { useQueryClient } from "@tanstack/react-query";
 import { OfferApiService } from "@/requests/offer/offer-service";
@@ -10,7 +10,7 @@ import { useSafeMutation } from "@/hooks/useSafeMutation";
 import Link from "next/link";
 
 interface OrderProps {
-    item: MyOfferType
+    item: OmitedOfferType
 }
 
 const Order:FC<OrderProps> = ({item}) => {
@@ -34,7 +34,7 @@ const Order:FC<OrderProps> = ({item}) => {
                 <p className='text-[22px] font-normal text-white '>{item.name}</p>
                 <p className='text-[22px] font-normal text-white'>{item.price}₽</p>
                 <p className='text-[22px] font-normal text-white'>{item.count > 0 ? "Есть" : "Нет"}</p>
-                <p className='text-[22px] font-normal text-white'>{item.category_value}</p>
+                <p className='text-[22px] font-normal text-white'>{item.carcass_in_offer_value}</p>
                 <div className={styles.order_edit}>
                     <div className="flex justify-evenly cursor-pointer">
                         <Link href={`/offer/settings/${item.id}`}><EditIcon/></Link>

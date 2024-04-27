@@ -33,7 +33,7 @@ const MyOffersByCategory: FC = () => {
         queryFn: () => OfferApiService.getMyByValueId(category_id),
         enabled: !!category_id,
     });
-
+console.log(data)
     const { data: selects, onCategoryChange, isFetching } = useFilter("my offers", undefined);
     return (
         <div className={styles.mobc}>
@@ -60,10 +60,10 @@ const MyOffersByCategory: FC = () => {
                         />
                         <div className="flex flex-col justify-start ml-3">
                             <h3 className={styles.game_title}>
-                                {data?.[0].carcass_in_offer_value}
+                                {data?.offers[0].carcass_in_offer_name}
                             </h3>
                             <h4 className={styles.qty}>
-                                {data?.length} лотов на продаже
+                                {data?.offers.length} лотов на продаже
                             </h4>
                         </div>
                     </div>
@@ -169,7 +169,7 @@ const MyOffersByCategory: FC = () => {
                             </p>
                         </div>
                         <div className={styles.orders}>
-                            {data?.map((el) => (
+                            {data?.offers.map((el) => (
                                 <Order item={el} key={el.id} />
                             ))}
                         </div>

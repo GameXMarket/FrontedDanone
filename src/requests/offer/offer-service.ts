@@ -1,6 +1,6 @@
 import { createSafeFetch } from "@/lib/create-safe-fetch"
 import instance from ".."
-import {CreateOfferDto, createOfferSchema} from "./schemas"
+import {CreateOfferDto, EnableAutogiveDto, createOfferSchema, enableAutogiveSchema} from "./schemas"
 import { MyOfferType, OfferType, OffersGroup, getAllOffers } from "@/types/OfferType"
 import { AttachmentApiService } from "../attachment/attachment-service"
 
@@ -55,9 +55,14 @@ export const OfferApiService = {
         .then(res => res.data)
     },
     async getMyByValueId(value_id?: number | string, offset: number = 0, limit: number = 5) {
-        return instance.get<MyOfferType[]>(`offers/my/byvalueid?offset=${offset}&limit=${limit}&value_id=${value_id}`)
+        return instance.get<MyOfferType>(`offers/my/byvalueid?offset=${offset}&limit=${limit}&value_id=${value_id}`)
+        .then(res => res.data)
+    },
+    async enableAutogive(data: EnableAutogiveDto) {
+        return instance.post(`offers/my/delivery?enabled=${data.enabled}&offer_id=${data.offer_id}`)
         .then(res => res.data)
     },
 }
 
 export const safeCreateOffer = createSafeFetch(createOfferSchema, OfferApiService.createOffer)
+export const safeEnableAutogive = createSafeFetch(enableAutogiveSchema, OfferApiService.enableAutogive)

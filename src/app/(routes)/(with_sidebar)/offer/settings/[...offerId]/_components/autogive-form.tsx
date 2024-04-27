@@ -2,30 +2,38 @@
 
 import { SearchInput } from "@/components/SearchInput";
 import { Switch } from "@/components/ui/switch";
-import Image from "next/image";
 import { useState } from "react";
-import { AutoGiveItem } from "./autogive-item";
-import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { useParams } from "next/navigation";
-import { DeliveryService, safeCreateDelivery } from "@/requests/delivery/delivery-service";
 import { AutogiveList } from "./autogive-list";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
 import { AutogiveAddForm } from "./autogive-add-form";
+import { safeEnableAutogive } from "@/requests/offer/offer-service";
+import { OfferType } from "@/types/OfferType";
 
-export const AutoGiveForm = () => {
+interface AutoGiveFormProps {
+    offer: OfferType
+}
+
+export const AutoGiveForm = ({offer}: AutoGiveFormProps) => {
     const params = useParams()
 
-    const [visible, setVisible] = useState(false);
+    const {mutation} = useSafeMutation(safeEnableAutogive)
 
-    const mutation = useSafeMutation(safeCreateDelivery,
-        
-    )
+    const [visible, setVisible] = useState(offer.count === null);
+
+    const enableAutogive = async (enabled: boolean) => {
+        mutation.mutate({
+            offer_id: params.offerId[0],
+            enabled
+        })
+        setVisible(enabled)
+    }
 
     return (
         <div className="w-full max-w-[590px] ml-8 mobile:ml-0">
             <div className="flex mobile:flex-col mobile:gap-y-4 items-center gap-x-4 self-start">
                 <h2 className="text-3xl mobile:text-center">Подключить автовыдачу?</h2>
-                <Switch onCheckedChange={setVisible} />
+                <Switch defaultChecked={offer.count === null} onCheckedChange={enableAutogive} />
             </div>
             {visible && (
                 <form className="bg-[#1F2028] p-4 rounded-xl space-y-3 max-h-[308px] overflow-y-auto mt-4">

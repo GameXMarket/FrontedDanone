@@ -14,7 +14,7 @@ export type OfferType = {
     offer_files: Array<string>
 }
 
-export type MyOfferType = {
+export type OmitedOfferType = {
     id: number,
     name: string,
     price: number,
@@ -22,7 +22,11 @@ export type MyOfferType = {
     carcass_select_name: string,
     carcass_in_offer_name: string,
     carcass_in_offer_value: string,
-    category_value: string
+}
+
+export type MyOfferType = {
+    files?: string[]
+    offers: Array<OmitedOfferType>
 }
 
 export type OffersGroup = {
