@@ -14,6 +14,7 @@ export type OfferType = {
     offer_files: Array<string>,
     username: string,
     user_files: string[],
+    is_autogive_enabled: boolean
 }
 
 export type OmitedOfferType = {

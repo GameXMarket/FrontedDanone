@@ -19,7 +19,7 @@ export const AutoGiveForm = ({offer}: AutoGiveFormProps) => {
 
     const {mutation} = useSafeMutation(safeEnableAutogive)
 
-    const [visible, setVisible] = useState(offer.count === null);
+    const [visible, setVisible] = useState(offer.is_autogive_enabled);
 
     const enableAutogive = async (enabled: boolean) => {
         mutation.mutate({
@@ -33,7 +33,7 @@ export const AutoGiveForm = ({offer}: AutoGiveFormProps) => {
         <div className="w-full max-w-[590px] ml-8 mobile:ml-0">
             <div className="flex mobile:flex-col mobile:gap-y-4 items-center gap-x-4 self-start">
                 <h2 className="text-3xl mobile:text-center">Подключить автовыдачу?</h2>
-                <Switch defaultChecked={offer.count === null} onCheckedChange={enableAutogive} />
+                <Switch defaultChecked={offer.is_autogive_enabled} onCheckedChange={enableAutogive} />
             </div>
             {visible && (
                 <form className="bg-[#1F2028] p-4 rounded-xl space-y-3 max-h-[308px] overflow-y-auto mt-4">
