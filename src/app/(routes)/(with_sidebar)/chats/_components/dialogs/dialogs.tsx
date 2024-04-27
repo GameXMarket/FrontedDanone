@@ -21,16 +21,12 @@ const Dialogs = () => {
     })
     return (
         <div className={styles.dialogs}>
-            <Link className='mobile:hidden' href={"/chats"}>
-            <div className="w-full ml-5 flex mt-7 items-center">
-                <ChevronLeft />
-                <p className={styles.back_text}>Назад</p>
-            </div>
-            </Link>
+            <div  className="mt-6">
             <div className={styles.dialog_container}>
                 {data && data.filter((dialog: any) => dialog.interlocutor_username !== username).map((dialog: any) => (
                     <Dialog key={dialog.chat_id} dialog={dialog} />
                 ))}
+            </div>
             </div>
         </div>
     )
