@@ -10,7 +10,7 @@ import {
     SelectValue,
 } from "@/components/ui/select";
 import { cn, convertToBase64 } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "../style.module.css";
 import Image from "next/image";
 import { FormField } from "@/components/ui/form";
@@ -30,8 +30,10 @@ import { categoryServices } from "@/requests/categories/categories-services";
 import { useRouter } from "next/navigation";
 import { CategoryType, ValueType } from "@/types/CategoryType";
 import { OfferType } from "@/types/OfferType";
+import { CircleUserRoundIcon, CrossIcon, PlusIcon, ScanFaceIcon, XCircleIcon } from "lucide-react";
 
 export const NewOfferForm = () => {
+    const fileRef = useRef<HTMLInputElement>(null)
     const [mounted, setMounted] = useState(false);
     useEffect(() => {
         setMounted(true);
@@ -51,7 +53,7 @@ export const NewOfferForm = () => {
             attachment_id: null,
             count: 0,
             category_value_ids: [],
-            img: {},
+            img: [],
         },
     });
 
@@ -79,13 +81,43 @@ export const NewOfferForm = () => {
         event: React.ChangeEvent<HTMLInputElement>
     ) => {
         const files = event.target.files;
+        const prev = form.getValues("img") || []
+        const joined = Array.from(prev).concat(Array.from(files!));
+        console.log(joined)
+        form.setValue("img", joined)
         const previews = []
-        for(let i = files?.length!-1; i >= 0; i--){
-            const file = await convertToBase64(files![i])
+        for(let i = 0; i <= joined?.length!-1; i++){
+            const file = await convertToBase64(joined![i] as unknown as Blob)
             previews.push(file as string)
         }
         setPreview(previews)
     };
+
+    const handleDeleteFile = async (idx: number) => {
+        const files = form.getValues("img")
+        const newFiles = files.filter((_, index) => index !== idx)
+        const previews = []
+        for(let i = 0; i <= newFiles?.length!-1; i++){
+            const file = await convertToBase64(newFiles![i] as unknown as Blob)
+            previews.push(file as string)
+        }
+        setPreview(previews)
+        form.setValue("img", newFiles)
+    }
+
+    const handleFaceFile = async (idx: number) => {
+        const files = form.getValues("img")
+        const faceFile = files.splice(idx, 1);
+        files.push(...faceFile)
+        console.log(files)
+        const previews = []
+        for(let i = 0; i <= files?.length!-1; i++){
+            const file = await convertToBase64(files![i] as unknown as Blob)
+            previews.push(file as string)
+        }
+        setPreview(previews)
+        form.setValue("img", files)
+    }
 
     const onSubmit = (data: CreateOfferDto) => {
         const dto = {
@@ -218,9 +250,12 @@ export const NewOfferForm = () => {
                             />
                         </div>
                         <div className="space-y-4">
-                            <h2 className="text-3xl font-medium mobile:text-center">
-                                Загрузка фото
-                            </h2>
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-3xl font-medium mobile:text-center">
+                                    Загрузка фото
+                                </h2>
+                                {!!preview.length && <Button onClick={() => fileRef.current?.click()} type="button" size="sm" variant="accent"><PlusIcon /></Button>}
+                            </div>
                             <div
                                 className={cn(
                                     styles.dash_space,
@@ -230,15 +265,18 @@ export const NewOfferForm = () => {
                                 )}
                             >
                                 <div className="w-full h-full flex flex-wrap mobile:block mobile:w-fit items-center justify-center gap-x-2 mobile:p-3 mobile:bg-bgel mobile:rounded-xl">
-                                    {preview.map((preview) => (
-                                        <Image
-                                            key={preview}
-                                            // className="w-full"
-                                            alt="add_photo"
-                                            width={100}
-                                            height={100}
-                                            src={preview}
-                                        />
+                                    {preview.map((previewElement, idx) => (
+                                        <div key={idx} className="relative z-50 group">
+                                            <Image
+                                                // className="w-full"
+                                                alt="add_photo"
+                                                width={100}
+                                                height={100}
+                                                src={previewElement}
+                                            />
+                                            <XCircleIcon onClick={() => handleDeleteFile(idx)} className="fill-rose-500 w-5 h-5 absolute top-0 right-0 cursor-pointer" />
+                                            <CircleUserRoundIcon onClick={() => handleFaceFile(idx)} className={cn("stroke-muted-foreground opacity-0 group-hover:opacity-100 transition w-5 h-5 absolute top-0 left-0 cursor-pointer", preview.length-1 === idx && "stroke-blue-400")} />
+                                        </div>
                                     ))}
                                     {!preview.length && 
                                     <>
@@ -261,6 +299,8 @@ export const NewOfferForm = () => {
                                     render={({ field: {onChange}, ...field }) => (
                                         //@ts-ignore
                                         <Input
+                                            key={preview.length}
+                                            ref={fileRef}
                                             disabled={mutation.isPending}
                                             {...field}
                                             onChange={(event) => {
@@ -270,14 +310,17 @@ export const NewOfferForm = () => {
                                                 );
 
                                                 const newFiles = dataTransfer.files;
-                                                onChange(newFiles);
-                                                handleUploadedFile(event)
+                                                if(newFiles.length > 0){
+                                                    // onChange(newFiles);
+                                                    handleUploadedFile(event)
+                                                }
                                             }}
                                             type="file"
                                             multiple
                                             className={cn(
                                                 "h-full opacity-0 cursor-pointer absolute top-0 left-0 mobile:top-1/2 mobile:left-1/2 mobile:-translate-x-1/2 mobile:-translate-y-1/2 mobile:p-0 mobile:w-[40px] mobile:h-[40px]"
                                             )}
+                                            accept=".png, .jpg, .jpeg"
                                         />
                                     )}
                                 />

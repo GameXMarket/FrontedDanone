@@ -1,19 +1,10 @@
 "use client";
 
-import {
-    Carousel,
-    CarouselContent,
-    CarouselItem,
-    CarouselNext,
-    CarouselPrevious,
-} from "@/components/ui/carousel";
 import { SearchInput } from "@/components/SearchInput";
 import SliderCard from "./_components/slider-card/slider-card";
 import styles from "./styles/page.module.css";
 import { useQuery } from "@tanstack/react-query";
 import { categoryServices } from "@/requests/categories/categories-services";
-import { useState } from "react";
-import { Slider } from "../offer/[offerId]/_components/slider";
 
 function Catalog() {
     const { data, isLoading, error } = useQuery({
@@ -21,7 +12,7 @@ function Catalog() {
         queryFn: () => categoryServices.getCategoryWithAssociated(1),
     });
 
-
+console.log(data)
     return (
         <div className="w-full h-full px-6 mobile:px-0">
             <div className="w-[calc(100%-550px)] mobile:w-full flex items-center justify-center">
@@ -41,6 +32,7 @@ function Catalog() {
                 ) : data ? (
                     data.category.values.map((el) => (
                         <SliderCard
+                            img={el.files?.[0]}
                             key={el.id}
                             id={el.id}
                             categories={el.subvalues}
