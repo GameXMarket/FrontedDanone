@@ -18,12 +18,14 @@ interface ISliderCard {
     id: number;
     name: string;
     categories?: ValueType[];
+    img?: string
 }
 
 const SliderCard = ({
     id,
     name,
     categories,
+    img
 }: ISliderCard) => {
 
     const [next, setNext] = useState(true)
@@ -58,13 +60,13 @@ const SliderCard = ({
 
     return (
         <Link href={`/categories/${id}`} className="mobile:flex mobile:justify-center">
-            <div className="w-[300px] h-[380px]" key={id}>
+            <div className="w-[300px] h-[400px]" key={id}>
                 <Image
                     priority={true}
                     className="z-10 rounded-[24px]"
-                    src="/catalog/game.jpg"
+                    src={img || "/catalog/game.jpg"}
                     width={300}
-                    height={380}
+                    height={400}
                     alt="game"
                 />
                 <div className={cn(styles.card_container, "group")}>

@@ -1,8 +1,8 @@
 "use client";
 
-import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
+import { ChangeEvent, FC, PropsWithChildren, useEffect, useRef, useState } from "react";
 import styles from "./chat.module.css";
-import { LeftMessage, RightMessage } from "./messages";
+import { AdminMessage, LeftMessage, RightMessage } from "./messages";
 import { AddFileIcon } from "../../icons/BellIcon";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
@@ -15,20 +15,9 @@ import { AttachmentApiService } from "@/requests/attachment/attachment-service";
 import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { useQueryClient } from "@tanstack/react-query";
+import { ChatProps } from "../interfaces/chat.interfaces";
 
-interface ChatProps {
-    dialog: {
-        chat_id: number;
-        interlocutor_id: number;
-        interlocutor_username?: string;
-        interlocutor_files?: Array<string>;
-    };
-    dialogError?: boolean;
-    userIdFromOffer?: number;
-    offerId?: string
-}
-
-const Chat: FC<ChatProps> = ({ dialog, dialogError, userIdFromOffer, offerId }) => {
+const Chat:FC<PropsWithChildren<ChatProps>> = ({ dialog, dialogError, userIdFromOffer, offerId }) => {
     const queryClient = useQueryClient()
 
     const webSocket = useRef<WebSocket>();
@@ -262,6 +251,10 @@ const Chat: FC<ChatProps> = ({ dialog, dialogError, userIdFromOffer, offerId }) 
                                     text={mes.content}
                                 />
                             );
+                        else if (mes.user_id === -1) 
+                            return (
+                                <AdminMessage text={mes.content} key={mes.created_at}/> 
+                            )
                         else
                             return (
                                 <LeftMessage

@@ -11,7 +11,9 @@ export type OfferType = {
     created_at: number,
     updated_at: number,
     upped_at: number,
-    offer_files: Array<string>
+    offer_files: Array<string>,
+    username: string,
+    user_files: string[],
 }
 
 export type OmitedOfferType = {

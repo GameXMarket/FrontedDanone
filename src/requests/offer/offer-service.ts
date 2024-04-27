@@ -62,6 +62,10 @@ export const OfferApiService = {
         return instance.post(`offers/my/delivery?enabled=${data.enabled}&offer_id=${data.offer_id}`)
         .then(res => res.data)
     },
+    async enableAutogive(data: EnableAutogiveDto) {
+        return instance.post(`offers/my/delivery?enabled=${data.enabled}&offer_id=${data.offer_id}`)
+        .then(res => res.data)
+    },
 }
 
 export const safeCreateOffer = createSafeFetch(createOfferSchema, OfferApiService.createOffer)

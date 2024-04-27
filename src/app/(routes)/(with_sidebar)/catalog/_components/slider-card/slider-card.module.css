@@ -1,8 +1,8 @@
 .card_container {
-    transform: translateY(-378px);
+    transform: translateY(-400px);
     z-index: 40;
     width:300px;
-    height:378px;
+    height:400px;
     border-radius: 22px;
     background: linear-gradient(180deg, #000 -18.92%, rgba(0, 0, 0, 0.00) 100%);
     display: flex;
