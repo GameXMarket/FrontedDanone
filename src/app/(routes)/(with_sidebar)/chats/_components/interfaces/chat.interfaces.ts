@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from "react";
 
 export interface ChatProps {
-    sortedDialogs: Array<{}>
-    setSortedDialogs: Dispatch<SetStateAction<Array<{}>>>
+    sortedDialogs?: Array<{}>
+    setSortedDialogs?: Dispatch<SetStateAction<Array<{}>>>
     dialog: {
         chat_id: number;
         interlocutor_id: number;
