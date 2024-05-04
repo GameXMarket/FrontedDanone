@@ -151,11 +151,11 @@ export const MobileSidebar = ({ session }: SidebarProps) => {
                 <span className={cn("text-muted-foreground", pathname.includes("/chat") && "text-white")}>Чаты</span>
             </Link>
             <Link
-                href="/settings/profile"
+                href="/me/reviews"
                 className="flex flex-col items-center gap-y-2"
             >
                 <Avatar src={session.data?.user.img || "/ui-assets/default_avatar.jpg"} size={32} />
-                <span className={cn("text-muted-foreground", pathname.includes("/settings") && "text-white")}>Профиль</span>
+                <span className={cn("text-muted-foreground", pathname.includes("/me/reviews") && "text-white")}>Профиль</span>
             </Link>
         </aside>
     );

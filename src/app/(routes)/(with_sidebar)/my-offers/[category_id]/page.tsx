@@ -33,7 +33,7 @@ const MyOffersByCategory: FC = () => {
         queryFn: () => OfferApiService.getMyByValueId(category_id),
         enabled: !!category_id,
     });
-console.log(data)
+
     const { data: selects, onCategoryChange, isFetching } = useFilter("my offers", undefined);
     return (
         <div className={styles.mobc}>
@@ -53,9 +53,10 @@ console.log(data)
                     </div>
                     <div className={styles.category_info}>
                         <Image
-                            src="/game-assets/game.svg"
-                            width={63}
-                            height={62}
+                            src={data?.files?.[0] || "/game-assets/game.svg"}
+                            className="object-cover aspect-square rounded-tl-[16px] rounded-br-[16px] rounded-tr-[6px] rounded-bl-[6px]"
+                            width={60}
+                            height={60}
                             alt="game"
                         />
                         <div className="flex flex-col justify-start ml-3">

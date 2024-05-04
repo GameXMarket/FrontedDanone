@@ -12,7 +12,6 @@ function Catalog() {
         queryFn: () => categoryServices.getCategoryWithAssociated(1),
     });
 
-console.log(data)
     return (
         <div className="w-full h-full px-6 mobile:px-0">
             <div className="w-[calc(100%-550px)] mobile:w-full flex items-center justify-center">

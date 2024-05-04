@@ -1,5 +1,4 @@
 .card_container {
-    transform: translateY(-400px);
     z-index: 40;
     width:300px;
     height:400px;
@@ -7,11 +6,12 @@
     background: linear-gradient(180deg, #000 -18.92%, rgba(0, 0, 0, 0.00) 100%);
     display: flex;
     flex-direction: column;
-    justify-content: space-between
+    justify-content: space-between;
+    @apply mobile:w-full mobile:h-full
 }
 
 .card_options {
-    @apply w-full pb-3 items-center justify-center;
+    @apply w-full pb-3 items-center justify-center mobile:hidden;
 }
 
 .card_option {

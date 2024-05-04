@@ -33,7 +33,7 @@ export const MobileSidebar = () => {
                 <span>Чаты</span>
             </Link>
             <Link href="/settings/profile" className="flex flex-col items-center gap-y-2">
-                <Avatar src="/profile-assets/avatar.svg" size={32} />
+                <Avatar src="/ui-assets/default_avatar.jpg" size={32} />
                 <span>Профиль</span>
             </Link>
         </aside>

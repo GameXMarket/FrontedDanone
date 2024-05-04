@@ -83,7 +83,6 @@ export const NewOfferForm = () => {
         const files = event.target.files;
         const prev = form.getValues("img") || []
         const joined = Array.from(prev).concat(Array.from(files!));
-        console.log(joined)
         form.setValue("img", joined)
         const previews = []
         for(let i = 0; i <= joined?.length!-1; i++){
@@ -109,7 +108,6 @@ export const NewOfferForm = () => {
         const files = form.getValues("img")
         const faceFile = files.splice(idx, 1);
         files.push(...faceFile)
-        console.log(files)
         const previews = []
         for(let i = 0; i <= files?.length!-1; i++){
             const file = await convertToBase64(files![i] as unknown as Blob)

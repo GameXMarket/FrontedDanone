@@ -16,18 +16,58 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChatProps } from "../interfaces/chat.interfaces";
+import { safeCreateConfirmationRequest, salesApiService } from "@/requests/sales/sales-service";
+import { Button } from "@/components/ui/button";
+import { useSafeMutation } from "@/hooks/useSafeMutation";
+import { CreateConfirmationRequestDto } from "@/requests/sales/schemas";
+import toast from "react-hot-toast";
+import { purchaseApiService, safeCompletePurchase } from "@/requests/purchase/purchase-service";
+import { CompletePurchaseDto } from "@/requests/purchase/schemas";
 
-const Chat:FC<PropsWithChildren<ChatProps>> = ({ dialog, dialogError, userIdFromOffer, offerId }) => {
+const Chat:FC<PropsWithChildren<ChatProps>> = ({sortedDialogs, setSortedDialogs, dialog, dialogError, userIdFromOffer, offerId }) => {
     const queryClient = useQueryClient()
 
     const webSocket = useRef<WebSocket>();
-    const [messages, setMessages] = useState<Array<{}>>([]);
+    const [messages, setMessages] = useState<Array<any>>([]);
 
-    const { data: messagesData, isLoading } = useAuthQuery({
+    const { data: messagesData, isLoading, refetch } = useAuthQuery({
         queryKey: ["get messages for chat", dialog?.chat_id],
         queryFn: () => messengerService.getChatMessages(dialog.chat_id),
     });
 
+    const {mutation: saleMutation} = useSafeMutation<CreateConfirmationRequestDto, unknown>(safeCreateConfirmationRequest, {
+        onSuccess() {
+            toast.success("Запрос отправлен!")
+        }
+    })
+
+    const createConfRequest = () => {
+        if(sales?.[0]){
+            saleMutation.mutate({purchase_id: sales?.[0].id.toString()})
+        }
+    }
+    const {data: sales} = useAuthQuery({
+        queryFn: async () => await salesApiService.getAllSales().then(res => res.filter((val) => (val.status === "process" && val.buyer_id === dialog.interlocutor_id))),
+        queryKey: ["get sales for this dialog", dialog?.chat_id, saleMutation.status],
+        enabled: !!dialog
+    })
+
+    const {mutation: purchaseMutation} = useSafeMutation<CompletePurchaseDto, unknown>(safeCompletePurchase, {
+        onSuccess() {
+            toast.success("Покупка успешно совершена!")
+        }
+    })
+    const completePurchase = () => {
+        if(purchases?.[0]){
+            purchaseMutation.mutate({purchase_id: purchases?.[0].id.toString(), state: true})
+        }
+    }
+    const {data: purchases} = useAuthQuery({
+        queryFn: async () => await purchaseApiService.getAllPurchases("review").then(res => res.filter((val) => val.seller_id === dialog.interlocutor_id)),
+        queryKey: ["get purchases for this dialog", dialog?.chat_id, purchaseMutation.status],
+        enabled: !!dialog
+    })
+    
     useEffect(() => {
         setMessages(messagesData || []);
     }, [messagesData]);
@@ -339,6 +379,8 @@ const Chat:FC<PropsWithChildren<ChatProps>> = ({ dialog, dialogError, userIdFrom
                     />
                 </button>
             </form>
+            {sales?.length! > 0 && <Button disabled={saleMutation.isPending} onClick={() => createConfRequest()} variant="accent" size="lg" className="mt-4">Запросить подтверждение оплаты</Button>}
+            {purchases?.length! > 0 && <Button disabled={saleMutation.isPending} onClick={() => completePurchase()} variant="accent" size="lg" className="mt-4">Подтвердить покупку</Button>}
         </div>
     );
 };

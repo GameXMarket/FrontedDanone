@@ -7,14 +7,15 @@ export type OfferType = {
     count: number,
     id: number,
     user_id: number,
-    status: string,
+    status: "active" | "hidden" | "deleted",
     created_at: number,
     updated_at: number,
     upped_at: number,
     offer_files: Array<string>,
     username: string,
     user_files: string[],
-    is_autogive_enabled: boolean
+    is_autogive_enabled: boolean,
+    is_autoup_enabled: boolean
 }
 
 export type OmitedOfferType = {
@@ -33,6 +34,7 @@ export type MyOfferType = {
 }
 
 export type OffersGroup = {
+    files?: string[]
     value_id: number,
     value_name: string,
     next_carcass_id: number,

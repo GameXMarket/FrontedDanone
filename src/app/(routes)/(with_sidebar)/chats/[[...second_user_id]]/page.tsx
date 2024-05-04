@@ -11,9 +11,10 @@ import { useParams } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { useSetAtom } from "jotai";
 import { chatNotifAtom } from "@/atoms/chatAtom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const ChatPage = () => {
+    const [sortedDialogs, setSortedDialogs] = useState<Array<{}>>([]);
     const setChatNotif = useSetAtom(chatNotifAtom)
 
     useEffect(() => {
@@ -30,16 +31,34 @@ const ChatPage = () => {
             !!params.second_user_id?.length &&
             params.second_user_id?.length > 0,
     });
+
+    const {data: dialogs } = useAuthQuery({
+        queryKey: ['get all chats'],
+        queryFn: () => messengerService.getAllChats()
+    })
+
+
+    useEffect(() => {
+        if (dialogs) {
+            dialogs.sort((a: any, b: any) => {
+                const firstLastMessage = new Date(a.last_message.created_at.toString())
+                const secondLastMessage = new Date(b.last_message.created_at.toString())
+                
+                return +secondLastMessage - +firstLastMessage 
+            })
+        }
+    }, [dialogs])
+
     return (
         <>
             <main className={styles.messenger_container}>
                 <div className={styles.messenger_groupsandchats}>
                     <Groups />
-                    <Dialogs />
+                    <Dialogs dialogs={dialogs} sortedDialogs={sortedDialogs} />
                 </div>
                 {!!params.second_user_id ? (
                     <div className="w-full">
-                        <Chat dialog={dialog as any} />
+                        <Chat sortedDialogs={sortedDialogs} setSortedDialogs={setSortedDialogs} dialog={dialog as any} />
                     </div>
                 ) : (
                     <div className={styles.is_opened_chat}>
@@ -60,12 +79,12 @@ const ChatPage = () => {
                             <ChevronLeft />
                             <span>Назад</span>
                         </Link>
-                        <Chat dialog={dialog as any} />
+                        <Chat sortedDialogs={sortedDialogs} setSortedDialogs={setSortedDialogs} dialog={dialog as any} />
                     </div>
                 ) : (
                     <div className="px-2">
                         <Groups />
-                        <Dialogs />
+                        <Dialogs dialogs={dialogs} sortedDialogs={sortedDialogs} />
                     </div>
                 )}
             </main>

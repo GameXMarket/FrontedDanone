@@ -16,5 +16,16 @@ export const enableAutogiveSchema = z.object({
     enabled: z.boolean()
 })
 
+export const changeStatusSchema = z.object({
+    offer_id: z.string().min(1),
+    status: z.enum(["active", "hidden"])
+})
+
+export const enableAutoUpSchema = z.object({
+    offer_id: z.string().min(1),
+})
+
 export type CreateOfferDto = z.infer<typeof createOfferSchema>
 export type EnableAutogiveDto = z.infer<typeof enableAutogiveSchema>
+export type ChangeStatusDto = z.infer<typeof changeStatusSchema>
+export type EnableAutoUpDto = z.infer<typeof enableAutoUpSchema>
