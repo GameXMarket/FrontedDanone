@@ -17,7 +17,7 @@ import { Separator } from "@/components/ui/separator";
 import { useQueryClient } from "@tanstack/react-query";
 import { ChatProps } from "../interfaces/chat.interfaces";
 
-const Chat:FC<PropsWithChildren<ChatProps>> = ({ dialog, dialogError, userIdFromOffer, offerId }) => {
+const Chat:FC<PropsWithChildren<ChatProps>> = ({sortedDialogs, setSortedDialogs, dialog, dialogError, userIdFromOffer, offerId }) => {
     const queryClient = useQueryClient()
 
     const webSocket = useRef<WebSocket>();

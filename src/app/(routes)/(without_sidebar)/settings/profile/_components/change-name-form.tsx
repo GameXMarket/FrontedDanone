@@ -71,7 +71,8 @@ export const ChangeNameForm = () => {
                                                 )}
                                                 {...field}
                                                 disabled={mutation.isPending}
-                                                placeholder="Username"
+                                                placeholder="Имя пользователя"
+                                                autoComplete="off"
                                             />
                                         </FormControl>
                                     </FormItem>
