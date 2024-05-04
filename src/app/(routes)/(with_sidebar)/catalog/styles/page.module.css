@@ -25,7 +25,7 @@
 }
 
 .slider {
-    @apply w-full flex gap-x-12 gap-y-8 flex-wrap mt-16 mobile:justify-center;
+    @apply w-full flex gap-x-12 gap-y-8 flex-wrap mt-16 mobile:grid mobile:grid-cols-2 mobile:gap-x-2 mobile:gap-y-3;
 }
 
 .fade {

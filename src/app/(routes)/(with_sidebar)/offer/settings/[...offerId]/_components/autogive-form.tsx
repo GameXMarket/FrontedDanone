@@ -9,15 +9,21 @@ import { useSafeMutation } from "@/hooks/useSafeMutation";
 import { AutogiveAddForm } from "./autogive-add-form";
 import { safeEnableAutogive } from "@/requests/offer/offer-service";
 import { OfferType } from "@/types/OfferType";
+import { QueryObserverResult, RefetchOptions } from "@tanstack/react-query";
 
 interface AutoGiveFormProps {
-    offer: OfferType
+    offer: OfferType,
+    refetchOffer: (options?: RefetchOptions | undefined) => Promise<QueryObserverResult<OfferType, Error>>
 }
 
-export const AutoGiveForm = ({offer}: AutoGiveFormProps) => {
+export const AutoGiveForm = ({offer, refetchOffer}: AutoGiveFormProps) => {
     const params = useParams()
 
-    const {mutation} = useSafeMutation(safeEnableAutogive)
+    const {mutation} = useSafeMutation(safeEnableAutogive, {
+        onSuccess() {
+            refetchOffer()
+        }
+    })
 
     const [visible, setVisible] = useState(offer.is_autogive_enabled);
 

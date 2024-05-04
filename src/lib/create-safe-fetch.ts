@@ -1,3 +1,4 @@
+import { AxiosError } from "axios";
 import { z } from "zod";
 
 export type FieldErrors<T> = {
@@ -11,9 +12,9 @@ export type FetchState<TInput, TOutput> = {
 
 export const createSafeFetch = <TInput, TOutput>(
   schema: z.Schema<TInput>,
-  handler: (validatedData: TInput) => Promise<FetchState<TInput, TOutput>>
+  handler: (validatedData: TInput) => Promise<FetchState<TInput, TOutput> | AxiosError>
 ) => {
-  return async (data: TInput): Promise<FetchState<TInput, TOutput>> => {
+  return async (data: TInput): Promise<FetchState<TInput, TOutput> | AxiosError> => {
     const validationResult = schema.safeParse(data);
     if (!validationResult.success) {
       throw {

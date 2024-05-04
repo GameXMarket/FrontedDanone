@@ -60,17 +60,9 @@ const SliderCard = ({
 
     return (
         <Link href={`/categories/${id}`} className="mobile:flex mobile:justify-center">
-            <div className="w-[300px] h-[400px]" key={id}>
-                <Image
-                    priority={true}
-                    className="z-10 rounded-[24px]"
-                    src={img || "/catalog/game.jpg"}
-                    width={300}
-                    height={400}
-                    alt="game"
-                />
+            <div className="w-[300px] h-[400px] rounded-[24px] bg-cover mobile:h-[200px]" style={{backgroundImage: `url(${img || "/catalog/game.jpg"})`}} key={id}>
                 <div className={cn(styles.card_container, "group")}>
-                    <h3 className="font-[500] pt-8 pl-8 text-[32px]">{name}</h3>
+                    <h3 className="font-[500] pt-8 pl-8 text-[32px] mobile:text-[22px] mobile:p-4 mobile:pt-6">{name}</h3>
                     <div className={cn(styles.card_options, "opacity-0 group-hover:opacity-100 transition-opacity mobile:opacity-100")}>
                         <Carousel
                             setApi={setApi}

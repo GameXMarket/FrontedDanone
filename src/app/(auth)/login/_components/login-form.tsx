@@ -80,6 +80,7 @@ export const LoginForm = () => {
                                     disabled={loading}
                                     errors={errors}
                                     id="email"
+                                    type="email"
                                     placeholder="Электронная почта"
                                 />
                             )}

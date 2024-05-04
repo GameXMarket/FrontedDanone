@@ -90,11 +90,11 @@ const GamePage: FC = () => {
                 <section className={styles.game_details}>
                     <div className="flex items-center gap-x-10 mobile:gap-x-4">
                         <Image
-                            className="min-w-[80px] min-h-[80px] mobile:w-20 mobile:h-20"
+                            className="min-w-[90px] min-h-[90px] object-cover mobile:w-20 mobile:h-20 aspect-square rounded-tl-[40px] rounded-br-[40px] rounded-tr-[16px] rounded-bl-[16px]"
                             src={rootData?.[0].files?.[0] || "/game-assets/game.svg"}
                             alt="game"
                             width={120}
-                            height={115}
+                            height={120}
                         />
                         <div>
                             <h1 className={styles.game_title}>

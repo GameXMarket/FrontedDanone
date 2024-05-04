@@ -14,7 +14,7 @@ import { PurchaseInfo } from "./_components/purchase-info";
 import { useState } from "react";
 
 const OfferPage = ({ params }: { params: { offerId: string } }) => {
-    const [vis, setVis] = useState(false);
+    const [visibleChat, setVisibleChat] = useState(false);
     const {
         data: offer,
         error,
@@ -25,7 +25,7 @@ const OfferPage = ({ params }: { params: { offerId: string } }) => {
     });
 
     const { data: dialog, isError } = useAuthQuery({
-        queryKey: ["get dialog", params.offerId],
+        queryKey: ["get dialog", params.offerId, visibleChat],
         queryFn: () => {
             if (offer) {
                 return messengerService.getDialogById(offer.user_id);
@@ -66,14 +66,7 @@ const OfferPage = ({ params }: { params: { offerId: string } }) => {
                         </div>
                     </div>
                 </div>
-                {vis ? (
-                    <aside className="w-full flex justify-center mobile:hidden">
-                        <PurchaseInfo
-                            username={offer.username}
-                            user_files={offer.user_files}
-                        />
-                    </aside>
-                ) : (
+                {visibleChat ? (
                     <aside className="w-full flex justify-center mobile:hidden">
                         <Chat
                             offerId={params.offerId}
@@ -82,8 +75,16 @@ const OfferPage = ({ params }: { params: { offerId: string } }) => {
                             dialog={dialog}
                         />
                     </aside>
+                ) : (
+                    <aside className="w-full flex justify-center mobile:hidden">
+                        <PurchaseInfo
+                            offer_id={offer.id}
+                            setVisibleChat={setVisibleChat}
+                            username={offer.username}
+                            user_files={offer.user_files}
+                        />
+                    </aside>
                 )}
-                <Button onClick={() => setVis(prev => !prev)}>dd</Button>
             </main>
         );
     }
