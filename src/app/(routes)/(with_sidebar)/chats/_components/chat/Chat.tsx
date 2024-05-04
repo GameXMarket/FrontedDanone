@@ -24,7 +24,7 @@ import toast from "react-hot-toast";
 import { purchaseApiService, safeCompletePurchase } from "@/requests/purchase/purchase-service";
 import { CompletePurchaseDto } from "@/requests/purchase/schemas";
 
-const Chat:FC<PropsWithChildren<ChatProps>> = ({ dialog, dialogError, userIdFromOffer, offerId }) => {
+const Chat:FC<PropsWithChildren<ChatProps>> = ({sortedDialogs, setSortedDialogs, dialog, dialogError, userIdFromOffer, offerId }) => {
     const queryClient = useQueryClient()
 
     const webSocket = useRef<WebSocket>();

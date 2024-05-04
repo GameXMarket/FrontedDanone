@@ -43,8 +43,7 @@ export const RightMessage = ({ text, name, date, files }: MessageProps) => {
                     </div>
                 </div>
             </div>
-            <div className="back-gradient self-end w-fit pt-3 hidden mobile:flex flex-col gap-y-2 ml-2 mobile:px-[24px] mobile:py-[16px] mobile:ml-0 rounded-l-[20px] rounded-br-[20px]">
-                <h4 className="mobile:hidden">{name}</h4>
+            <div className="back-gradient self-end w-fit mobile:flex flex-col gap-y-2 ml-2 mobile:px-[4px] mobile:py-[8px] mobile:ml-0 rounded-l-[20px] rounded-br-[20px]">
                 <p className="pb-2 mobile:pb-0 mobile:text-[16px] mobile:font-light mobile:leading-[16px]">{text}</p>
                 {files && (
                   <div className="mb-2">
@@ -57,7 +56,16 @@ export const RightMessage = ({ text, name, date, files }: MessageProps) => {
                   />
                   </div>
                 )}
+                            <div className="w-full flex justify-end">
+                            <p className="text-[13px]">
+                                {dayjs
+                                    .unix(date)
+                                    .format("DD.MM, HH:mm")
+                                    .toString()}
+                            </p>
             </div>
+            </div>
+
         </>
     );
 };
@@ -83,7 +91,7 @@ export const LeftMessage = ({ text, name, date, files }: MessageProps) => {
                                 </div>
                             )}
                         </div>
-                        <div className="w-full flex justify-end mobile:hidden">
+                        <div className="w-full flex justify-end">
                             <p className="text-[16px] opacity-[0.16] py-1 ml-2">
                                 {dayjs
                                     .unix(date)
@@ -108,6 +116,14 @@ export const LeftMessage = ({ text, name, date, files }: MessageProps) => {
                     />
                     </div>
                 )}
+                <div className="w-full flex justify-end">
+                            <p className="text-[16px] opacity-[0.16] py-1 ml-2">
+                                {dayjs
+                                    .unix(date)
+                                    .format("DD.MM, HH:mm")
+                                    .toString()}
+                            </p>
+                </div>
             </div>
         </>
     );
