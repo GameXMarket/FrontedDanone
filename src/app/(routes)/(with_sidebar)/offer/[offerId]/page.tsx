@@ -19,7 +19,7 @@ const OfferPage = ({ params }: { params: { offerId: string } }) => {
         data: offer,
         error,
         isSuccess,
-    } = useAuthQuery({
+    } = useQuery({
         queryKey: ["get offer", params.offerId],
         queryFn: () => OfferApiService.getOfferById(params.offerId),
     });

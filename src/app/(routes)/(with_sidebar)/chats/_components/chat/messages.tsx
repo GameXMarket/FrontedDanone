@@ -43,7 +43,7 @@ export const RightMessage = ({ text, name, date, files }: MessageProps) => {
                     </div>
                 </div>
             </div>
-            <div className="back-gradient self-end w-fit mobile:flex flex-col gap-y-2 ml-2 mobile:px-[4px] mobile:py-[8px] mobile:ml-0 rounded-l-[20px] rounded-br-[20px]">
+            <div className="hidden back-gradient self-end w-fit mobile:flex flex-col gap-y-2 ml-2 mobile:px-[4px] mobile:py-[8px] mobile:ml-0 rounded-l-[20px] rounded-br-[20px]">
                 <p className="pb-2 mobile:pb-0 mobile:text-[16px] mobile:font-light mobile:leading-[16px]">{text}</p>
                 {files && (
                   <div className="mb-2">
