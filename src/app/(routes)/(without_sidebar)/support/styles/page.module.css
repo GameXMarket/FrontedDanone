@@ -1,0 +1,80 @@
+.support {
+    @apply w-full flex;
+}
+
+
+@media screen and (max-width: 768px) {
+    .support {
+        @apply w-full flex flex-col;
+    }
+    
+    .problems {
+        @apply max-w-full flex flex-row flex-wrap;
+    }
+
+    .problem {
+        @apply max-w-[47%] rounded-[16px] max-h-[47%] m-1;
+    }
+}
+
+
+/* ============================SIDEBAR============================== */
+
+.sidebar {
+    @apply w-[360px];
+}
+
+.sidebar_tickets {
+    @apply flex mt-5 items-start flex-col w-[300px] bg-[#24252F] rounded-[32px];
+}
+
+.sidebar_ticket {
+    transition:0.6s;
+    @apply ml-8 my-2.5 text-[24px] font-normal;
+}
+
+.sidebar_ticket:hover {
+    @apply text-gray-400 cursor-pointer;
+}
+
+.problems {
+    @apply mt-8 flex w-[900px] justify-between;
+}
+
+
+.problem {
+    @apply text-[20px] cursor-pointer flex flex-col items-center justify-center w-[200px] h-[200px] rounded-[32px] bg-[#24252F];
+}
+
+.area {
+    @apply mt-4 text-left pt-2 pl-2 w-full bg-[#24252F] rounded-[8px] min-h-[62px] text-[24px];
+}
+
+.area:focus {
+    outline: none;
+}
+
+.button {
+    width: 167px;
+    height: 62px;
+    font-size: 20px;
+    font-weight: normal;
+    flex-shrink: 0;
+    border-radius: 24px;
+    background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);    
+}
+
+
+/* ==============================adaptive========================== */
+
+.tickets_mob {
+    @apply w-[277px] px-4 flex items-center justify-between bg-[#24252F] rounded-[24px] h-[48px];
+}
+
+.arr_turn {
+    transform: rotate(270deg);
+}
+
+.shared {
+    @apply my-1 absolute z-50 bg-[#24252F] top-[15%] left-[18%] rounded-[24px] w-[277px] min-h-[48px];
+}

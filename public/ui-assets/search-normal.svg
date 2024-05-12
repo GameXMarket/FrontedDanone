@@ -1,0 +1,20 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="vuesax/linear/search-normal">
+<g id="search-normal">
+<path id="Vector" d="M15.3332 27.9998C22.3288 27.9998 27.9998 22.3288 27.9998 15.3332C27.9998 8.33756 22.3288 2.6665 15.3332 2.6665C8.33756 2.6665 2.6665 8.33756 2.6665 15.3332C2.6665 22.3288 8.33756 27.9998 15.3332 27.9998Z" stroke="url(#paint0_linear_1692_1033)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M29.3332 29.3332L26.6665 26.6665" stroke="url(#paint1_linear_1692_1033)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1692_1033" x1="2.6665" y1="2.6665" x2="31.2918" y2="7.19608" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FB2A29"/>
+<stop offset="1" stop-color="#E66C3A"/>
+<stop offset="1" stop-color="#DE5A23"/>
+</linearGradient>
+<linearGradient id="paint1_linear_1692_1033" x1="26.6665" y1="26.6665" x2="29.6797" y2="27.1433" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FB2A29"/>
+<stop offset="1" stop-color="#E66C3A"/>
+<stop offset="1" stop-color="#DE5A23"/>
+</linearGradient>
+</defs>
+</svg>

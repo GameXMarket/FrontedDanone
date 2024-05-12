@@ -1,0 +1,70 @@
+.register {
+    @apply pl-[62px] text-[32px] cursor-pointer font-normal;
+}
+
+.login {
+    opacity: 0.16;
+    transition:0.6s;
+    @apply text-[32px] ml-[56px] cursor-pointer font-normal;
+}
+
+.login:hover {
+    @apply font-normal;
+    opacity:1;
+}
+
+.auth_btn {
+    @apply w-[181px] text-[24px] font-normal h-[72px] rounded-[24px];
+    background: linear-gradient(99deg, #FB2A29 0%, #E66C3A 100%, #DE5A23 100%);
+}
+
+.title_container {
+    @apply w-full flex items-center;
+}
+
+.register_page {
+    @apply w-[464px] flex flex-col items-center;
+}
+
+.form_input {
+    @apply bg-[#24252F] h-[72px] pl-[30px] font-light text-[24px] bg-opacity-40  rounded-[24px] outline-none border-none focus:text-white;
+}
+
+.footer {
+    @apply mt-8 max-w-[280px];
+}
+
+@media screen and (max-width:768px) {
+    .auth_btn {
+        @apply w-[238px] h-[48px] text-[18px] py-4 px-6;
+    }
+
+    .form_input {
+        @apply text-[20px] h-[50px] !important;
+    }
+
+    .register {
+        @apply text-[24px];
+    }
+
+    .login {
+        @apply text-[24px];
+    }
+
+    .register_page {
+        @apply w-full
+    }
+
+    .title_container {
+        @apply w-[260px] flex justify-between;
+    }
+
+    .title_container h3 {
+        padding: 0;
+    }
+
+
+}
+
+
+

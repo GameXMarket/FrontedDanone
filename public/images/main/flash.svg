@@ -1,0 +1,14 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="vuesax/linear/flash">
+<g id="flash">
+<path id="Vector" d="M10.6765 21.9404H15.8264V33.9404C15.8264 35.7071 18.0264 36.5404 19.1931 35.2071L31.8098 20.8737C32.9098 19.6237 32.0265 17.6737 30.3598 17.6737H25.2098V5.67374C25.2098 3.90708 23.0098 3.07374 21.8431 4.40708L9.22646 18.7404C8.14313 19.9904 9.02645 21.9404 10.6765 21.9404Z" fill="url(#paint0_linear_1761_1027)"/>
+</g>
+</g>
+<defs>
+<linearGradient id="paint0_linear_1761_1027" x1="8.75" y1="3.75" x2="35.6606" y2="6.87224" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FB2A29"/>
+<stop offset="1" stop-color="#E66C3A"/>
+<stop offset="1" stop-color="#DE5A23"/>
+</linearGradient>
+</defs>
+</svg>

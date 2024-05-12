@@ -12,11 +12,20 @@ module.exports = {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        "2xl": "1300px",
       },
     },
     extend: {
+      screens: {
+        "2xl": {'min': "1670px"},
+        "4xl": {'min': "2000px"},
+        "mobile": {'max': '440px'},
+        "1340px": {'min': "1340px"},
+        "3xl": {'min': "1650px"},
+        "830px": {'max': "830px"}
+      },
       colors: {
+        bgel: "var(--bgel)",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -36,7 +45,7 @@ module.exports = {
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
-          foreground: "hsl(var(--muted-foreground))",
+          foreground: "var(--muted-foreground)",
         },
         accent: {
           DEFAULT: "hsl(var(--accent))",
@@ -65,10 +74,15 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        "disappear": {
+          from: {opacity: 1},
+          to: {opacity: 0, display: "none"}
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "disappear": "disappear 0.3s ease-in-out"
       },
     },
   },

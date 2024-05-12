@@ -1,0 +1,22 @@
+.header {
+    @apply w-full flex items-center justify-center pt-12 pb-3 mobile:pt-6;
+}
+
+.logo_container {
+    grid-area: L;
+}
+
+.header_container {
+    display: grid;
+    grid-template-areas: 'L B'; 
+}
+
+.btns {
+    @apply ml-10;
+    grid-area: B;
+}
+
+
+.btn {
+    @apply mx-1 w-[157px] h-[42px] text-[20px] bg-[#24252F] rounded-[24px];
+}
