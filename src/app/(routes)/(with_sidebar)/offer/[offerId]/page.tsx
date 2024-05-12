@@ -44,7 +44,8 @@ const OfferPage = ({ params }: { params: { offerId: string } }) => {
                     <h1 className="text-5xl mobile:text-4xl">{offer.name}</h1>
                     <Slider images={offer.offer_files} />
                     <OfferInfo
-                        categoryId={offer.category_id}
+                        offer_id={offer.id}
+                        category_values={offer.category_values}
                         description={offer.description}
                     />
                     <OfferReviews />

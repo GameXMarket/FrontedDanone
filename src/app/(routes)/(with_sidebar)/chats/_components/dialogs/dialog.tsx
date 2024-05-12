@@ -68,7 +68,7 @@ const Dialog: FC<PropsWithChildren<IDialog>> = ({
                         {dialog.interlocutor_username}
                     </h3>
                     <p className={styles.dialog_preview}>
-                        {validateLastMessage(dialog.last_message.content)}
+                        {validateLastMessage(typeof dialog.last_message.content === "object" ? "System message" : dialog.last_message.content)}
                     </p>
                 </div>
             </div>

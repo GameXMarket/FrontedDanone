@@ -37,7 +37,6 @@ const ChatPage = () => {
         queryFn: () => messengerService.getAllChats()
     })
 
-
     useEffect(() => {
         if (dialogs) {
             dialogs.sort((a: any, b: any) => {

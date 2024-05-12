@@ -2,7 +2,7 @@
 
 import { ChangeEvent, FC, PropsWithChildren, useEffect, useRef, useState } from "react";
 import styles from "./chat.module.css";
-import { AdminMessage, LeftMessage, RightMessage } from "./messages";
+import { AdminMessage, LeftMessage, ParcelMessage, RightMessage } from "./messages";
 import { AddFileIcon } from "../../icons/BellIcon";
 import { useCurrentUser } from "@/hooks/useCurrentUser";
 import { useAuthQuery } from "@/hooks/useAuthQuery";
@@ -36,7 +36,8 @@ const Chat:FC<PropsWithChildren<ChatProps>> = ({sortedDialogs, setSortedDialogs,
     });
 
     const {mutation: saleMutation} = useSafeMutation<CreateConfirmationRequestDto, unknown>(safeCreateConfirmationRequest, {
-        onSuccess() {
+        onSuccess(data: any) {
+            queryClient.invalidateQueries({queryKey: ["offer_status", data.offer_id]})
             toast.success("Запрос отправлен!")
         }
     })
@@ -46,15 +47,19 @@ const Chat:FC<PropsWithChildren<ChatProps>> = ({sortedDialogs, setSortedDialogs,
             saleMutation.mutate({purchase_id: sales?.[0].id.toString()})
         }
     }
-    const {data: sales} = useAuthQuery({
-        queryFn: async () => await salesApiService.getAllSales().then(res => res.filter((val) => (val.status === "process" && val.buyer_id === dialog.interlocutor_id))),
+    const {data: sales, refetch: salesRefetch} = useAuthQuery({
+        queryFn: async () => await salesApiService.getAllSales("process").then(res => res.filter((val) => (val.buyer_id === dialog.interlocutor_id))),
         queryKey: ["get sales for this dialog", dialog?.chat_id, saleMutation.status],
-        enabled: !!dialog
+        enabled: !!dialog,
+        retry: 1
     })
 
     const {mutation: purchaseMutation} = useSafeMutation<CompletePurchaseDto, unknown>(safeCompletePurchase, {
-        onSuccess() {
+        onSuccess(data: any) {
             toast.success("Покупка успешно совершена!")
+            queryClient.invalidateQueries({queryKey: ["get purchases for this dialog", dialog?.chat_id]})
+            queryClient.invalidateQueries({queryKey: ["offer_status", data.offer_id]})
+            purchaseRefetch()
         }
     })
     const completePurchase = () => {
@@ -62,10 +67,11 @@ const Chat:FC<PropsWithChildren<ChatProps>> = ({sortedDialogs, setSortedDialogs,
             purchaseMutation.mutate({purchase_id: purchases?.[0].id.toString(), state: true})
         }
     }
-    const {data: purchases} = useAuthQuery({
+    const {data: purchases, refetch: purchaseRefetch, isError: purchaseIsError, isPending: purchasesIsPending} = useAuthQuery({
         queryFn: async () => await purchaseApiService.getAllPurchases("review").then(res => res.filter((val) => val.seller_id === dialog.interlocutor_id)),
-        queryKey: ["get purchases for this dialog", dialog?.chat_id, purchaseMutation.status],
-        enabled: !!dialog
+        queryKey: ["get purchases for this dialog", dialog?.chat_id],
+        enabled: !!dialog,
+        retry: 1
     })
     
     useEffect(() => {
@@ -110,6 +116,10 @@ const Chat:FC<PropsWithChildren<ChatProps>> = ({sortedDialogs, setSortedDialogs,
                 setMsgFile("")
             }
         } else {
+            if(receivedMessage.user_id === -1){
+                salesRefetch()
+                purchaseRefetch()
+            }
             setMessages((prev) => [...prev, receivedMessage]);
         }
     };
@@ -117,7 +127,7 @@ const Chat:FC<PropsWithChildren<ChatProps>> = ({sortedDialogs, setSortedDialogs,
     useEffect(() => {
         if (user) {
             const socket = new WebSocket(
-                `wss://test.yunikeil.ru/ws/chat/my?token=${user.accessToken}`
+                `wss://test0.yunikeil.ru/ws/chat/my?token=${user.accessToken}`
             );
 
             socket.addEventListener("open", open);
@@ -291,10 +301,16 @@ const Chat:FC<PropsWithChildren<ChatProps>> = ({sortedDialogs, setSortedDialogs,
                                     text={mes.content}
                                 />
                             );
-                        else if (mes.user_id === -1) 
-                            return (
-                                <AdminMessage text={mes.content} key={mes.created_at}/> 
-                            )
+                        else if (mes.user_id === -1){
+                            if(typeof mes.content === "object"){
+                                return mes.content.parcels.map((el: any) => <ParcelMessage text={el.value} key={el.created_at} />)
+                            }
+                            else{
+                                return (
+                                    <AdminMessage text={mes.content} key={mes.created_at}/> 
+                                )
+                            }
+                        }
                         else
                             return (
                                 <LeftMessage
@@ -380,7 +396,7 @@ const Chat:FC<PropsWithChildren<ChatProps>> = ({sortedDialogs, setSortedDialogs,
                 </button>
             </form>
             {sales?.length! > 0 && <Button disabled={saleMutation.isPending} onClick={() => createConfRequest()} variant="accent" size="lg" className="mt-4">Запросить подтверждение оплаты</Button>}
-            {purchases?.length! > 0 && <Button disabled={saleMutation.isPending} onClick={() => completePurchase()} variant="accent" size="lg" className="mt-4">Подтвердить покупку</Button>}
+            {(purchases?.length! > 0 && !purchaseIsError) && <Button disabled={purchaseMutation.isPending || purchasesIsPending} onClick={() => completePurchase()} variant="accent" size="lg" className="mt-4">Подтвердить покупку</Button>}
         </div>
     );
 };

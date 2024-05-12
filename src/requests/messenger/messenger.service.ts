@@ -13,7 +13,7 @@ export const messengerService = {
             .catch(err => console.warn(err)) 
     },
     
-    async getChatMessages(chat_id: number, offset:number = 0, limit:number = 10) {
+    async getChatMessages(chat_id: number, offset:number = 0, limit:number = 1000) {
         return instance.get(`chat/my/getmessages?chat_id=${chat_id}&offset=${offset}&limit=${limit}`)
             .then(res => res.data)
     },

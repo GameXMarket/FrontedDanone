@@ -79,7 +79,7 @@ export const {
       }
       if (!user) return token;
 
-      const existingUser = await axios.get<UserType>("https://test.yunikeil.ru/users/me", {
+      const existingUser = await axios.get<UserType>("https://test0.yunikeil.ru/users/me", {
         headers: {
           "Authorization": `Bearer ${user.access}`
         }

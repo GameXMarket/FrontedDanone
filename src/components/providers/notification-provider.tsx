@@ -23,7 +23,7 @@ export const NotificationProvider = ({
     const setChatNotifAtom = useSetAtom(chatNotifAtom) // Временно?
 
     const establishSseNotifications = async (accessToken: string) => {
-        await fetchEventSource("https://test.yunikeil.ru/users/me/listeners/notifications", {
+        await fetchEventSource("https://test0.yunikeil.ru/users/me/listeners/notifications", {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${accessToken}`,

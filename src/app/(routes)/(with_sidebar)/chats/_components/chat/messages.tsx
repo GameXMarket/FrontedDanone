@@ -138,3 +138,13 @@ export const AdminMessage:FC<PropsWithChildren<{text: string}>> = ({text}) => {
         </>
     )
 }
+
+export const ParcelMessage = ({text}: {text: string}) => {
+    return (
+        <>
+            <div className={styles.admin_msg}>
+                <p className="text-white font-light max-w-xs">{text}</p>
+            </div>
+        </>
+    )
+}

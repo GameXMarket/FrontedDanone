@@ -9,7 +9,7 @@ const PhotoPage = async ({
         <div className="w-full h-full flex justify-center items-center">
             <img
                 alt="photo"
-                src={`https://test.yunikeil.ru/attacment/getfile/${params.photo_url}?id=${searchParams.id}`}
+                src={`https://test0.yunikeil.ru/attacment/getfile/${params.photo_url}?id=${searchParams.id}`}
             />
         </div>
     );

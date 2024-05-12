@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useSafeMutation } from "@/hooks/useSafeMutation";
 import { safeCreatePurchase } from "@/requests/purchase/purchase-service";
 import { CreatePurchaseDto } from "@/requests/purchase/schemas";
+import { useQueryClient } from "@tanstack/react-query";
 import { AxiosError, isAxiosError } from "axios";
 import Image from "next/image";
 import { Dispatch, SetStateAction } from "react";
@@ -22,10 +23,12 @@ export const PurchaseInfo = ({
     setVisibleChat,
     offer_id,
 }: PurchaseInfoProps) => {
+    const queryClient = useQueryClient()
     const { mutation } = useSafeMutation<CreatePurchaseDto, AxiosError>(
         safeCreatePurchase,
         {
-            onSuccess() {
+            onSuccess(data: any) {
+                queryClient.invalidateQueries({queryKey: ["offer_status", data.offer_id]})
                 setVisibleChat(true)
             },
             onError(err) {

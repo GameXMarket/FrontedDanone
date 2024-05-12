@@ -1,7 +1,7 @@
 import { createSafeFetch } from "@/lib/create-safe-fetch"
 import instance from ".."
 import {ChangeStatusDto, CreateOfferDto, EnableAutoUpDto, EnableAutogiveDto, changeStatusSchema, createOfferSchema, enableAutoUpSchema, enableAutogiveSchema} from "./schemas"
-import { MyOfferType, OfferType, OffersGroup, getAllOffers } from "@/types/OfferType"
+import { MyOfferType, OfferType, OfferWithStatus, OffersGroup, getAllOffers } from "@/types/OfferType"
 import { AttachmentApiService } from "../attachment/attachment-service"
 
 export const OfferApiService = {
@@ -13,7 +13,7 @@ export const OfferApiService = {
     async createOffer(data: CreateOfferDto) {
         let offer
         try{
-            offer = await instance.post<OfferType>("offers/my", {...data})
+            offer = await instance.post<OfferType>("offers/my/", {...data})
             await AttachmentApiService.uploadOfferImage({offer_id: offer.data.id, files: data.img})
             return offer.data
         }
@@ -24,12 +24,16 @@ export const OfferApiService = {
     },
 
     async getOfferById(id: string) {
-        return instance.get<OfferType>(`offers/${id}`)
+        return instance.get<OfferType>(`offers/${id}/`)
+        .then(res => res.data)
+    },
+    async getOfferWithStatus(id: string) {
+        return instance.get<OfferWithStatus[]>(`offers/withstatus?offer_id=${id}`)
         .then(res => res.data)
     },
 
     async getAll(category_id?: number | string | number[] | string[], priceFilter?: boolean | null, search?: string | null ,offset: number = 0, limit: number = 10) {
-        return instance.get<getAllOffers[]>(`offers/getall?offset=${offset}&limit=${limit}`, {
+        return instance.get<getAllOffers[]>(`offers/getall/?offset=${offset}&limit=${limit}`, {
             params: {category_value_ids: category_id, is_descending: priceFilter, search_query: search},
             paramsSerializer: {
                 indexes: null,

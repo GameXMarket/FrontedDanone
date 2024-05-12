@@ -1,30 +1,33 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { useAuthQuery } from "@/hooks/useAuthQuery";
 import { categoryServices } from "@/requests/categories/categories-services";
+import { OfferApiService } from "@/requests/offer/offer-service";
+import { purchaseApiService } from "@/requests/purchase/purchase-service";
 import { CategoryType } from "@/types/CategoryType";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
 interface OfferInfoProps {
-    categoryId: number;
+    offer_id: number;
     description: string;
+    category_values: Array<{id: number, value: string}>
 }
 
-export const OfferInfo = ({ categoryId, description }: OfferInfoProps) => {
-    const { data, isLoading } = useQuery<CategoryType>({
-        queryKey: ["offerInfo_category"],
-        queryFn: () => categoryServices.getCategoryById(categoryId),
-        enabled: !!categoryId
-    });
-
+export const OfferInfo = ({ offer_id, description, category_values }: OfferInfoProps) => {
+    const {data} = useAuthQuery({
+        queryKey: ["offer_status", offer_id],
+        queryFn: () => OfferApiService.getOfferWithStatus(offer_id.toString()),
+        enabled: !!offer_id
+    })
     return (
         <div className="space-y-6 mobile:w-full">
             <div className="flex justify-between text-xl mobile:w-full">
                 <h3 className="text-2xl">Информация о товаре:</h3>
                 <div className="text-muted-foreground flex gap-x-2 mobile:hidden">
-                    Статус: <span className="text-white"> Оплачено</span>
+                    Статус: <span className="text-white">{data?.[data.length-1].purchase_status.toUpperCase()}</span>
                     <Image
                         src="/images/auth/correct.svg"
                         alt="correct"
@@ -34,7 +37,7 @@ export const OfferInfo = ({ categoryId, description }: OfferInfoProps) => {
                 </div>
             </div>
             <div className="flex flex-wrap gap-x-3 gap-y-2">
-                {data?.values?.map?.((el) => (
+                {category_values?.map?.((el) => (
                     <Button key={el.id} className="bg-bgel rounded-xl">{el.value}</Button>
                 ))}
             </div>

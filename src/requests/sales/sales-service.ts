@@ -8,8 +8,8 @@ export const salesApiService = {
         return instance.post(`sales/my/confirmation?purchase_id=${data.purchase_id}`)
         .then(res => res.data)
     },
-    async getAllSales(offset:number = 0, limit:number = 10) {
-        return instance.get<SaleType[]>(`sales/my/getall?offset=${offset}&limit=${limit}`)
+    async getAllSales(status?: string, offset:number = 0, limit:number = 10) {
+        return instance.get<SaleType[]>(`sales/my/getall?offset=${offset}&limit=${limit}&status=${status}`)
         .then(res => res.data)
     },
 }

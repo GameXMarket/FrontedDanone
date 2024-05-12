@@ -16,7 +16,7 @@ const nextConfig = {
             },
             {
                 protocol: "https",
-                hostname: "test.yunikeil.ru",
+                hostname: "test0.yunikeil.ru",
             },
         ],
     },

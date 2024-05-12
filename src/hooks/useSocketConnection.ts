@@ -5,7 +5,7 @@ export const useSocketConnection = () => {
     const socket = useRef<WebSocket>()
 
     const user = useCurrentUser()
-    socket.current = new WebSocket(`wss://test.yunikeil.ru/ws/chat/my?token=${user?.accessToken}`)
+    socket.current = new WebSocket(`wss://test0.yunikeil.ru/ws/chat/my?token=${user?.accessToken}`)
 
     return socket
 }

@@ -3,7 +3,6 @@ export type OfferType = {
     name: string,
     description: string,
     price: number,
-    category_id: number,
     count: number,
     id: number,
     user_id: number,
@@ -15,7 +14,8 @@ export type OfferType = {
     username: string,
     user_files: string[],
     is_autogive_enabled: boolean,
-    is_autoup_enabled: boolean
+    is_autoup_enabled: boolean,
+    category_values: Array<{ id: number, value: string }>
 }
 
 export type OmitedOfferType = {
@@ -50,4 +50,11 @@ export type getAllOffers = {
     name: string;
     price: number;
     username: string;
+}
+
+export type OfferWithStatus = {
+    offer_id: number
+    offer_is_autogive_enabled: boolean | null
+    purchase_id: number
+    purchase_status: string
 }

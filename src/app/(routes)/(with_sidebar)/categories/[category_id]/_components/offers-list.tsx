@@ -8,9 +8,8 @@ import {
     CarouselItem,
 } from "@/components/ui/carousel";
 import { OfferApiService } from "@/requests/offer/offer-service";
-import { OfferType, getAllOffers } from "@/types/OfferType";
+import { getAllOffers } from "@/types/OfferType";
 import { useInfiniteQuery } from "@tanstack/react-query";
-import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useCallback } from "react";
 

@@ -14,7 +14,7 @@ export default {
                 if (validatedFields.success) {
                     const { email, password } = validatedFields.data;
 
-                    const res = await axios.post("https://test.yunikeil.ru/auth/login", { email, password });
+                    const res = await axios.post("https://test0.yunikeil.ru/auth/login", { email, password });
                     if (res) {
                         const cookieStore = cookies()
                         cookieStore.set("refresh", res.data.refresh)

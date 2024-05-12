@@ -122,7 +122,7 @@ export const NewOfferForm = () => {
             name: data.name,
             description: data.description,
             price: +data.price,
-            count: 1,
+            count: 10,
             attachment_id: null,
             category_value_ids: categories.map((el) => el.id),
             img: data.img,

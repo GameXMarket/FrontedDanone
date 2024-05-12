@@ -6,7 +6,7 @@ import { cookies } from "next/headers"
 
 export const refreshToken = async () => {
     const cookieStore = cookies()
-      return axios.post("https://test.yunikeil.ru/auth/refresh", null, {
+      return axios.post("https://test0.yunikeil.ru/auth/refresh", null, {
         headers: {
           Cookie: `refresh=${cookieStore.get("refresh")?.value}`
         }
